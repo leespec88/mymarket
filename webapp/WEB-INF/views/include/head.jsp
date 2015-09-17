@@ -52,7 +52,7 @@
 
   function loginSuccess() {
     FB.api('/me', function(response) {
-    	var path="http://www.mysungmin.com/user/loginBySns";
+    	var path="http://www.mymarket.com/user/loginBySns";
     	var name = response.name;
     	var idNo = response.id;
     	var method="post";
