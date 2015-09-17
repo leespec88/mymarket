@@ -8,12 +8,14 @@
 <head>
 <title>Facebook Login JavaScript Example</title>
 <meta charset="UTF-8">
-</head>
+</head>\
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/bootstrp-social.css" type="text/css">
+<link rel="stylesheet" href="/assets/css/bootstrp-social.less" type="text/css">
 <script src="/assets/js/jquery-1.11.3.js"></script>
 <script>
   // This is called with the results from from FB.getLoginStatus().
@@ -65,10 +67,6 @@
     	post_to_url(path,name,idNo,null,null,method);
     });
   }
-  
-  
-  
-  
   
   //구글 연동
   
@@ -154,47 +152,66 @@
 </script>
 <body>
 
-<div class="container">	
-	
-	
+<div class="container" style="margin-top:200px">	
 	
 	<div class="col-lg-5 col-lg-offset-5">
-	<h3>SNS 로그인</h3>
 	<div class="table-responsive">
 	<table class="table table-bordered" style="width:200px">
 	<tr>
-	<td>
-		<div class="fb-login-button" data-size="large" data-scope="public_profile, email" onlogin="checkLoginState();">
-		facebook 계정으로 로그인
-		</div>
-	</td>
+		<td>
+			<div class="fb-login-button" data-size="large" data-scope="public_profile, email" onlogin="checkLoginState();">
+			facebook 계정으로 로그인
+			</div>
+		</td>
 	</tr>
 	<tr>
-	<td>
-	
-	<div id="signinButton">
-		<div
-			class="g-signin"
-			data-callback="signinCallback"
-			data-clientid="919722381404-nrcd5fqcad52k4b02p2aotu1975nba0l.apps.googleusercontent.com"
-			data-theme="light"
-			data-cookiepolicy="single_host_origin"
-			data-requestvisibleactions="http://schemas.google.com/AddActivity"
-			data-scope="https://www.googleapis.com/auth/plus.login">
-		<button type="button" class="btn btn-danger" style="width:194px; height:29px">Google 계정으로 로그인</button>
-		</div>
-	</div>
-	</td>
+		<td>
+			<div id="signinButton">
+				<div
+					class="g-signin"
+					data-callback="signinCallback"
+					data-clientid="919722381404-nrcd5fqcad52k4b02p2aotu1975nba0l.apps.googleusercontent.com"
+					data-theme="light"
+					data-cookiepolicy="single_host_origin"
+					data-requestvisibleactions="http://schemas.google.com/AddActivity"
+					data-scope="https://www.googleapis.com/auth/plus.login">
+				<!-- <button type="button" class="btn btn-social btn-google" style="width:194px; height:29px">Google 계정으로 로그인</button> -->
+				<a class="btn btn-block " style="height:28px">
+					google 계정으로 로그인
+				</a>
+				</div>
+			</div>
+		</td>
 	</tr>
 	</table>
-	<div class="form-group">
-	      <div class="col-lg-6 col-lg-offset-4">
-	        <a href="/"><input type="button" class="btn btn-default" value="취소"/></a>
-	      </div>
+	<!-- <form action="/user/login">
+	<table class="table table-bordered" style="width:200px">
+	<tr>
+		<td>
+			<input type="text"  class="form-control" id="Email" name="Email"  placeholder="@">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="password"  class="form-control" id="password" name="password"  placeholder="pw">
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="submit" style="width:190px" class="btn btn-danger" id="" name="" value="로그인">
+			
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<a href="/"><input type="button" class="btn btn-primary" value="취소"/></a>
+		</td>
+	</tr>
+	</table>
+	</form> -->
 	</div>
+		<a href="/"><input type="button" class="btn btn-primary" value="취소"/></a>
 	</div>
-	</div>
-
 </div>
 </body>
 </html>
