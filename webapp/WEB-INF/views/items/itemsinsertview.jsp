@@ -415,7 +415,7 @@ function imgdelselect(i){
 </script>
 
 <label>email:</label>
-	<input type="text" name="email" value="kickscar@gmail.com">
+	<input type="text" name="email" value="${authUser.email }">
 	<br><br>
 	
 		<c:forEach var="vo" varStatus="status"  begin="0" end="2" step="1">
@@ -524,11 +524,11 @@ shipingFee(택배)
 </select><br/>
 
 <br/>
-<input type="text" name="userNo" value="123"><br/>
+<input type="text" name="userNo" value="${authUser.no }"><br/>
 <!-- <input type="text" name="email" value="email 히든으로 가져갈꺼임"><br/> -->
 <input type="hidden" name="location" value="${latlng}">
 <input type="hidden" name="address" value="${address}">
-
+<input type="hidden" name="userName" value="${authUser.name }">
 <input type="submit" value="완료">
 <a href="/items"><input type="button"  value="취소"></a><br/>
 

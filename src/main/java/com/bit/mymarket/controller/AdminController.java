@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.mymarket.service.AdminService;
 import com.bit.mymarket.vo.BoardVo;
+import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 import com.bit.mymarket.vo.UserVo;
 
@@ -112,10 +113,12 @@ public class AdminController {
 	@RequestMapping("/viewItem")
 	public String viewItem(@RequestParam Long no, Model model){
 		ItemsVo itemsVo = adminService.getItemByNo(no);
+		List<ItemPicVo> picList= adminService.getPicListByItemNo(no);
 		System.out.println(itemsVo);
 		UserVo userVo = adminService.getNameByUserNo(itemsVo.getUserNo());
 		model.addAttribute("item", itemsVo);
 		model.addAttribute("user", userVo);
+		model.addAttribute("itemPic",picList);
 		return "/admin/viewItem";
 	}
 	@RequestMapping("/deleteContext")
