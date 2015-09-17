@@ -9,6 +9,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bit.mymarket.vo.BoardVo;
+import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 import com.bit.mymarket.vo.UserVo;
 
@@ -132,5 +133,10 @@ public class AdminDao {
 	
 	public void deleteItems(Long no){
 		sqlMapClientTemplate.delete("items.deleteItems", no);
+	}
+	
+	public List<ItemPicVo> getPicListByItemNo(Long no){
+		List<ItemPicVo> list = sqlMapClientTemplate.queryForList("items.getPicListByItemNo",no);
+		return list;
 	}
 }

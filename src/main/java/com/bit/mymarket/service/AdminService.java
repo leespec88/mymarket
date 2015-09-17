@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.bit.mymarket.dao.AdminDao;
 import com.bit.mymarket.vo.BoardVo;
+import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 import com.bit.mymarket.vo.UserVo;
 
@@ -110,7 +111,10 @@ public class AdminService {
 		UserVo userVo = adminDao.getNameByUserNo(no);
 		return userVo;
 	}
-	
+	public List<ItemPicVo> getPicListByItemNo(Long no){
+		List<ItemPicVo> list = adminDao.getPicListByItemNo(no);
+		return list;
+	}
 	// 유저 number 로 리스트 뽑기
 	public List<ItemsVo> getItemsByUserNo(Long no){
 		List<ItemsVo> list = adminDao.getItemsByUserNo(no);

@@ -13,6 +13,7 @@
 		<result column="item_condition" property="itemCondition" />
 		<result column="price" property="price" />
 		<result column="user_no" property="userNo" />
+		<result column="user_name" property="userName" />
 		<result column="location" property="location" />
 		<result column="email" property="email" />
 		<result column="shipping_fee" property="shippingFee" />
@@ -32,7 +33,7 @@
 <!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
 <![CDATA[
 	insert into items 
-	values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#)  
+	values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#)  
 ]]>
 </insert>
 
@@ -48,19 +49,23 @@
 ]]>
 </insert>
 
-<select id="list" resultClass="ItemsVo">
+<select id="list" resultMap="resultMapList">
 <!-- SELECT no, name, password, content, TO_CHAR (reg_date, 'YYYY-MMDD HH:MM:SS') FROM guest_table ORDER BY reg_date DESC -->
 <![CDATA[
-	select no, location, address, title
-	  from items
+	select * from items
 ]]>
 </select>
 
-<select id="picList" resultClass="ItemPicVo" resultMap="resultMapPicList">
+<select id="picList" resultMap="resultMapPicList">
 <![CDATA[
-	select no_item_pic, item_no, image
-	  from item_pic
+	select no_item_pic, item_no, image from item_pic
 ]]>
+</select>
+
+<select id="getPicListByItemNo" parameterClass="java.lang.Long" resultMap="resultMapPicList">
+	<![CDATA[
+		select no_item_pic, item_no, image from item_pic where item_no=#no#
+	]]>
 </select>
 
 <!-- 아이템 전체 개수 리스트 -->
@@ -83,7 +88,7 @@
 <select id="items" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shiping_Fee, view_count,file1, file2, file3, reg_date, address from items)A) 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name from items)A) 
 				 where page=#currentPageNo#
 	]]>
 </select>
@@ -93,7 +98,7 @@
 <select id="itemsBySearch" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shiping_Fee, view_count,file1, file2, file3, reg_date, address from items where title like '%'||#kwd#||'%')A) 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name from items where title like '%'||#kwd#||'%')A) 
 				 where page=#currentPageNo#
 	]]>
 </select>

@@ -19,11 +19,9 @@ public class MainController {
 	@RequestMapping("/")
 	public String index(Model model){
 		List<ItemsVo> list = itemsService.getList(); // 일반 리스트
-		model.addAttribute("list", list);
 		List<ItemPicVo> picList = itemsService.getPicList(); // 이미지 리스트
+		model.addAttribute("list", list);
 		model.addAttribute("picList", picList);
-		System.out.println(list);
-		System.out.println(picList);
 		
 		return "/main/main";
 	}

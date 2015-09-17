@@ -26,26 +26,16 @@ public class ItemsDao {
 		sqlMapClientTemplate.insert("items.insertPic", itemPicVo);
 	}
 	
-	
 	public List<ItemsVo> getList() {
-		System.out.println("ItemsDaoList");
-		System.out.println();
-		
 		//System.out.println(list);
 		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.list");
-		System.out.println(list.iterator().next().getItemCondition());
 		return list;
 
 	}
 	
 	public List<ItemPicVo> getPicList() {
 		System.out.println("ItemPicDaoList");
-		
 		List<ItemPicVo> picList = sqlMapClientTemplate.queryForList("items.picList");
-		System.out.println(picList.iterator().next().getNo());
-		System.out.println(picList.iterator().next().getItemNo());
-		System.out.println(picList.iterator().next().getUrl());
-
 		return picList;
 
 	}

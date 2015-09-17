@@ -8,6 +8,14 @@ public class ItemsVo {
 	private String itemCondition;
 	private Long price;
 	private Long userNo;
+	private String userName;
+	
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	private String location;
 	private String email;
 	private String shippingFee;
@@ -92,16 +100,15 @@ public class ItemsVo {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
 	@Override
 	public String toString() {
 		return "ItemsVo [no=" + no + ", title=" + title + ", content="
 				+ content + ", tradeCategory=" + tradeCategory
 				+ ", itemCondition=" + itemCondition + ", price=" + price
-				+ ", userNo=" + userNo + ", location=" + location + ", email="
-				+ email + ", shippingFee=" + shippingFee + ", viewCount="
-				+ viewCount + ", regDate=" + regDate + ", address=" + address
-				+ "]";
+				+ ", userNo=" + userNo + ", userName=" + userName
+				+ ", location=" + location + ", email=" + email
+				+ ", shippingFee=" + shippingFee + ", viewCount=" + viewCount
+				+ ", regDate=" + regDate + ", address=" + address + "]";
 	}
-	
-
 }

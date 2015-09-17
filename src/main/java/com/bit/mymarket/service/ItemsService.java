@@ -25,29 +25,25 @@ public class ItemsService {
 	
 
 	public ItemsVo insert(ItemsVo itemsVo){
-		System.out.println("itemsService insert : " + itemsVo);
 		itemsDao.insert(itemsVo);
 		return itemsVo;
 	}
 	
 	public List<ItemsVo> getList() {
-		System.out.println("ItemsServiceList");
 		List<ItemsVo> list = itemsDao.getList();
 		return list;
 	}
 	
 	public List<ItemPicVo> getPicList() {
-		System.out.println("ItemPicServiceList");
 		List<ItemPicVo> picList = itemsDao.getPicList();
-		System.out.println(picList.iterator().next().getUrl());
 		return picList;
 	}
 	
 	public ItemPicVo insertPic(ItemPicVo itemPicVo){
-		System.out.println("itemPicVoService insert : " + itemPicVo);
 		itemsDao.insertPic(itemPicVo);
 		return itemPicVo;
 	}
+	
 		/*System.out.println("itemsService insertPic : " + map);
 		//itemsDao.insertPic(map);
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,

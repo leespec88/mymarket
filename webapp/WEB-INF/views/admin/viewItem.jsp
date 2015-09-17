@@ -71,18 +71,14 @@ $(function(){
 				<th>전화번호</th>
 				<td></td>
 			</tr>
+			
+			<c:forEach var="itemPic" items="${itemPic }" varStatus="status">
 			<tr class="image">
 				<th>File1</th>
-				<td><img src="${item.saveFile1 }"></td>
+				<td><img src="${itemPic.url }"></td>
 			</tr>
-			<tr class="image">
-				<th>File2</th>
-				<td><img src="${item.saveFile2 }"></td>
-			</tr>
-			<tr class="image">
-				<th>File3</th>
-				<td><img src="${item.saveFile3 }"></td>
-			</tr>
+			</c:forEach>
+			
 			<tr>
 				<th>등록일</th>
 				<td>${item.regDate }</td>
