@@ -46,16 +46,14 @@
 					<th scope="row">첨부파일</th>
 					<td colspan="3">
 						<div id="fileDiv">
-							<c:forEach var="row" items="${fileList }" varStatus="var">
+							<c:forEach var="file" items="${fileList }" varStatus="var">
 								<p>
-									<input type="hidden" id="${row.NO}" value="${row.NO }">
-									<%-- <img src="/images/${row.STORED_FILE_NAME}" width="100px" height="100px"> --%>
-									<img src="/images/${row.STORED_FILE_NAME}" width="100px"
-										height="100px"> <a href="#this">${row.ORIGINAL_FILE_NAME }</a>
-									(${row.FILE_SIZE }kb) 
-									<a href="#this" class="btn delFile" id="delete_${var.index}" name="delete_${var.index }">삭제</a>
+									<input type="hidden" class="fileNo" value="${file.NO }">
+									<img src="/images/${file.STORED_FILE_NAME}" width="100px"
+										height="100px" > <a href="#this">${file.ORIGINAL_FILE_NAME }</a>
+									(${file.FILE_SIZE }kb) <a href="#this" class="delFile"
+										name="delete_${var.index }">삭제 ${file.BOARD_NO}</a>
 								</p>
-
 							</c:forEach>
 						</div>
 					</td>
@@ -63,7 +61,6 @@
 			</tbody>
 		</table>
 	</form>
-
 	<a href="#this" class="btn" id="list">목록으로</a>
 	<a href="#this" class="btn" id="addFile">파일 추가</a>
 	<a href="#this" class="btn" id="update">저장하기</a>
@@ -71,18 +68,16 @@
 
 	<%@ include file="/WEB-INF/views/include/include-body.jspf"%>
 	<script type="text/javascript">
-		var gfv_count = '${fn:length(list)+1}';
+		var gfv_count = '${fn:length(fileList)+1}';
 		$(document).ready(function() {
 			$("#list").on("click", function(e) { //목록으로 버튼
 				e.preventDefault();
 				fn_openBoardList();
 			});
-
 			$("#update").on("click", function(e) { //저장하기 버튼
 				e.preventDefault();
 				fn_updateBoard();
 			});
-
 			$("#delete").on("click", function(e) { //삭제하기 버튼
 				e.preventDefault();
 				fn_deleteBoard();
@@ -91,7 +86,7 @@
 				e.preventDefault();
 				fn_addFile();
 			});
-			$(#'${row.NO}').on("click", function(e) { 
+			$(".delFile").on("click", function(e) {
 				e.preventDefault();
 				fn_deleteFile();
 			});
@@ -121,7 +116,6 @@
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/board/deleteFile' />");
 			comSubmit.addParam("fileNo", $(".fileNo").val());
-			alert($(".fileNo").val());
 			comSubmit.addParam("no", $("#no").val());
 			comSubmit.submit();
 		}
@@ -131,10 +125,10 @@
 					+ "'><a href='#this' class='btn' id='delete_" + (gfv_count)
 					+ "' name='delete_" + (gfv_count) + "'>삭제</a></p>";
 			$("#fileDiv").append(str);
-			$("#delete_"+(gfv_count++)).on("click", function(e){ //삭제 버튼
-                e.preventDefault();
-                fn_emdeleteFile($(this));
-            });
+			$("#delete_" + (gfv_count++)).on("click", function(e) { //삭제 버튼
+				e.preventDefault();
+				fn_emdeleteFile($(this));
+			});
 		}
 		function fn_emdeleteFile(obj) {
 			obj.parent().remove();

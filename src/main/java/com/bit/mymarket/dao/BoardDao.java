@@ -30,7 +30,6 @@ public class BoardDao {
 	public List<BoardVo> getList(int _skip, int _max, String kwd) {
 		List<BoardVo> list = sqlMapClientTemplate.queryForList("board.listkwd",
 				kwd, _skip, _max);
-		// System.out.println("list size=" + list.size());
 		return list;
 	}
 
@@ -70,8 +69,7 @@ public class BoardDao {
 
 	public List<ReplyVo> getReplyList(Long articleNo) {
 		System.out.println("articleNo : " + articleNo);
-		List<ReplyVo> list = sqlMapClientTemplate.queryForList("reply.list",
-				articleNo);
+		List<ReplyVo> list = sqlMapClientTemplate.queryForList("reply.list", articleNo);
 		// System.out.println(list);
 		return list;
 	}
@@ -107,6 +105,9 @@ public class BoardDao {
 	public void addReplyCnt(Long no) {
 		sqlMapClientTemplate.update("board.replycount", no);
 	}
+	public int replyCnt(Long no){
+		return (int) sqlMapClientTemplate.queryForObject("reply.replyCount", no);
+	}
 
 	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -117,19 +118,20 @@ public class BoardDao {
 		sqlMapClientTemplate.insert("board.insertBoard", map);
 		
 	}
-
 	public void insertFile(Map<String, Object> map) {
 		sqlMapClientTemplate.insert("board.insertFile", map);		
+	}
+
+
+	public void appendFile(Map<String, Object> map) {
+		sqlMapClientTemplate.insert("board.appendFile", map);		
 	}
 
 	public void updateHitCnt(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		
 	}
-//	@SuppressWarnings("unchecked")
-//	public List<Map<String, Object>> selectFileList(Map<String, Object> map) throws Exception{
-//	    return (List<Map<String, Object>>)sqlMapClientTemplate.queryForList("board.selectFileList", map);
-//	}
+
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectFileList(Long no) throws Exception{
 		return (List<Map<String, Object>>)sqlMapClientTemplate.queryForList("board.selectFileList", no);
@@ -139,4 +141,22 @@ public class BoardDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void update(Map<String, Object> map) {
+		System.out.println("update!!!");
+		map.toString();
+		sqlMapClientTemplate.update("board.updateboard", map);
+		
+	}
+
+	public void deleteFileList(Map<String, Object> map) {
+		
+		
+	}
+
+	public void deleteFile(Integer integer) {
+		sqlMapClientTemplate.update("board.deletefile", integer);
+		
+	}
+	
 }

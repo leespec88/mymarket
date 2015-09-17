@@ -8,7 +8,7 @@
 <title>main view</title>
 <meta charset="UTF-8">
 </head>
-<script src="/assets/js/jquery-1.11.3.js"></script>
+<script src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script>
   // This is called with the results from from FB.getLoginStatus().
   
@@ -67,8 +67,6 @@
 <body>
 </body>
 </html>
-
-<nav class="navbar navbar-default navbar-fixed-top" >
 
   <div class="container-fluid">
     <div class="navbar-header">
@@ -132,5 +130,4 @@
       </ul>
     </div>
   </div>
-</nav>
 

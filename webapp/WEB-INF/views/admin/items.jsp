@@ -17,7 +17,7 @@
   div { position:relative; }
   .align-center { width:200px; left:0; right:0; margin-left:auto; margin-right:auto; } /* 가로 중앙 정렬 */
 </style>
-<script src="/assets/js/jquery-1.11.3.js"></script>
+<script src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('li').on({

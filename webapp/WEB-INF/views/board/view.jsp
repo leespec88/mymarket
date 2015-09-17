@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+<%@ include file="/WEB-INF/views/include/include-header.jspf"%>
 </head>
 <body>
 	<table class="board_view">
@@ -35,24 +36,17 @@
 			</tr>
 			<tr>
 				<th scope="row">첨부파일</th>
-
-				<td colspan="3">
-					<ul class="file_list">
-						<c:forEach var="row" items="${fileList }">
-							<li>
-							<img src="/images/${row.STORED_FILE_NAME}" width="100px"
-								height="100px">
-							<input type="hidden" id="no" value="${row.no }">
-							</li>
-						</c:forEach>
-					</ul>
-				</td>
+				<td colspan="3"><c:forEach var="file" items="${fileList }">
+						<input type="hidden" id="no" value="${file.no }">
+						<img src="/images/${file.STORED_FILE_NAME}" width="100px"
+							height="100px">
+					</c:forEach></td>
 			</tr>
 		</tbody>
 	</table>
 	<br />
 	<div>
-		<h3>총 ${vo.replyCnt}개 댓글───────────────────────</h3>
+		<h3>총 ${replyCnt}개 댓글───────────────────────</h3>
 		<c:forEach var="reply" items="${replyList}">
 			<table class="tb-reply">
 				<tr>
@@ -73,6 +67,8 @@
 			</table>
 			<div id="junki" style="padding-left:${reply.depth*30}px">${reply.content}
 			</div>
+
+
 		</c:forEach>
 	</div>
 	<form class="board-reply_form" action="/board/addreply/${vo.no}"

@@ -20,6 +20,22 @@
 		no, title, content, member_no, member_name, view_cnt, TO_CHAR(reg_date, 'YY-MM-DD 
 		HH12:MI') as reg_date from board where title LIKE '%' ||#kwd# || '%' or content 
 		LIKE '%' ||#kwd# || '%' order by no desc ]]> </select> -->
+	<select id="listkwd" resultMap="resultMapList" parameterClass="java.lang.String"> 
+		<![CDATA[ 
+			SELECT no,
+		         title,
+		         content,
+		         TO_CHAR (reg_date, 'YY-MM-DD HH12:MI') AS reg_date,
+		         VIEW_COUNT,
+		         user_no,
+		         user_name,
+		         reply_count
+		     FROM BOARD_COMMUNITY
+		     where title LIKE '%' ||#kwd# || '%' or content LIKE '%' ||#kwd# || '%' 
+		     ORDER BY no DESC 
+		]]>
+	</select>
+
 	<select id="list" resultMap="resultMapList">
 		<![CDATA[
 			SELECT NO, TITLE,content, TO_CHAR(reg_date, 'HH12:MI') as reg_date, VIEW_COUNT, User_no, USER_NAME, reply_count 
@@ -30,21 +46,21 @@
 
 	<select id="count" resultClass="java.lang.Integer"> 
 		<![CDATA[ 
-			SELECT count(*) from BOARD_COMMUNITY 
+			SELECT count(*) from BOARD_COMMUNITY
 		]]>
 	</select>
 
 	<select id="view" parameterClass="java.lang.Long" resultMap="resultMapList"> 
 		<![CDATA[ 
 		select NO, TITLE, CONTENT, REG_DATE, VIEW_COUNT, USER_NO, USER_NAME, reply_count 
-		from BOARD_COMMUNITY 
+		from BOARD_COMMUNITY
 		where no=#no# 
 		]]>
 	</select>
 
 	<delete id="delete" parameterClass="java.lang.Long"> 
 		<![CDATA[ 
-			delete from BOARD_COMMUNITY 
+			delete from BOARD_COMMUNITY
 			where no=#no# 
 		]]>
 	</delete>
@@ -56,42 +72,52 @@
 	</insert>
 	<update id="viewcount" parameterClass="java.lang.Long"> 
 	<![CDATA[ 
-		UPDATE BOARD_COMMUNITY  SET VIEW_COUNT=VIEW_COUNT+1
+		UPDATE BOARD_COMMUNITY SET VIEW_COUNT=VIEW_COUNT+1
  		 where no=#no#
 	]]>
 
 	</update>
 
-	<update id="update" parameterClass="BoardVo"> 
-	<![CDATA[ UPDATE BOARD_COMMUNITY  SET title=#title#, content=#content# 
-		WHERE no=#no# ]]>
+	<update id="updateboard" parameterClass="java.util.HashMap"> 
+		<![CDATA[ 
+			UPDATE BOARD_COMMUNITY
+   			SET title = #title#, content = #content#
+ 			WHERE no = #no#
+		]]>
 	</update>
 
 	<update id="replycount" parameterClass="java.lang.Long"> 
 		<![CDATA[ 
-			UPDATE BOARD_COMMUNITY 
+			UPDATE BOARD_COMMUNITY
 			SET reply_count = reply_count +1 
 			WHERE no = #no#
 		]]>
 	</update>
 	<select id="getbyno" parameterClass="java.lang.Long" resultMap="resultMapList"> 
 		<![CDATA[ 
-		SELECT NO, TITLE, CONTENT, REG_DATE, VIEW_COUNT, USER_NO, USER_NAME, reply_count 
-		FROM BOARD_COMMUNITY  
-		where no=#no# 
+		SELECT NO,
+	       TITLE,
+	       CONTENT,
+	       REG_DATE,
+	       VIEW_COUNT,
+	       USER_NO,
+	       USER_NAME,
+	       reply_count
+  		FROM BOARD_COMMUNITY
+ 		WHERE no = #no# 
 	]]>
 	</select>
 
 	<insert id="insertBoard" parameterClass="java.util.HashMap">
 	<![CDATA[ 
-			insert into BOARD_COMMUNITY  (NO, TITLE, CONTENT, user_NO, user_NAME, REG_DATE) 
-			VALUES (SEQ_BOARD_COMMUNITY .nextval, #title# , #content#, #userNo#, #userName#, sysdate)
+			insert into BOARD_COMMUNITY (NO, TITLE, CONTENT, user_NO, user_NAME, REG_DATE) 
+			VALUES (SEQ_BOARD_COMMUNITY.nextval, #title# , #content#, #userNo#, #userName#, sysdate)
 		]]>
 	</insert>
 	<insert id="insertFile" parameterClass="java.util.HashMap">
 		<selectKey keyProperty="board_no" resultClass="java.lang.Long"> 
 			<![CDATA[ 
-				select max(no) from board_community  
+				select max(no) from BOARD_COMMUNITY
 			]]>
 		</selectKey>
 
@@ -106,6 +132,18 @@
 			) 
 		]]>
 	</insert>
+	<insert id="appendFile" parameterClass="java.util.HashMap">
+		<![CDATA[
+			insert into BOARD_COMMUNITY_PIC 
+			(
+				no, board_no, ORIGINAL_FILE_NAME, STORED_FILE_NAME, FILE_SIZE
+			) 
+			VALUES
+			(
+				seq_BOARD_COMMUNITY_PIC.nextval, #BOARD_NO#, #ORIGINAL_FILE_NAME#, #STORED_FILE_NAME#, #FILE_SIZE#
+			)
+		]]>
+	</insert>
 	<select id="selectFileList" parameterClass="java.lang.Long"
 		resultClass="java.util.HashMap">
     <![CDATA[
@@ -115,41 +153,23 @@
             STORED_FILE_NAME,
             ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
         FROM
-            BOARD_COMMNITY_PIC
+            BOARD_COMMUNITY_PIC
         WHERE
             board_no = #no#
             AND DEL_GB = 'N'
     ]]>
 	</select>
+	
+	<update id="deletefile" 
+		parameterClass="java.lang.Integer">
+	    <![CDATA[
+	       	UPDATE BOARD_COMMUNITY_pic
+			SET DEL_GB = 'Y'  
+			WHERE no = #fileNo#
+	    ]]>
+	</update>
+	
 
-<!-- 관리자용 -->
-<select id="getBoardList" parameterClass="java.lang.Integer" resultMap="resultMapList">
-	<![CDATA[
-		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select NO,TITLE,CONTENT,REG_DATE,VIEW_COUNT,USER_NO, USER_NAME,REPLY_COUNT from BOARD_COMMUNITY)A) 
-				 where page=#currentPageNo#
-	]]>
-</select>
-
-<select id="getSearchBoard" parameterClass="java.util.Map" resultMap="resultMapList">
-	<![CDATA[
-		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select NO,TITLE,CONTENT,REG_DATE,VIEW_COUNT,USER_NO, USER_NAME,REPLY_COUNT from BOARD_COMMUNITY where USER_NAME like '%'||#kwd#||'%' or content like '%'||#kwd#||'%' or title like '%'||#kwd#||'%')A) 
-				 where page=#currentPageNo#
-	]]>
-</select>
-
-<select id="countBySearch" resultClass="java.lang.Integer"> 
-	<![CDATA[ 
-		SELECT count(*) from BOARD_COMMUNITY where USER_NAME like '%'||#kwd#||'%' or content like '%'||#kwd#||'%' or title like '%'||#kwd#||'%'
-	]]>
-</select>
-
-<select id="getBoardByNo" parameterClass="java.lang.Long" resultMap="resultMapList">
-	<![CDATA[
-		select * from BOARD_COMMUNITY where user_no= #userNo#
-	]]>
-</select>
 
 </sqlMap>
 

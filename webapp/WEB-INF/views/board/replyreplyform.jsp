@@ -12,10 +12,6 @@
 </head>
 <body>
 	<div id="container">
-		<div id="header">
-			<c:import url="/WEB-INF/views/include/header.jsp">
-			</c:import>
-		</div>
 		<div id="content">
 			<form class="board-reply_form" action="/board/replyreply"
 				method="post">
@@ -31,15 +27,6 @@
 					</tr>
 				</table>
 			</form>
-		</div>
-		<div id="navigation">
-			<c:import url="/WEB-INF/views/include/navigation.jsp">
-				<c:param name="pageName" value="board" />
-			</c:import>
-		</div>
-		<div id="footer">
-			<c:import url="/WEB-INF/views/include/footer.jsp">
-			</c:import>
 		</div>
 	</div>
 </body>

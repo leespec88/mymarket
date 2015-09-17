@@ -79,6 +79,10 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.delreply(no);
 
 	}
+	
+	public int replyCnt(Long no){
+		return boardDao.replyCnt(no);
+	}
 
 	public List<ReplyVo> getReplyList(Long no) {
 		return boardDao.getReplyList(no);
@@ -154,24 +158,54 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-	/*public Map<String, Object> selectBoardDetail(Map<String, Object> map)
-			throws Exception {
-		boardDao.updateHitCnt(map);
-		Map<String, Object> resultMap = new HashMap<String, Object>();
-		Map<String, Object> tempMap = boardDao.selectBoardDetail(map);
-		resultMap.put("boardvo", tempMap);
-
-		List<Map<String, Object>> list = boardDao.selectFileList(map);
-		resultMap.put("filelist", list);
-
-		return resultMap;
-	}*/
+	/*
+	 * public Map<String, Object> selectBoardDetail(Map<String, Object> map)
+	 * throws Exception { boardDao.updateHitCnt(map); Map<String, Object>
+	 * resultMap = new HashMap<String, Object>(); Map<String, Object> tempMap =
+	 * boardDao.selectBoardDetail(map); resultMap.put("boardvo", tempMap);
+	 * 
+	 * List<Map<String, Object>> list = boardDao.selectFileList(map);
+	 * resultMap.put("filelist", list);
+	 * 
+	 * return resultMap; }
+	 */
 
 	public Map<String, Object> fileList(Long no) throws Exception {
-		Map<String, Object> resultMap = new HashMap<String,Object>();
-		List<Map<String,Object>> list = (List<Map<String, Object>>) boardDao.selectFileList(no); 
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Map<String, Object>> list = (List<Map<String, Object>>) boardDao
+				.selectFileList(no);
 		resultMap.put("fileList", list);
 		return resultMap;
+	}
+
+	public void update(Map<String, Object> map) {
+		boardDao.update(map);
+		// System.out.println("boardNo = " + map.get("no"));
+	}
+
+	public void updateBoard(Map<String, Object> map, HttpServletRequest request)
+			throws Exception {
+		boardDao.update(map);
+//		boardDao.deleteFileList(map);
+		
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
+				request);
+		Map<String,Object> tempMap = null;
+		for (int i = 0, size = list.size(); i < size; i++) {
+//			boardDao.appendFile(list.get(i));
+			tempMap = list.get(i);
+		        if("Y".equals(tempMap.get("IS_NEW"))){
+		        	
+		        }
+		        else{
+		        	boardDao.appendFile(tempMap);
+		        }
+		    }
+		
+	}
+
+	public void deleteFile(Integer integer) {
+		boardDao.deleteFile(integer);
 	}
 
 }

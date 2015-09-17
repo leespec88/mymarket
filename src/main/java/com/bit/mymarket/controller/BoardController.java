@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +35,6 @@ public class BoardController {
 
 	class page {
 		final static int pagePerboardCNT = 10;
-
 	}
 
 	@Autowired
@@ -72,6 +73,7 @@ public class BoardController {
 		 * System.out.println("현재 표시할 맥스 페이지는  (c_m_page)" + c_m_page);
 		 * System.err.println("t_page : " + t_page);
 		 */
+		
 		model.addAttribute("c_page", c_page);
 		model.addAttribute("s_page", s_page);
 		model.addAttribute("c_m_page", c_m_page);
@@ -86,20 +88,42 @@ public class BoardController {
 
 	}
 
-	@RequestMapping("/modifyform/{NO}")
-	public String modifyform(@PathVariable Long no, Model model) {
-		System.out.println("modifyform!!!!!!");
-		model.addAttribute("no", no);
+	@RequestMapping("/modifyform/{no}")
+	public String modifyform(@PathVariable Long no, Model model)
+			throws Exception {
+		// ModelAndView mv = new ModelAndView();
+		BoardVo boardVo = boardService.get(no);
+		model.addAttribute("vo", boardVo);
+		Map<String, Object> map = boardService.fileList(no);
+		model.addAttribute("fileList", map.get("fileList"));
+		// mv.addObject("vo", boardVo);
 		return "/board/modify";
 
 	}
 
+	@RequestMapping("/updateBoard")
+	public ModelAndView modifyform(CommandMap commandMap,
+			HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView("redirect:/board/view/"+commandMap.get("no"));
+		boardService.updateBoard(commandMap.getMap(), request);
+		mv.addObject("no", commandMap.get("no"));
+		return mv;
+	}
+	@RequestMapping("/deleteFile")
+	public ModelAndView deleteFile(CommandMap commandMap){
+		ModelAndView mv = new ModelAndView("redirect:/board/view/"+commandMap.get("no"));
+		Integer fileNo = Integer.parseInt((String)commandMap.get("fileNo"));
+		boardService.deleteFile(fileNo);
+		return mv;
+	}
+	
+
 	@RequestMapping(value = "/write")
 	public ModelAndView insertBoard(CommandMap commandMap,
 			HttpServletRequest request) throws Exception {
-		System.out.println("!!!!!!write");
+		// System.out.println("!!!!!!write");
+		// System.out.println("commandMap : " + commandMap.isEmpty());
 		ModelAndView mv = new ModelAndView("redirect:/board/1");
-		System.out.println(request);
 		boardService.insertBoard(commandMap.getMap(), request);
 
 		return mv;
@@ -115,20 +139,24 @@ public class BoardController {
 
 	}
 
+	@RequestMapping("/deleteBoard")
+	public ModelAndView deleteBaord(Long no, HttpSession session) {
+		ModelAndView mv = new ModelAndView("redirect:/board/1");
+		if (no == null && session == null)
+			return mv;
+		System.out.println("글의 no: " + no + ", " + session);
+		boardService.delete(no);
+
+		return mv;
+	}
+
 	@RequestMapping("/view/{no}")
-	public String view(@PathVariable Long no, Model model, HttpSession session)
-			throws Exception {
-		System.out.println("!!!!!!!!view");
-		UserVo authUser = (UserVo) session.getAttribute("authUser");
-		if (authUser == null)
-			return "redirect:/user/loginform";
-		BoardVo currentboard = boardService.get(no);
-		if (currentboard.getUserNo() != authUser.getNo()) {
-			System.out.println("뷰 카운트를 올리자!!!!");
-			boardService.viewcnt(no);
-		}
+	public String view(@PathVariable Long no, Model model) throws Exception {
+
 		Map<String, Object> map = boardService.fileList(no);
 		boardService.viewcnt(no);
+		int replyCnt = boardService.replyCnt(no);
+		model.addAttribute("replyCnt", replyCnt);
 		model.addAttribute("fileList", map.get("fileList"));
 		model.addAttribute("vo", boardService.view(no));
 		model.addAttribute("replyList", boardService.getReplyList(no));
