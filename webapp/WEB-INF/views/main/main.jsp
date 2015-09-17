@@ -430,6 +430,10 @@ var markers = [];
 <br/>
 <br/>
 
+
+<div class="sidebar">
+<div class="sidebar-header-placeholder"></div>
+</div>
 </aside>
 
 <body>
