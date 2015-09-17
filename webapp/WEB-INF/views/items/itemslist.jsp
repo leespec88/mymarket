@@ -27,6 +27,12 @@ float:right;
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
 </style>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 <head>
 	<meta charset="utf-8">
 	<title>MyMarket 지도</title>
@@ -423,5 +429,16 @@ var markers = [];
 </aside>
 
 <body>
+
+<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
+<c:import url="/WEB-INF/views/include/leftside.jsp"/>
+	
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>
