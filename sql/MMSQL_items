@@ -1,0 +1,36 @@
+/* ITEMS */
+CREATE TABLE ITEMS (
+	NO number(7),  
+	title varchar2(50), 
+	content varchar2(2000), 
+	tag varchar2(1000), 
+	trade_category varchar2(50), 
+	item_condition varchar2(50), 
+	price number(30), 
+	User_id varchar2(60), 
+	location varchar2(70), 
+	email varchar2(30), 
+	shiping_fee varchar2(30), 
+	hit_count number(30),
+	primary key (NO)
+);
+DROP TABLE ITEMS;
+/* ITEMS seq*/
+create sequence seq_items start with 1 increment by 1;
+
+select * from ITEMS i;
+insert into ITEMS (NO, TITLE, CONTENT, TAG, TRADE_CATEGORY, ITEM_CONDITION, PRICE, USER_ID, LOCATION, EMAIL, SHIPING_FEE) 
+VALUES (seq_items.nextval, '아디다스 파이어버드 져지', '사이즈m입니당 공용사이즈요! 반바지랑같이구매하시면55000에용', '#여성의류#여성트레이닝복', '중고', '판매', 30000, 'u.m ixx', '35.8266023,128.5523908', 'qwwq@gmail.com', '포함');  
+
+
+-- CREATE TABLE ITEM_PIC--
+CREATE TABLE ITEM_PIC (
+	no_ITEM_PIC number(7) NOT NULL, 
+	Item_no number(7), 
+	Image varchar2(200),
+	primary key(no_ITEM_PIC)
+);
+DROP TABLE ITEM_PIC;
+create sequence seq_ITEM_PIC start with 1 increment by 1;
+insert into ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
+VALUES(seq_ITEM_PIC.nextval, 1, 'imageasdfsadfsdf');

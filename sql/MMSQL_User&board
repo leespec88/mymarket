@@ -1,0 +1,166 @@
+--CREATE TABLE MEMBER--
+
+CREATE TABLE MEMBER
+(
+   NO                 NUMBER (7) NOT NULL,
+   Phone_number       VARCHAR2 (20) NOT NULL,
+   Password           VARCHAR2 (20) NOT NULL,
+   User_name          VARCHAR2 (50) UNIQUE,
+   gender             VARCHAR2 (10),
+   email              VARCHAR2 (30),
+   reg_date           DATE NOT NULL,
+   MEMBER_TYPE        VARCHAR2 (10),
+   WISH_ITEM          VARCHAR2 (1000),
+   NOTIFICATION_CNT   NUMBER (10),
+   PRIMARY KEY (NO)
+);
+
+DROP TABLE MEMBER;
+
+CREATE SEQUENCE seq_MEMBER START WITH 1 INCREMENT BY 1;
+select * from member;
+INSERT INTO MEMBER (NO,
+                    PHONE_NUMBER,
+                    PASSWORD,
+                    user_NAME,
+                    GENDER,
+                    LOCATION,
+                    EMAIL,
+                    SELF_INTRODUCTION,
+                    REG_DATE)
+        VALUES (
+                  seq_MEMBER.NEXTVAL,
+                  '010-2846-4104',
+                  '1234',
+                  '바바바바리안',
+                  'male',
+                  '37.494615,127.027591',
+                  'LASKDLASKDJLSAKJD@GMAIL.COM',
+                  '안녕하세요 주로 컴퓨터 부품을 팔고있습니다. 잘 부탁드려요',
+                  SYSDATE);
+
+INSERT INTO MEMBER (NO,
+                    PHONE_NUMBER,
+                    PASSWORD,
+                    NICKNAME,
+                    GENDER,
+                    EMAIL,
+                    REG_DATE,
+                    MEMBER_TYPE)
+     VALUES (SEQ_MEMBER.NEXTVAL,
+             '321-9874-5463',
+             '1234',
+             'BBBBB',
+             'FEMALE',
+             'BB@Gmail.COM',
+             SYSDATE,
+             'USER');
+
+SELECT *
+  FROM MEMBER m;
+
+
+CREATE TABLE BOARD_COMMNITY
+(
+   NO           NUMBER (7),
+   TITLE        VARCHAR2 (100),
+   CONTENT      VARCHAR2 (2000),
+   REG_DATE     DATE,
+   VIEW_COUNT   NUMBER (30) DEFAULT 0,
+   USER_NO      NUMBER (7),
+   USER_NAME    VARCHAR2 (50),
+   REPLY_COUNT  NUMBER (5) DEFAULT 0,
+   PRIMARY KEY (NO)
+);
+alter table BOARD_COMMNITY  add(REPLY_COUNT number(5) DEFAULT 0);
+SELECT * FROM BOARD_COMMNITY b;
+INSERT INTO BOARD_COMMNITY (NO, TITLE, CONTENT, REG_DATE, VIEW_COUNT, USER_NO, USER_NAME, REPLY_COUNT) 
+VALUES(no, 'title', 'content', reg_date, view_count, user_no, 'user_name', reply_count)
+DROP TABLE BOARD_COMMNITY;
+
+CREATE SEQUENCE seq_board_commnity START WITH 1 INCREMENT BY 1;
+
+INSERT INTO BOARD_COMMNITY (NO,
+                            TITLE,
+                            CONTENT,
+                            REG_DATE,
+                            USER_NO,
+                            USER_NAME)
+     VALUES (SEQ_BOARD_COMMNITY.NEXTVAL,
+             '바바노시님과 거래 후기',
+             '좋은거래 했습니다 감사합니다.',
+             SYSDATE,
+             21,
+             'BBBBB');
+
+INSERT INTO BOARD_COMMNITY (NO,
+                            TITLE,
+                            CONTENT,
+                            REG_DATE,
+                            USER_NO,
+                            USER_NAME)
+     VALUES (SEQ_BOARD_COMMNITY
+	 .NEXTVAL,
+             '바바노시 이 XXXX',
+             '다시보니 먹튀임 조심하셈.',
+             SYSDATE,
+             21,
+             (SELECT name
+                FROM MEMBER
+               WHERE no = 21));
+
+  SELECT NO,
+         TITLE,
+         REG_DATE,
+         HIT_COUNT,
+         USER_NAME
+    FROM BOARD_COMMNITY
+ORDER BY no DESC;
+
+CREATE TABLE reply (
+	NO NUMBER(7), 
+	board_NO NUMBER(7), 
+	user_NO NUMBER(7), 
+	content varchar2(2000), 
+	reg_date date, 
+	group_NO NUMBER(7), 
+	order_NO NUMBER(7), 
+	depth NUMBER(2),
+	PRIMARY KEY(NO)
+);
+drop table reply;
+CREATE SEQUENCE seq_reply START WITH 1 INCREMENT BY 1;
+SELECT *
+  FROM REPLY r;
+
+SELECT * FROM BOARD_COMMNITY;
+
+INSERT INTO REPLY (NO,
+                   BOARD_NO,
+                   USER_NO,
+                   CONTENT,
+                   REG_DATE,
+                   GROUP_NO,
+                   ORDER_NO,
+                   DEPTH)
+     VALUES (SEQ_REPLY.NEXTVAL,
+             31,
+             21,
+             '후기 잘 봤습니다!!',
+             SYSDATE,
+             (SELECT MAX (group_no + 1)
+                FROM reply),
+             0,
+             0);
+
+  SELECT NO,
+         BOARD_NO,
+         USER_NO,
+         CONTENT,
+         TO_CHAR (REG_DATE, 'YY-MM-DD HH24:MI') AS REG_DATE,
+         GROUP_NO,
+         ORDER_NO,
+         DEPTH
+    FROM REPLY
+ORDER BY group_no ASC, order_no ASC;
+

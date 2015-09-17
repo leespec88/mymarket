@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="items">
+<typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" />
+
+<typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" />
+	<resultMap class="ItemsVo" id="resultMapList">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="trade_category" property="tradeCategory" />
+		<result column="item_condition" property="itemCondition" />
+		<result column="price" property="price" />
+		<result column="user_no" property="userNo" />
+		<result column="location" property="location" />
+		<result column="email" property="email" />
+		<result column="shipping_fee" property="shippingFee" />
+		<result column="view_count" property="viewCount" />
+		<result column="reg_date" property="regDate" />
+		<result column="address" property="address" />	
+	</resultMap>
+
+<typeAlias alias="ItemPicVo" type="com.bit.mymarket.vo.ItemPicVo" />
+	<resultMap class="ItemPicVo" id="resultMapPicList">
+		<result column="no_item_pic" property="no" />
+		<result column="item_no" property="itemNo" />
+		<result column="image" property="url" />	
+	</resultMap>
+	
+<insert id="insert" parameterClass="ItemsVo">
+<!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
+<![CDATA[
+	insert into items 
+	values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#)  
+]]>
+</insert>
+
+<insert id="insertPic" parameterClass="ItemPicVo">
+		<selectKey keyProperty="itemNo" resultClass="java.lang.Long"> 
+			<![CDATA[ 
+				select max(no) from items 
+			]]>
+		</selectKey>
+<![CDATA[
+	insert into item_Pic 
+	values(seq_item_pic.nextval, #itemNo#, #url#)  
+]]>
+</insert>
+
+<select id="list" resultClass="ItemsVo">
+<!-- SELECT no, name, password, content, TO_CHAR (reg_date, 'YYYY-MMDD HH:MM:SS') FROM guest_table ORDER BY reg_date DESC -->
+<![CDATA[
+	select no, location, address, title
+	  from items
+]]>
+</select>
+
+<select id="picList" resultClass="ItemPicVo" resultMap="resultMapPicList">
+<![CDATA[
+	select no_item_pic, item_no, image
+	  from item_pic
+]]>
+</select>
+
+<!-- 아이템 전체 개수 리스트 -->
+<select id="totCnt" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from items
+	]]>
+</select>
+
+
+
+<!-- 아이템 검색 리스트 총 갯수 -->
+<select id="totCntBySearch" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from items where title like '%'||#kwd#||'%'
+	]]>
+</select>
+
+<!-- 아이템 리스트 ( 검색 x ) -->
+<select id="items" resultMap="resultMapList">
+	<![CDATA[
+		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shiping_Fee, view_count,file1, file2, file3, reg_date, address from items)A) 
+				 where page=#currentPageNo#
+	]]>
+</select>
+
+
+<!-- 아이템 리스트( 검색ok ) -->
+<select id="itemsBySearch" resultMap="resultMapList">
+	<![CDATA[
+		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shiping_Fee, view_count,file1, file2, file3, reg_date, address from items where title like '%'||#kwd#||'%')A) 
+				 where page=#currentPageNo#
+	]]>
+</select>
+<!-- 아이템 고유 No 로 아이템 찾기 -->
+<select id="getItemByNo" resultMap="resultMapList">
+	<![CDATA[
+		select * from items where no=#no#
+	]]>
+</select>
+
+<!-- userNo 로 아이템 찾기 -->
+<select id="getItemsByUserNo" resultMap="resultMapList">
+	<![CDATA[
+		select * from items where user_no=#userNo#
+	]]>
+</select>
+
+<!-- 아이템삭제 -->
+<delete id="deleteItems" parameterClass="java.lang.Long">
+	<![CDATA[
+		delete from items where no=#no#
+	]]>
+</delete>
+</sqlMap>

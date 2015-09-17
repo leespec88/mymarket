@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="user">
+<typeAlias alias="UserVo" type="com.bit.mymarket.vo.UserVo" />
+
+<resultMap class="UserVo" id="resultMapList">
+		<result column="no" property="no" />
+		<result column="id_no" property="idNo" />
+		<result column="name" property="name" />
+		<result column="email" property="email" />
+		<result column="password" property="password" />
+		<result column="birth" property="birth" />
+		<result column="gender" property="gender" />
+		<result column="phone" property="phone" />
+		<result column="member_type" property="member_type" />
+		<result column="wish_item" property="wishItem" />
+		<result column="reg_date" property="regDate" />
+</resultMap>
+
+<select id="getByIdNo" parameterClass="java.lang.String" resultClass="UserVo">
+<![CDATA[
+	select * from member where id_no=#idNo# 
+ ]]>
+</select>
+
+<insert id="join" parameterClass="UserVo">
+<![CDATA[
+	insert into member values(seq_member.nextval,#idNo#, #name#, #email#, #password#, #birth#, #gender#, #phone#,'일반', '', sysdate)  
+]]>
+</insert>
+
+<select id="login" parameterClass="UserVo" resultClass="UserVo">
+<![CDATA[
+	select * from member where email=#email# and password=#password#
+ ]]>
+</select>
+
+<select id="getByEmail" parameterClass="java.lang.String" resultClass="UserVo">
+<![CDATA[
+	select * from member where email=#email#
+ ]]>
+</select>
+
+<update id="basicInfo" parameterClass="UserVo">
+<![CDATA[
+	update member set phone=#phone#, gender=#gender#, birth=#birth# where no=#no#
+]]>
+</update>
+<update id="password" parameterClass="java.lang.String">
+<![CDATA[
+	update member set password=#password#
+]]>
+</update>
+
+<select id="getTotCnt"  resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from member
+	]]>
+</select>
+<select id="getSearchTotCnt"  resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from member where name like '%'||#kwd#||'%'
+	]]>
+</select>
+
+
+<select id="getMemberList" parameterClass="java.lang.Integer" resultMap="resultMapList">
+	<![CDATA[
+		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
+				 from (select no,id_no,name,email,password,birth, gender,phone,member_type,wish_item,reg_date from member)A) 
+				 where page=#currentPageNo#
+	]]>
+</select>
+<select id="getSearchMember" parameterClass="java.util.Map" resultMap="resultMapList">
+	<![CDATA[
+		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
+				 from (select no,id_no,name,email,password,birth, gender,phone,member_type,wish_item,reg_date from member where name like '%'||#kwd#||'%')A) 
+				 where page=#currentPageNo#
+	]]>
+</select>
+
+<select id="getModifyMember" parameterClass="java.lang.Long" resultClass="UserVo">
+	<![CDATA[
+		select * from member where no=#no#
+	]]>
+</select>
+
+<select id="getUserName" parameterClass="java.lang.Long" resultClass="UserVo">
+	<![CDATA[
+		select * from member where no=#no#
+	]]>
+</select>
+</sqlMap>

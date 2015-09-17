@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+
+
+/* header css */
+.navbar-brand #my {color:#ff0000; font-weight:bold }
+
+
+/* side css */
+div.side { width:29.7%;height:900px;background-color:#E3E3E3;padding-top:0px }
+
+/* joinform */
+body.joinform .container  {padding-top:180px; width:700px}
+
+/* modifyform */
+body.modifyform .container  {padding-top:100px; width:700px}
+
+/* loginform */
+body.loginform .container  {padding-top:250px; width:700px}
