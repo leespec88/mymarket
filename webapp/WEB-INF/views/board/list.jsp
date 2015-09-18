@@ -15,6 +15,8 @@
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 
+
+
 </head>
 
 <body>
@@ -22,7 +24,7 @@
 	<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
 
 	<div class="container" id="boardlist">
-		<table class="table table-striped">
+		<table class="table table-striped"  >
 			<thead>
 				<tr>
 					<th>번호</th>

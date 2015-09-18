@@ -48,11 +48,11 @@
 						<div id="fileDiv">
 							<c:forEach var="file" items="${fileList }" varStatus="var">
 								<p>
-									<input type="hidden" class="fileNo" value="${file.NO }">
+									<input type="hidden" class="fileNo"value="${file.NO }">
 									<img src="/images/${file.STORED_FILE_NAME}" width="100px"
 										height="100px" > <a href="#this">${file.ORIGINAL_FILE_NAME }</a>
-									(${file.FILE_SIZE }kb) <a href="#this" class="delFile"
-										name="delete_${var.index }">삭제 ${file.BOARD_NO}</a>
+									(${file.FILE_SIZE }kb) <button class="delFile"
+										name="delete_${var.index }" value="${file.NO}">삭제</button>
 								</p>
 							</c:forEach>
 						</div>
@@ -88,7 +88,7 @@
 			});
 			$(".delFile").on("click", function(e) {
 				e.preventDefault();
-				fn_deleteFile();
+				fn_deleteFile($(this));
 			});
 			$("a[name^='delete']").on("click", function(e) { //삭제 버튼
 				e.preventDefault();
@@ -112,10 +112,10 @@
 			comSubmit.addParam("no", $("#no").val());
 			comSubmit.submit();
 		}
-		function fn_deleteFile() {
+		function fn_deleteFile(obj) {
 			var comSubmit = new ComSubmit();
 			comSubmit.setUrl("<c:url value='/board/deleteFile' />");
-			comSubmit.addParam("fileNo", $(".fileNo").val());
+			comSubmit.addParam("fileNo", obj.val());
 			comSubmit.addParam("no", $("#no").val());
 			comSubmit.submit();
 		}

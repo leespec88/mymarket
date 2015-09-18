@@ -117,3 +117,8 @@ nav ul li {
 nav ul li:first-child {
 	border-left: none;
 }
+
+#boardlist {
+	margin-top: 50px;
+	
+}

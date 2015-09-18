@@ -17,3 +17,6 @@ body.modifyform .container  {padding-top:100px; width:700px}
 
 /* loginform */
 body.loginform .container  {padding-top:250px; width:700px}
+
+/* boardlist */
+div#boardlist               {padding-top:10%}

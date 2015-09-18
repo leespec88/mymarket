@@ -32,15 +32,22 @@
 				<td colspan="3">${vo.title }</td>
 			</tr>
 			<tr>
-				<td colspan="4">${vo.content }</td>
+				<td colspan="4" scope="row" height="20%">
+					
+					${vo.content }
+					
+				</td>
 			</tr>
 			<tr>
 				<th scope="row">첨부파일</th>
-				<td colspan="3"><c:forEach var="file" items="${fileList }">
+				<td colspan="3">
+					<c:forEach var="file" items="${fileList }">
 						<input type="hidden" id="no" value="${file.no }">
 						<img src="/images/${file.STORED_FILE_NAME}" width="100px"
 							height="100px">
-					</c:forEach></td>
+					</c:forEach>
+				
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -55,13 +62,13 @@
 					<td><img src="/assets/css/images/gc_img.gif">
 						${reply.userName}
 					<td>${reply.regDate}</td>
+					<td><a href="/board/replyreplyform?replyNo=${reply.no}&articleNo=${reply.boardNo}">답글</a></td>
 					<td><c:if test="${reply.userNo == authUser.no }">
 							<a
 								href="/board/deletereply/${reply.no}?articleNo=${reply.boardNo}"><img
 								src="/assets/images/recycle.png"></a>
 						</c:if> <c:if test="${not empty authUser}">
-							<td><a
-								href="/board/replyreplyform?replyNo=${reply.no}&articleNo=${reply.boardNo}">답글</a></td>
+							
 						</c:if>
 				</tr>
 			</table>

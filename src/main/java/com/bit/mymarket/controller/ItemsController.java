@@ -106,7 +106,7 @@ public class ItemsController {
 			@RequestParam( "file7" ) MultipartFile file7,
 			@RequestParam( "file8" ) MultipartFile file8,
 			CommandMap commandMap,
-			//HttpServletRequest request,
+			HttpServletRequest request,
 			Model model, ItemsVo itemsVo,
 			ItemPicVo itemPicVo ) throws Exception {
 		System.out.println(commandMap.getMap());
@@ -118,8 +118,6 @@ public class ItemsController {
 		System.out.println("file6 : " + file6);
 		System.out.println("file7 : " + file7);
 		System.out.println("file8 : " + file8);
-		
-		System.out.println(itemsVo);
 		//itemPicVo.setItemNo(itemNo);
 		System.out.println();
 		
@@ -163,6 +161,44 @@ public class ItemsController {
 
 		}*/
 				
+				
+				
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		// 첫 번째 파일 처리
 		if( file1.isEmpty() == false ) {
 			
