@@ -47,6 +47,11 @@ public class ItemsService {
 		return picList;
 	}
 	
+	public List<HashTagVo> getTagList(){
+		List<HashTagVo> list = itemsDao.getTagList();
+		return list;
+	}
+	
 	public List<ItemsVo> getKwdList(String kwd){
 		List<ItemsVo> list = itemsDao.getKwdList(kwd);
 		return list;

@@ -55,7 +55,11 @@ public class ItemsDao {
 		System.out.println("ItemPicDaoList");
 		List<ItemPicVo> picList = sqlMapClientTemplate.queryForList("items.picList");
 		return picList;
-
+	}
+	
+	public List<HashTagVo> getTagList(){
+		List<HashTagVo> list = sqlMapClientTemplate.queryForList("items.TagList");
+		return list;
 	}
 	
 	public List<ItemsVo> getKwdList(String kwd){
@@ -64,7 +68,7 @@ public class ItemsDao {
 	}
 	
 	public List<ItemsVo> getHashList(String kwd){
-		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.hashList",kwd);
+		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.tagListByItemNo",kwd);
 		return list;
 	}
 	

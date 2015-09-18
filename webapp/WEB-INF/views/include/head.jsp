@@ -80,13 +80,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><strong id="my">My</strong>Market</a>
+      <a class="navbar-brand" href="/"><strong id="my">My</strong>Market</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left navbar-right" role="search">
+      <form class="navbar-form navbar-left navbar-right" role="search" action="/" method="post">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="상품검색창입니다.">
+          <input type="text" class="form-control" name="kwd" placeholder="상품검색창입니다.">
         </div>
         <button type="submit" class="btn btn-default">검색</button>
       </form>

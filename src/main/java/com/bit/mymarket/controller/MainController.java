@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.mymarket.service.ItemsService;
+import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 
@@ -32,8 +33,10 @@ public class MainController {
 		}
 		//List<ItemsVo> list= itemsService.getList();
 		List<ItemPicVo> picList = itemsService.getPicList(); // 이미지 리스트
+		List<HashTagVo> hashList = itemsService.getTagList();
 		model.addAttribute("list", list);
 		model.addAttribute("picList", picList);
+		model.addAttribute("tagName",hashList);
 		
 		return "/main/main";
 	}
