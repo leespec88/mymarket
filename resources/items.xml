@@ -28,7 +28,14 @@
 		<result column="item_no" property="itemNo" />
 		<result column="image" property="url" />	
 	</resultMap>
-	
+
+<typeAlias alias="HashTagVo" type="com.bit.mymarket.vo.HashTagVo" />
+<resultMap class="HashTagVo" id="resultMapTagList">
+		<result column="no" property="no" />
+		<result column="item_no" property="itemNo" />
+		<result column="tag_name" property="tagName" />	
+</resultMap>
+
 <insert id="insert" parameterClass="ItemsVo">
 <!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
 <![CDATA[
@@ -62,6 +69,21 @@
 ]]>
 </select>
 
+<!-- 아이템 kwd 리스트 (해시아님) -->
+<select id="kwdList" parameterClass="java.lang.String" resultMap="resultMapList">
+<![CDATA[
+	select * from items where title like '%'||#kwd#||'%' or content like '%'||#kwd#||'%' 
+]]>
+</select>
+
+<!-- 아이템 해시태그 검색 -->
+
+<select id="hashList"  parameterClass="java.lang.String" resultMap="resultMapTagList">
+<![CDATA[
+	select * from items where no=(select item_no from hash_tag where tag_name=#kwd#)
+]]>
+</select>
+
 <select id="getPicListByItemNo" parameterClass="java.lang.Long" resultMap="resultMapPicList">
 	<![CDATA[
 		select no_item_pic, item_no, image from item_pic where item_no=#no#
@@ -75,6 +97,12 @@
 	]]>
 </select>
 
+<select id="getItemNo" parameterClass="java.util.Map" resultClass="java.lang.Long">
+<!-- SELECT no, name, password, content, TO_CHAR (reg_date, 'YYYY-MMDD HH:MM:SS') FROM guest_table ORDER BY reg_date DESC -->
+<![CDATA[
+	select Max(no) from items where email=#email# and title=#title#
+]]>
+</select>
 
 
 <!-- 아이템 검색 리스트 총 갯수 -->
@@ -122,4 +150,19 @@
 		delete from items where no=#no#
 	]]>
 </delete>
+
+<!-- 해시태그 리스트 -->
+<select id="tagList"  parameterClass="HashTagVo" resultClass="HashTagVo">
+	<![CDATA[
+		select * from hash_tag where ITEM_NO=#itemNo# and tag_name=#tagName#
+	]]>
+</select>
+
+<!-- 해시태그 인서트 -->
+<insert id="insertByHash" parameterClass="java.util.Map">
+	<![CDATA[
+		insert into hash_tag values(seq_hash.nextval,#tagName#, #itemNo#)
+	]]>
+</insert>
+
 </sqlMap>

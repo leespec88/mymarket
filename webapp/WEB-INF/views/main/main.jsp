@@ -6,94 +6,6 @@
 
 <html>
 <style>
-
-.thumbnailImg{
-    background: url("/assets/images/img_contents_card_bg.png") no-repeat;
-    width: 228px;
-    height: 228px;
-    margin-top: 20px;
-    float: left;
-    /* z-index: auto; */
-    position:static;left:0px;top:0px;
-} 
-.mainImgCard {
-    background: url("/assets/images/img_contents_card_bg.png") no-repeat;
-    width: 245px; /* 230px */
-    height: 305px;
-    padding-right: 20px;
-    margin-top: 20px;
-    float: left;
-    /* position:absolute;
-    position:relative;left:0px;top:0px; */
-}
-
-.mainImgCard .thumbnailImg { /* 아이템 이미지 */
-    width: 228px;
-    height: 228px;
-    padding-left: 1px;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    z-index: -1;
-    margin-top: 1px;
-}
-.mainImgCard .itemTitle { /* 아이템 타이틀 */
-    width: 210px;
-    height: 38px;
-    margin: 9px 10px -3px 10px;
-    display: block;
-    font-size: 12px;
-    color: #666;
-    overflow: hidden!important;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: bold;
-}
-.mainImgCard .itemPrice { /* 아이템 가격 */
-    float: left;
-    margin: 2px 10px 0 10px;
-    overflow: hidden;
-    font-size: 18px;
-    font-weight: bold;
-    color: #FA5858; /* #00aeff */
-}
-.mainImgCard .itemTimeago { /* 시간설정 */
-    float: right;
-    padding-right: 10px;
-    color: #959595;
-    font-size: 12px;
-    padding-top: 5px;
-}
-
-.imgArea {
-    float: left;
-    width: 750px;
-    margin-left: 10px;
-    display: inline-block;
-    padding-bottom: 20px;
-}
-
-
-li {
-    display: list-item;
-    text-align: -webkit-match-parent;
-}
-ul {
-    list-style: none;
-}
-
-
-html, body, div, span, applet, object, iframe, select, input, textarea, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, textarea, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    vertical-align: baseline;
-    font-weight: normal;
-    color: #333;
-    font-family: '돋움',Dotum,Arial;
-}
-</style>
-
-<style>
 /* 사이드바 래퍼 스타일 */
 #page-wrapper {
 	padding-left: 250px;
@@ -101,7 +13,7 @@ html, body, div, span, applet, object, iframe, select, input, textarea, h1, h2, 
  
 #sidebar-wrapper {
 	position: fixed;
-	width: 40%;
+	width: 20%;
 	height: 100%;
 	margin-left: -250px;
 	overflow-x: hidden;
@@ -110,7 +22,7 @@ html, body, div, span, applet, object, iframe, select, input, textarea, h1, h2, 
 /* 사이드바 래퍼 스타일 close */
 
 aside{
-width:40%;
+width:20%;
 float:left;
 margin: 0 auto;
 text-align: center;
@@ -119,7 +31,7 @@ text-align: center;
 section {
 margin-top:60px;
 margin-bottom:10px;
-width:60%;
+width:80%;
 
 float:right;
 }
@@ -493,85 +405,18 @@ var markers = [];
 <br>
 <br>
 <h1>상품 목록</h1>
-<div class="imgArea">
-<ul class="mainImgList" id="items">
-	
-	
-	
-<c:set var="status" value="${fn:length(list)}"></c:set>
-	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
-	
-	
-	<li class="mainImgCard">
-<a href="/item/9410319">
-
-
-	<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
-	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
-	<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
-	<input type="hidden" id="address${status.index+1 }" value="${vo.address}">
-
-	<img class="thumbnailImg">
- 
- <c:set var="status" value="${fn:length(picList)}"></c:set>
-	<c:forEach var="vopic" items="${picList }" varStatus="status" begin="0">
-<c:set var="no" value="${vo.no}"></c:set>
-			<c:choose>
-				<c:when test="${vopic.itemNo eq no}">
-						<c:if test="${not empty vopic.url }">
-							<%-- <img src="${vopic.url }" style="width:100px"> --%>
-						<!-- <img class="thumbnailImg" src="//img.hellomarket.com/images6/2015/item/s3/09/17/19/3713_9410319_1.jpg"> -->
-						<img class="thumbnailImg" src="${vopic.url }">
-						</c:if>
-						
-				</c:when>
-				
-				<%-- <c:otherwise>
-						<img class="thumbnailImg">
-				</c:otherwise> --%>
-				
-			</c:choose>
-	</c:forEach>
- 
- 
- 
-
- 	
-		<span class="itemTitle">${vo.title}</span>
-			<span class="itemPrice">${vo.price}원</span>
-			<span class="itemTimeago">${vo.regDate}</span>
-		
-		 	
-
-</a>
-	
-		</li>
-	</c:forEach>
-	
-	
-<%-- 	
-		<a href="/item/9410319">
-			<img class="thumbnailImg" src="//img.hellomarket.com/images6/2015/item/s3/09/17/19/3713_9410319_1.jpg">
-				<p></p>
-			<span class="itemTitle">${vo.title}</span>
-			<span class="itemPrice">${vo.price}원</span>
-			<span class="itemTimeago">${vo.regDate}</span>
-		</a>
---%>
-		
-		
-		
-
-</ul>
-</div>
-<%-- 	<c:set var="status" value="${fn:length(list)}">
+	<c:set var="status" value="${fn:length(list)}">
 	</c:set>
 	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
 	
+<%-- 	<input type="text" id="vo" value="${fn:length(list)}"> --%>
 	<input type="text" id="no${status.index+1 }" value="${vo.no}">
 	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
 	<input type="text" id="title${status.index+1 }" value="${vo.title}">
 	<input type="hidden" id="address${status.index+1 }" value="${vo.address}"><br/><br/><br/>
+			<%-- ${vo.no}
+			${vo.location}
+			${vo.address} --%>
 	
 			<c:set var="status" value="${fn:length(picList)}">
 			</c:set>
@@ -579,18 +424,27 @@ var markers = [];
 			
 	<c:set var="no" value="${vo.no}"></c:set>
 	<c:if test="${vopic.itemNo eq no}">
+		<%-- 	<input type="text" id="vo" value="${fn:length(list)}"> --%>
+			<%-- <input type="text" id="no${status.index+1 }" value="${vo.no}"> --%>
+<%-- <input type="text" id="location${status.index+1 }" value="${vopic.itemNo}"> --%>
+			<%-- <input type="text" id="address${status.index+1 }" value="${vo.url}"><br/><br/><br/> --%>
 				<c:if test="${not empty vopic.url }">
 					<img src="${vopic.url }" style="width:100px">
 				</c:if><br/>
+					<%-- ${vo.no}
+					${vo.location}
+					${vo.address} --%>
 	</c:if>
+			
+			
 			
 			</c:forEach>
 	
-	</c:forEach> --%>
 	
 	
 	
 	
+	</c:forEach>
 <%-- 	
 			<c:set var="status" value="${fn:length(picList)}">
 			</c:set>

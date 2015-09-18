@@ -497,7 +497,6 @@ function imgdelselect(i){
 <!-- <input type="button" value="파일찾기">
 
 <input type="button" value="등록"> --><br/>
-memo(메모)<textarea rows="3" cols="100" name="memo"></textarea><br/>
 price(가격) <input type="text" name="price">원<br/>
 title(제목) <input type="text" name="title"><br/>
 content(내용) <textarea rows="3" cols="100" name="content"></textarea><br/>
