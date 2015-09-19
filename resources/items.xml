@@ -159,9 +159,9 @@
 </select>
 
 <!-- 해시태그 리스트 -->
-<select id="tagListByItemNo"  parameterClass="HashTagVo" resultClass="HashTagVo">
+<select id="tagListByItemNo"  parameterClass="java.lang.String"  resultMap="resultMapList">
 	<![CDATA[
-		select * from hash_tag where ITEM_NO=#itemNo# and tag_name=#tagName#
+		select * from items where no=(select item_no from hash_tag where tag_name=#kwd#)
 	]]>
 </select>
 

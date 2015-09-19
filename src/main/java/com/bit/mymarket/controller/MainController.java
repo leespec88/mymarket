@@ -22,16 +22,16 @@ public class MainController {
 	
 	public String index(Model model, @RequestParam(required=false,defaultValue="")String kwd){
 		List<ItemsVo> list=null;
-		
+		char ch='#';
+		//System.out.println("".equals(kwd));
 		if("".equals(kwd)){
 			list = itemsService.getList(); // 일반 리스트
 		
-		}else if("#".equals(kwd.charAt(0))){
+		}else if(kwd.charAt(0)==ch){
 			list=itemsService.getHashList(kwd);
 		}else{
 			list = itemsService.getKwdList(kwd);
 		}
-		//List<ItemsVo> list= itemsService.getList();
 		List<ItemPicVo> picList = itemsService.getPicList(); // 이미지 리스트
 		List<HashTagVo> hashList = itemsService.getTagList();
 		model.addAttribute("list", list);
