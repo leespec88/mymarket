@@ -1,6 +1,7 @@
 package com.bit.mymarket.service;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,8 +59,15 @@ public class ItemsService {
 	}
 	
 	public List<ItemsVo> getHashList(String kwd){
+		List<ItemsVo> list=new ArrayList<ItemsVo>();
 		kwd = sepcialCharacter_replace(kwd);
-		List<ItemsVo> list = itemsDao.getHashList(kwd);
+		List<HashTagVo> noList = itemsDao.getNoList(kwd);
+
+		for(HashTagVo vo: noList){
+			ItemsVo itemsVo = itemsDao.getItemByNo(vo.getItemNo());
+			System.out.println("넘버로 뽑은"+itemsVo);
+			list.add(itemsVo);
+		}
 		return list;
 	}
 	
@@ -93,7 +101,7 @@ public class ItemsService {
 	    		System.out.println("최종 추출 TITLE 해시태그 :: "+ extractHashTag1);
 	    		tagVo.setItemNo(no);
 	    		tagVo.setTagName(extractHashTag1);
-	    		HashTagVo vo = itemsDao.tagList(tagVo);
+	    		HashTagVo vo = itemsDao.getTagListByItemNo(tagVo);
 	    		
 	    		if(vo==null){
 	    			itemsDao.insertByHash(no, extractHashTag1);
@@ -107,7 +115,7 @@ public class ItemsService {
 	    		System.out.println("최종 추출 CONTENT 해시태그 :: "+ extractHashTag2);
 	    		tagVo.setItemNo(no);
 	    		tagVo.setTagName(extractHashTag2);
-	    		HashTagVo vo = itemsDao.tagList(tagVo);
+	    		HashTagVo vo = itemsDao.getTagListByItemNo(tagVo);
 	    		
 	    		if(vo==null){
 	    			itemsDao.insertByHash(no, extractHashTag2);

@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -540,11 +541,24 @@ var markers = [];
 		<span class="itemTitle">${vo.title}</span>
 			<span class="itemPrice">${vo.price}원</span>
 			<span class="itemTimeago">${vo.regDate}</span>
-		
-		 	
-
-</a>
+	</a>
 	
+	    
+	
+		<c:forEach var="tagName" items="${tagName}" varStatus="status">
+		<c:choose>
+				<c:when test="${vo.no eq tagName.itemNo}">
+						<c:if test="${not empty tagName }">
+							<span class="tagName"><a href="/tagList?kwd=${tagName.tagName }">#${tagName.tagName }</a></span>
+						</c:if>
+				</c:when>
+			</c:choose>
+			
+			
+			
+			
+		</c:forEach>
+
 		</li>
 	</c:forEach>
 	

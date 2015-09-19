@@ -160,44 +160,6 @@ public class ItemsController {
 				}
 
 		}*/
-				
-				
-				
-				
-				
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 		// 첫 번째 파일 처리
 		if( file1.isEmpty() == false ) {

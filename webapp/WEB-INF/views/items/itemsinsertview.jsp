@@ -497,7 +497,6 @@ function imgdelselect(i){
 <!-- <input type="button" value="파일찾기">
 
 <input type="button" value="등록"> --><br/>
-memo(메모)<textarea rows="3" cols="100" name="memo"></textarea><br/>
 price(가격) <input type="text" name="price">원<br/>
 title(제목) <input type="text" name="title"><br/>
 content(내용) <textarea rows="3" cols="100" name="content"></textarea><br/>
@@ -518,7 +517,7 @@ itemCondition(신품/중고)
 
 shipingFee(택배)
 <!-- <input type="text" name="shipingFee" value="shopingFee 택배비"><br/> -->
-<select name="shipingFee">
+<select name="shippingFee">
 <option value="포함" selected="selected">포함</option>
 <option value="미포함">미포함</option>
 </select><br/>

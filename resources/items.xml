@@ -36,14 +36,15 @@
 		<result column="tag_name" property="tagName" />	
 </resultMap>
 
+<!-- Items insert -->
 <insert id="insert" parameterClass="ItemsVo">
 <!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
 <![CDATA[
-	insert into items 
-	values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#)  
+	insert into items values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #userName#, #location#, #email#, #shippingFee#, 0, sysdate, #address# )  
 ]]>
 </insert>
 
+<!-- Items images insert -->
 <insert id="insertPic" parameterClass="ItemPicVo">
 		<selectKey keyProperty="itemNo" resultClass="java.lang.Long"> 
 			<![CDATA[ 
@@ -56,18 +57,28 @@
 ]]>
 </insert>
 
+<!-- items list 출력 -->
 <select id="list" resultMap="resultMapList">
-<!-- SELECT no, name, password, content, TO_CHAR (reg_date, 'YYYY-MMDD HH:MM:SS') FROM guest_table ORDER BY reg_date DESC -->
-<![CDATA[
-	select * from items
-]]>
+	<![CDATA[
+select * from items
+	]]>
 </select>
 
+<!-- items image list 출력 -->
 <select id="picList" resultMap="resultMapPicList">
 <![CDATA[
 	select no_item_pic, item_no, image from item_pic
 ]]>
 </select>
+
+<!-- items image 한장씩 출력후 나머지 널 주기 -->
+<select id="onePicList" resultMap="resultMapPicList">
+<![CDATA[
+	select no_item_pic, item_no, image from item_pic
+]]>
+</select>
+
+
 
 <!-- 아이템 kwd 리스트 (해시아님) -->
 <select id="kwdList" parameterClass="java.lang.String" resultMap="resultMapList">
@@ -78,11 +89,13 @@
 
 <!-- 아이템 해시태그 검색 -->
 
-<select id="hashList"  parameterClass="java.lang.String" resultMap="resultMapTagList">
+<select id="noList"  parameterClass="java.lang.String" resultMap="resultMapTagList">
 <![CDATA[
-	select * from items where no=(select item_no from hash_tag where tag_name=#kwd#)
+	select * from hash_tag where tag_name=#kwd#
 ]]>
 </select>
+
+
 
 <select id="getPicListByItemNo" parameterClass="java.lang.Long" resultMap="resultMapPicList">
 	<![CDATA[
@@ -131,7 +144,7 @@
 	]]>
 </select>
 <!-- 아이템 고유 No 로 아이템 찾기 -->
-<select id="getItemByNo" resultMap="resultMapList">
+<select id="getItemByNo" parameterClass="java.lang.Long" resultMap="resultMapList">
 	<![CDATA[
 		select * from items where no=#no#
 	]]>
@@ -152,16 +165,16 @@
 </delete>
 
 <!-- 해시태그 전체 리스트 뽑기 -->
-<select id="TagList" resultMap="resultMapTagList">
+<select id="tagList" resultMap="resultMapTagList">
 	<![CDATA[
 		select * from hash_tag
 	]]>
 </select>
 
-<!-- 해시태그 리스트 -->
-<select id="tagListByItemNo"  parameterClass="java.lang.String"  resultMap="resultMapList">
+<!-- 해시태그 아이템 No + 태그네임으로 찾기  -->
+<select id="getTagListByItemNo" parameterClass="HashTagVo" resultMap="resultMapTagList">
 	<![CDATA[
-		select * from items where no=(select item_no from hash_tag where tag_name=#kwd#)
+		select * from hash_tag where item_no=#itemNo# and tag_name=#tagName#
 	]]>
 </select>
 

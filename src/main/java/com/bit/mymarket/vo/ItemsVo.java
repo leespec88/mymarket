@@ -9,6 +9,13 @@ public class ItemsVo {
 	private Long price;
 	private Long userNo;
 	private String userName;
+	private String location;
+	private String email;
+	private String shippingFee;
+	private Long viewCount;
+	private String regDate; //등록시간 추가
+	private String address;
+	
 	
 	public String getUserName() {
 		return userName;
@@ -16,12 +23,6 @@ public class ItemsVo {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	private String location;
-	private String email;
-	private String shippingFee;
-	private Long viewCount;
-	private String regDate; //등록시간 추가
-	private String address;
 	public Long getNo() {
 		return no;
 	}

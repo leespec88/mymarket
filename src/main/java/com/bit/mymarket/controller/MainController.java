@@ -18,22 +18,35 @@ public class MainController {
 	
 	@Autowired
 	private ItemsService itemsService;
-	@RequestMapping("/")
 	
+	@RequestMapping("/")
 	public String index(Model model, @RequestParam(required=false,defaultValue="")String kwd){
 		List<ItemsVo> list=null;
 		char ch='#';
-		//System.out.println("".equals(kwd));
 		if("".equals(kwd)){
 			list = itemsService.getList(); // 일반 리스트
 		
-		}else if(kwd.charAt(0)==ch){
+		}else if(ch==kwd.charAt(0)){
 			list=itemsService.getHashList(kwd);
 		}else{
 			list = itemsService.getKwdList(kwd);
 		}
 		List<ItemPicVo> picList = itemsService.getPicList(); // 이미지 리스트
 		List<HashTagVo> hashList = itemsService.getTagList();
+		model.addAttribute("list", list);
+		model.addAttribute("picList", picList);
+		model.addAttribute("tagName",hashList);
+		
+		return "/main/main";
+	}
+	
+	@RequestMapping("/tagList")
+	public String tagList(Model model, String kwd){
+		
+		List<ItemsVo> list = itemsService.getHashList(kwd);
+		List<HashTagVo> hashList = itemsService.getTagList();
+		List<ItemPicVo> picList = itemsService.getPicList();
+		
 		model.addAttribute("list", list);
 		model.addAttribute("picList", picList);
 		model.addAttribute("tagName",hashList);

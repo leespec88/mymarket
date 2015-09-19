@@ -58,7 +58,7 @@ public class ItemsDao {
 	}
 	
 	public List<HashTagVo> getTagList(){
-		List<HashTagVo> list = sqlMapClientTemplate.queryForList("items.TagList");
+		List<HashTagVo> list = sqlMapClientTemplate.queryForList("items.tagList");
 		return list;
 	}
 	
@@ -67,13 +67,23 @@ public class ItemsDao {
 		return list;
 	}
 	
-	public List<ItemsVo> getHashList(String kwd){
-		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.tagListByItemNo",kwd);
+	public List<HashTagVo> getNoList(String kwd){
+		List<HashTagVo> list = sqlMapClientTemplate.queryForList("items.noList",kwd);
 		return list;
 	}
 	
-	public HashTagVo tagList(HashTagVo tagVo){
-		HashTagVo vo = (HashTagVo)sqlMapClientTemplate.queryForObject("items.tagList", tagVo);
+	public ItemsVo getItemByNo(Long no){
+		ItemsVo itemsVo = (ItemsVo)sqlMapClientTemplate.queryForObject("items.getItemByNo", no);
+		return itemsVo;
+	}
+	
+	public List<ItemsVo> getHashList(String kwd){
+		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.hashList",kwd);
+		return list;
+	}
+	
+	public HashTagVo getTagListByItemNo(HashTagVo tagVo){
+		HashTagVo vo = (HashTagVo)sqlMapClientTemplate.queryForObject("items.getTagListByItemNo", tagVo);
 		return vo;
 	}
 	
