@@ -75,8 +75,8 @@ public class AdminService {
 		adminDao.deleteContext(no);
 	}
 	
-	public List<BoardVo> getBoardByNo(Long userNo){
-		List<BoardVo> list = adminDao.getBoardByNo(userNo);
+	public List<BoardVo> getBoardByUserNo(Long userNo){
+		List<BoardVo> list = adminDao.getBoardByUserNo(userNo);
 		return list;
 	}
 	

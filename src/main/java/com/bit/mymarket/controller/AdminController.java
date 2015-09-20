@@ -130,7 +130,7 @@ public class AdminController {
 	//개인 게시물, 상품 보기
 	@RequestMapping("/memberInfo")
 	public String memberInfo(@RequestParam Long no,@RequestParam String name, Model model){
-		List<BoardVo> list = adminService.getBoardByNo(no);
+		List<BoardVo> list = adminService.getBoardByUserNo(no);
 		List<ItemsVo> itemList = adminService.getItemsByUserNo(no);
 		model.addAttribute("boardList", list);
 		model.addAttribute("items", itemList);

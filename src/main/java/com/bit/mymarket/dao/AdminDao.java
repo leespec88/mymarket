@@ -56,7 +56,7 @@ public class AdminDao {
 	
 	
 	public List<BoardVo> getBoardList(Integer currentPageNo){
-		List<BoardVo> list = sqlMapClientTemplate.queryForList("board.getBoardList", currentPageNo);
+		List<BoardVo> list = sqlMapClientTemplate.queryForList("board.pageBoardList", currentPageNo);
 		return list;
 	}
 	
@@ -87,8 +87,8 @@ public class AdminDao {
 		sqlMapClientTemplate.delete("board.delete", no);
 	}
 	
-	public List<BoardVo> getBoardByNo(Long userNo){
-		List<BoardVo> list = sqlMapClientTemplate.queryForList("board.getBoardByNo", userNo);
+	public List<BoardVo> getBoardByUserNo(Long userNo){
+		List<BoardVo> list = sqlMapClientTemplate.queryForList("board.getBoardByUserNo", userNo);
 		return list;
 	}
 	
