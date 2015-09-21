@@ -9,7 +9,7 @@
 <style>
 
 .thumbnailImg{
-    background: url("/assets/images/img_contents_card_bg.png") no-repeat;
+    background: url("/assets/images/No_images.jpg") no-repeat;
     width: 228px;
     height: 228px;
     margin-top: 20px;
@@ -20,7 +20,7 @@
 .mainImgCard {
     background: url("/assets/images/img_contents_card_bg.png") no-repeat;
     width: 245px; /* 230px */
-    height: 305px;
+    height: 335px;
     padding-right: 20px;
     margin-top: 20px;
     float: left;
@@ -65,6 +65,14 @@
     padding-top: 5px;
 }
 
+.mainImgCard .tag { /* 헤쉬코드 위치 지정할꺼임 */
+    float: right;
+    padding-right: 10px;
+    color: #959595;
+    font-size: 12px;
+    padding-top: 5px;
+}
+
 .imgArea {
     float: left;
     width: 750px;
@@ -92,9 +100,7 @@ html, body, div, span, applet, object, iframe, select, input, textarea, h1, h2, 
     color: #333;
     font-family: '돋움',Dotum,Arial;
 }
-</style>
 
-<style>
 /* 사이드바 래퍼 스타일 */
 #page-wrapper {
 	padding-left: 250px;
@@ -124,6 +130,12 @@ width:60%;
 
 float:right;
 }
+.reverse {
+	background: #F5F5F5;
+	color: white;
+}
+
+
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap {position:relative;width:100%;height:100px;} /* 키워드 검색용 블럭 */
@@ -166,12 +178,10 @@ float:right;
 
     <div id="menu_wrap" class="bg_white">
         <div class="option">
-            <p>
                 <form onsubmit="searchPlaces(); return false;">
                 키워드 : <input type="text" id="keyword" size="15"> 
                 <button type="submit">검색하기</button> 
                 </form>
-            </p>
         </div>
         <hr>
         <ul id="placesList"></ul>
@@ -402,7 +412,7 @@ var markers = [];
 		addMarker(new daum.maps.LatLng(lat, lng));
 		
 		//인포윈도우
-		var iwContent = '<div style="padding:5px;">'+title+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		var iwContent = '<div style="padding:5px;">'+title+'</div></br><button onclick="goInfo();">GO</button>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 	    iwPosition = new daum.maps.LatLng(lat, lng), //인포윈도우 표시 위치입니다
 	    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
 	
@@ -451,33 +461,28 @@ var markers = [];
 		// 마커를 생성하고 지도위에 표시하는 함수입니다
 //list 뽑아주기 close
 
-
-		
-		
-		
-		
-		
-		
-		
-		
-/* <c:set var="status" value="${fn:length(list)}">
-		</c:set>
-		<c:forEach var="vo" items="${list }" varStatus="status">
-			<tr>
-				<td>${vo.no}</td>
-				<td>${vo.location}</td>
-				<td>${vo.address}</td>
-			</tr> 
-	</c:forEach> */
-
 </script>
-
-
-
-
-
-
-
+<script>
+function setPosition(location){
+	
+	var loc = location.split(",");
+	var lat = loc[0];
+	var lng = loc[1];
+	map.setCenter(new daum.maps.LatLng(lat, lng));
+	map.setLevel(3);
+	
+	
+	
+	daum.maps.event.addListener(marker, 'click', function() {
+	    alert('marker click!');
+	});
+}
+</script>
+<script>
+function goInfo(){
+	location.href="/";
+}
+</script>
 
 
 </section>
@@ -498,53 +503,38 @@ var markers = [];
 <ul class="mainImgList" id="items">
 	
 	
-	
-<c:set var="status" value="${fn:length(list)}"></c:set>
-	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
-	
-	
+<c:set var="status" value="${fn:length(onePicList)}"></c:set>
+	<c:forEach var="vo" items="${onePicList}" varStatus="status" begin="0">
+	<a href="javascript:setPosition('${vo.location}');">
 	<li class="mainImgCard">
-<a href="/item/9410319">
-
-
 	<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
 	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
 	<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
 	<input type="hidden" id="address${status.index+1 }" value="${vo.address}">
-
-	<img class="thumbnailImg">
- 
- <c:set var="status" value="${fn:length(picList)}"></c:set>
-	<c:forEach var="vopic" items="${picList }" varStatus="status" begin="0">
-<c:set var="no" value="${vo.no}"></c:set>
-			<c:choose>
-				<c:when test="${vopic.itemNo eq no}">
-						<c:if test="${not empty vopic.url }">
-							<%-- <img src="${vopic.url }" style="width:100px"> --%>
-						<!-- <img class="thumbnailImg" src="//img.hellomarket.com/images6/2015/item/s3/09/17/19/3713_9410319_1.jpg"> -->
-						<img class="thumbnailImg" src="${vopic.url }">
-						</c:if>
+	
+ <!-- 이미지한장에 없으면 null 리스트 -->
+		<c:choose>
+				<c:when test="${vo.itemNo eq vo.no}">
+						<c:choose>
+							<c:when test="${not empty vo.url }">
+								<img class="thumbnailImg" src="${vo.url }">
+							</c:when>
+						</c:choose>
 						
 				</c:when>
 				
-				<%-- <c:otherwise>
+			 	<c:otherwise>
 						<img class="thumbnailImg">
-				</c:otherwise> --%>
-				
-			</c:choose>
-	</c:forEach>
- 
- 
- 
+				</c:otherwise>
+				 
+		</c:choose>
+<!-- 이미지한장에 없으면 null 리스트 close -->
 
- 	
-		<span class="itemTitle">${vo.title}</span>
+		    <span class="itemTitle">${vo.title}</span>
 			<span class="itemPrice">${vo.price}원</span>
 			<span class="itemTimeago">${vo.regDate}</span>
 	</a>
-	
-	    
-	
+<span class="tag">		
 		<c:forEach var="tagName" items="${tagName}" varStatus="status">
 		<c:choose>
 				<c:when test="${vo.no eq tagName.itemNo}">
@@ -553,100 +543,17 @@ var markers = [];
 						</c:if>
 				</c:when>
 			</c:choose>
-			
-			
-			
-			
 		</c:forEach>
-
-		</li>
+</span>	
+</li>	
 	</c:forEach>
-	
-	
-<%-- 	
-		<a href="/item/9410319">
-			<img class="thumbnailImg" src="//img.hellomarket.com/images6/2015/item/s3/09/17/19/3713_9410319_1.jpg">
-				<p></p>
-			<span class="itemTitle">${vo.title}</span>
-			<span class="itemPrice">${vo.price}원</span>
-			<span class="itemTimeago">${vo.regDate}</span>
-		</a>
---%>
-		
-		
-		
 
 </ul>
 </div>
-<%-- 	<c:set var="status" value="${fn:length(list)}">
-	</c:set>
-	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
-	
-	<input type="text" id="no${status.index+1 }" value="${vo.no}">
-	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
-	<input type="text" id="title${status.index+1 }" value="${vo.title}">
-	<input type="hidden" id="address${status.index+1 }" value="${vo.address}"><br/><br/><br/>
-	
-			<c:set var="status" value="${fn:length(picList)}">
-			</c:set>
-			<c:forEach var="vopic" items="${picList }" varStatus="status" begin="0">
-			
-	<c:set var="no" value="${vo.no}"></c:set>
-	<c:if test="${vopic.itemNo eq no}">
-				<c:if test="${not empty vopic.url }">
-					<img src="${vopic.url }" style="width:100px">
-				</c:if><br/>
-	</c:if>
-			
-			</c:forEach>
-	
-	</c:forEach> --%>
-	
-	
-	
-	
-<%-- 	
-			<c:set var="status" value="${fn:length(picList)}">
-			</c:set>
-			<c:forEach var="vo" items="${picList }" varStatus="status" begin="0">
-			
-			<input type="text" id="location${status.index+1 }" value="${vo.itemNo}">
-				<c:if test="${not empty vo.url }">
-					<img src="${vo.url }" style="width:100px">
-				</c:if>
-			
-			</c:forEach>
- --%>
-
-
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<h3></h3> 
-<br/>
-<h3></h3>
-<br/>
-<h3></h3>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-
 
 	</div>
 	<!-- /사이드바 -->
  
-	<!-- 본문 -->
-<!-- 	<div id="page-content-wrapper">
-		<div class="container-fluid">
-		</div>
-	</div> -->
-	<!-- /본문 -->
 </div>
 
 
@@ -656,7 +563,6 @@ var markers = [];
 <body>
 
 <c:import url="/WEB-INF/views/include/head.jsp"></c:import>
-	
 
 
 <!-- jQuery library -->

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.bit.mymarket.dao.ItemsDao;
 import com.bit.mymarket.util.FileUtils;
 import com.bit.mymarket.vo.HashTagVo;
+import com.bit.mymarket.vo.ItemOnePicVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 
@@ -46,6 +47,11 @@ public class ItemsService {
 	public List<ItemPicVo> getPicList() {
 		List<ItemPicVo> picList = itemsDao.getPicList();
 		return picList;
+	}
+	//사진 한장에 없으면 null 가져오기
+	public List<ItemOnePicVo> getOnePicList() {
+		List<ItemOnePicVo> onePicList = itemsDao.getOnePicList();
+		return onePicList;
 	}
 	
 	public List<HashTagVo> getTagList(){

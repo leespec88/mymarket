@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bit.mymarket.service.ItemsService;
 import com.bit.mymarket.vo.HashTagVo;
+import com.bit.mymarket.vo.ItemOnePicVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 
@@ -32,11 +33,13 @@ public class MainController {
 			list = itemsService.getKwdList(kwd);
 		}
 		List<ItemPicVo> picList = itemsService.getPicList(); // 이미지 리스트
+		List<ItemOnePicVo> onePicList = itemsService.getOnePicList(); // 이미지한장에 없으면 null 리스트
 		List<HashTagVo> hashList = itemsService.getTagList();
 		model.addAttribute("list", list);
 		model.addAttribute("picList", picList);
+		model.addAttribute("onePicList", onePicList);
 		model.addAttribute("tagName",hashList);
-		
+		System.out.println(model);
 		return "/main/main";
 	}
 	

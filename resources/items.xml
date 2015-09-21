@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="items">
-<typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" />
+<!-- <typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" /> -->
 
 <typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" />
 	<resultMap class="ItemsVo" id="resultMapList">
@@ -28,6 +28,28 @@
 		<result column="item_no" property="itemNo" />
 		<result column="image" property="url" />	
 	</resultMap>
+
+<typeAlias alias="ItemOnePicVo" type="com.bit.mymarket.vo.ItemOnePicVo" />
+	<resultMap class="ItemOnePicVo" id="resultMapOnePicList">
+		<result column="no" property="no" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="trade_category" property="tradeCategory" />
+		<result column="item_condition" property="itemCondition" />
+		<result column="price" property="price" />
+		<result column="user_no" property="userNo" />
+		<result column="user_name" property="userName" />
+		<result column="location" property="location" />
+		<result column="email" property="email" />
+		<result column="shipping_fee" property="shippingFee" />
+		<result column="view_count" property="viewCount" />
+		<result column="reg_date" property="regDate" />
+		<result column="address" property="address" />	
+		<result column="item_no" property="itemNo" />
+		<result column="image" property="url" />	
+	</resultMap>
+
+
 
 <typeAlias alias="HashTagVo" type="com.bit.mymarket.vo.HashTagVo" />
 <resultMap class="HashTagVo" id="resultMapTagList">
@@ -71,10 +93,13 @@ select * from items
 ]]>
 </select>
 
-<!-- items image 한장씩 출력후 나머지 널 주기 -->
-<select id="onePicList" resultMap="resultMapPicList">
+<!-- items image 한장씩 출력후 나머지 null 주기 -->
+<select id="onePicList" resultMap="resultMapOnePicList">
 <![CDATA[
-	select no_item_pic, item_no, image from item_pic
+select no, title, content, trade_category, item_condition, price, user_no, location, email, shipping_fee, view_count, to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as reg_date , address, user_name, item_no, image from items
+  left outer join item_pic on no=item_no
+  order by no asc
+
 ]]>
 </select>
 

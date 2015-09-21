@@ -11,6 +11,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bit.mymarket.vo.HashTagVo;
+import com.bit.mymarket.vo.ItemOnePicVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 
@@ -55,6 +56,13 @@ public class ItemsDao {
 		System.out.println("ItemPicDaoList");
 		List<ItemPicVo> picList = sqlMapClientTemplate.queryForList("items.picList");
 		return picList;
+	}
+	
+	//사진 한장에 없으면 null 가져오기
+	public List<ItemOnePicVo> getOnePicList() {
+		System.out.println("getOnePicList");
+		List<ItemOnePicVo> onePicList = sqlMapClientTemplate.queryForList("items.onePicList");
+		return onePicList;
 	}
 	
 	public List<HashTagVo> getTagList(){
