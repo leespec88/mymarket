@@ -62,7 +62,7 @@
 <insert id="insert" parameterClass="ItemsVo">
 <!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
 <![CDATA[
-	insert into items values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #userName#, #location#, #email#, #shippingFee#, 0, sysdate, #address# )  
+	insert into items values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName# )
 ]]>
 </insert>
 
@@ -209,5 +209,18 @@ select no, title, content, trade_category, item_condition, price, user_no, locat
 		insert into hash_tag values(seq_hash.nextval,#tagName#, #itemNo#)
 	]]>
 </insert>
+<!-- 아이템 상제정보 보기 컨드톨러 -by 이준기 0922* -->
+<select id="selectFileList" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+    <![CDATA[
+        SELECT
+        	NO_ITEM_PIC,
+        	ITEM_NO,
+        	IMAGE
+        FROM
+            ITEM_PIC
+        WHERE
+            ITEM_NO = #no#
+    ]]>
+</select>
 
 </sqlMap>

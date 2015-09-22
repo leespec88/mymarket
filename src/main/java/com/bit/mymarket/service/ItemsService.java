@@ -2,7 +2,9 @@ package com.bit.mymarket.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.mymarket.dao.ItemsDao;
+import com.bit.mymarket.dao.UserDao;
 import com.bit.mymarket.util.FileUtils;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemOnePicVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
+import com.bit.mymarket.vo.UserVo;
 
 
 @Service
@@ -25,6 +29,9 @@ public class ItemsService {
 
 	@Autowired
 	private ItemsDao itemsDao;
+	
+	@Autowired
+	private UserDao userDao;
 	
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
@@ -138,6 +145,22 @@ public class ItemsService {
 			return null;
 		}
 		return str;
+	}
+	
+	/*아이템 상제정보 보기 서비스 -by 이준기 0922*/
+	public Map<String, Object> getItemInfoByNo(Long no) {
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Map<String, Object>> list = (List<Map<String, Object>>) itemsDao.selectFileList(no);
+		ItemsVo itemVo = itemsDao.getItemByNo(no);
+		UserVo userVo = userDao.getUserInfobyNo(itemVo.getUserNo());
+		
+		resultMap.put("userVo", userVo);
+		resultMap.put("itemVo", itemsDao.getItemByNo(no));
+		resultMap.put("fileList", list);
+//		itemsDao.getItemByNo(no);
+		return resultMap;
+		
 	}
 	
 /*	public void insertBoard(Map<String, Object> map, HttpServletRequest request)
