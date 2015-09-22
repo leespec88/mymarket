@@ -45,8 +45,11 @@ public class MainController {
 	
 	@RequestMapping("/tagList")
 	public String tagList(Model model, String kwd){
-		
+		System.out.println("tagListtagList!!");
 		List<ItemsVo> list = itemsService.getHashList(kwd);
+		if(list.isEmpty()){
+			System.err.println("getHashList!!!empty");
+		}
 		List<HashTagVo> hashList = itemsService.getTagList();
 		List<ItemPicVo> picList = itemsService.getPicList();
 		

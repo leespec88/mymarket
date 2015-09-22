@@ -86,9 +86,14 @@
 	]]>
 </select>
 
-<select id="getUserName" parameterClass="java.lang.Long" resultClass="UserVo">
+
+<!-- id변경 getUserInfobyNo 이준기 0922 -->
+<select id="getUserInfobyNo" parameterClass="java.lang.Long" resultClass="UserVo">
 	<![CDATA[
 		select * from member where no=#no#
 	]]>
 </select>
+
+
+
 </sqlMap>

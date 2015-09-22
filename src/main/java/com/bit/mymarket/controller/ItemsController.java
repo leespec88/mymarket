@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,8 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.service.ItemsService;
+import com.bit.mymarket.service.UserService;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
+import com.bit.mymarket.vo.UserVo;
 
 @RequestMapping( "/items" )
 @Controller
@@ -45,8 +48,6 @@ public class ItemsController {
 	public String mapright() {
 		return "/items/itemsright";
 	}
-	
-	 
 	
 	@RequestMapping( "/itemsinsert/{lat}/{lng}/{no}" )
 	@ResponseBody
@@ -85,7 +86,7 @@ public class ItemsController {
 	private static final Log LOG = LogFactory.getLog( ItemsController.class );
 	
 	// 파일 저장 경로
-	private static final String SAVE_PATH = "C:\\temp";
+	private static final String SAVE_PATH = "//192.168.1.6//temp//";
 	  
 	@RequestMapping( "/form" )
 	public String form() {
@@ -418,4 +419,32 @@ public class ItemsController {
         return fileName;
 	}
 //파일업로드 close
+	
+	/*아이템 상제정보 보기 컨드톨러 -by 이준기 0922*/
+	@RequestMapping("/detailView/{no}")
+	public String itemDetailInfo(@PathVariable Long no, Model model){
+		
+		Map<String, Object> map  = itemsService.getItemInfoByNo(no);
+		model.addAttribute("userVo", map.get("userVo"));
+		model.addAttribute("itemVo", map.get("itemVo"));
+		model.addAttribute("fileList", map.get("fileList"));
+		
+		return "/items/itemsView";
+		
+	}
+/*	@RequestMapping("/view/{no}")
+	public String view(@PathVariable Long no, Model model) throws Exception {
+
+		Map<String, Object> map = boardService.fileList(no);
+		boardService.viewcnt(no);
+		int replyCnt = boardService.replyCnt(no);
+		model.addAttribute("replyCnt", replyCnt);
+		model.addAttribute("fileList", map.get("fileList"));
+		model.addAttribute("vo", boardService.view(no));
+		model.addAttribute("replyList", boardService.getReplyList(no));
+
+		return "/board/view";
+	}*/
+	
+	
 }

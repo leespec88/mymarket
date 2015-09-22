@@ -58,7 +58,28 @@ public class ItemsService {
 	//사진 한장에 없으면 null 가져오기
 	public List<ItemOnePicVo> getOnePicList() {
 		List<ItemOnePicVo> onePicList = itemsDao.getOnePicList();
-		return onePicList;
+		List<ItemOnePicVo> onePicList1 = new ArrayList<ItemOnePicVo>();
+		//System.out.println("size:" + onePicList.size());
+		if(onePicList != null){
+			for (int i = 0; i<onePicList.size(); i++) {
+				if(i==0){
+					if(onePicList.get(i).getNo() == onePicList.get(i).getNo()){
+						//System.out.println("i와 사이즈가 같음" + onePicList.get(i).getNo());
+						onePicList1.add(onePicList.get(i));
+					}
+				}else {
+					if(onePicList.get(i).getNo().equals(onePicList.get(i-1).getNo())){
+					//System.out.println("숫자가 겹침" + onePicList.get(i).getNo());
+					}else{
+						//System.out.println("숫자가 안겹침" + onePicList.get(i).getNo());
+						onePicList1.add(onePicList.get(i));
+					}
+				}
+				
+			}
+			
+		}
+		return onePicList1;
 	}
 	
 	public List<HashTagVo> getTagList(){

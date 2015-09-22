@@ -7,6 +7,8 @@
 </head>
 <body>
 	<form id="frm" name="frm" enctype="multipart/form-data">
+		<input type="hidden" name="userNo" value="${authUser.no }">
+		<input type="hidden" name="userName" value="${authUser.name }">
 		<table class="board_view">
 			<colgroup>
 				<col width="15%">
@@ -16,8 +18,7 @@
 			<tbody>
 				<tr>
 					<th scope="row">제목</th>
-					<input type="hidden" name="userNo" value="${authUser.no }">
-					<input type="hidden" name="userName" value="${authUser.name }">
+					
 					<td><input type="text" id="title" name="title" class="wdp_90"></input></td>
 				</tr>
 				<tr>

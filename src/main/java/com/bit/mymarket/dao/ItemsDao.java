@@ -94,5 +94,10 @@ public class ItemsDao {
 		HashTagVo vo = (HashTagVo)sqlMapClientTemplate.queryForObject("items.getTagListByItemNo", tagVo);
 		return vo;
 	}
+
+	public List<Map<String, Object>> selectFileList(Long no) {
+		
+		return (List<Map<String, Object>>)sqlMapClientTemplate.queryForList("items.selectFileList", no);
+	}
 	
 }

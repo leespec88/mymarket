@@ -44,4 +44,9 @@ public class UserDao {
 	public void updatePassword(String password){
 		sqlMapClientTemplate.update("user.password", password);
 	}
+	/*상품정보의 UserNo로 등록된 회원의 정보를 가져오는 메소드 이준기 0922*/
+	public UserVo getUserInfobyNo(Long no) {
+		System.out.println("유저 서비스의 파라미터 NO = " + no);
+		return (UserVo) sqlMapClientTemplate.queryForObject("user.getUserInfobyNo", no);
+	}
 }

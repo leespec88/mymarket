@@ -41,6 +41,11 @@
     z-index: -1;
     margin-top: 1px;
 }
+.itemTitle a{
+font-size: 16px;
+color: #666;
+font-weight: bold;
+}
 .mainImgCard .itemTitle { /* 아이템 타이틀 */
     width: 210px;
     height: 38px;
@@ -161,16 +166,15 @@ float:right;
 </head>
 
 
-	<c:set var="status" value="${fn:length(list)}">
+	<c:set var="status" value="${fn:length(onePicList)}">
 	</c:set>
-	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
+	<c:forEach var="vo" items="${onePicList }" varStatus="status" begin="0">
 	
-	<input type="hidden" id="vo" value="${fn:length(list)}">
+	<input type="hidden" id="vo" value="${fn:length(onePicList)}">
 	<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
 	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
 	<input type="hidden" id="address${status.index+1 }" value="${vo.address}">
-		
-	
+
 	</c:forEach>
 <section>
 
@@ -196,7 +200,7 @@ float:right;
 	
 <script type="text/javascript" src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
-
+<!-- <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b"></script> -->
 	
 	<script>
 	
@@ -388,7 +392,7 @@ function getListItem(index, places) {
 
     return el;
 }
-var title;
+
 /* 장소검색 close*/
  
 //list 뽑아주기
@@ -402,7 +406,7 @@ var markers = [];
 		var no = document.getElementById("no"+i).value;
 		console.log(no);
 		var location = document.getElementById("location"+i).value;
-		title = document.getElementById("title"+i).value;
+		var title = document.getElementById("title"+i).value;
 		// 마커 하나를 지도위에 표시합니다 
 		console.log(location);
 		latlng = location.split(','); // 37.49228309542601, 127.02738748779916를 짤라줌 
@@ -463,8 +467,6 @@ var markers = [];
 		// 마커를 생성하고 지도위에 표시하는 함수입니다
 //list 뽑아주기 close
 
-
-
 </script>
 <script>
 function setPosition(location){
@@ -519,14 +521,16 @@ function goInfo(){
  <!-- 이미지한장에 없으면 null 리스트 -->
 		<c:choose>
 				<c:when test="${vo.itemNo eq vo.no}">
-					<c:choose>
-						<c:when test="${not empty vo.url }">
-							<img data-toggle="modal" data-target="#myModal" class="thumbnailImg" src="${vo.url }">
-						</c:when>
-					</c:choose>
+						<c:choose>
+							<c:when test="${not empty vo.url }">
+								<img class="thumbnailImg" src="${vo.url }">
+							</c:when>
+						</c:choose>
+						
 				</c:when>
+				
 			 	<c:otherwise>
-			 		<img data-toggle="modal" data-target="#myModal" class="thumbnailImg">
+						<img class="thumbnailImg">
 				</c:otherwise>
 				 
 		</c:choose>
@@ -561,26 +565,6 @@ function goInfo(){
 </aside>
 
 <body>
-<!-- Modal -->
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="myModalLabel"></h4>
-				</div>
-				<div class="modal-body">
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 <c:import url="/WEB-INF/views/include/head.jsp"></c:import>
 

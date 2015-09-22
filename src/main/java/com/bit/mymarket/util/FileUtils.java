@@ -20,7 +20,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
  */
 @Component("fileUtils")
 public class FileUtils {
-   private static final String filePath = "C://MM//workspace//mymarket//webapp//images//"; // 파일이 저장될 위치
+//   private static final String filePath = "C://MM//workspace//mymarket//webapp//images//"; // 파일이 저장될 위치
+   			private static final String filePath = "//192.168.1.6//temp//"; // 파일이 저장될 위치
     
    public List<Map<String,Object>> parseInsertFileInfo(Map<String,Object> map, HttpServletRequest request) throws Exception{
        MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
