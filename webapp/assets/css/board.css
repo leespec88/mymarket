@@ -120,5 +120,27 @@ nav ul li:first-child {
 
 #boardlist {
 	margin-top: 50px;
-	
+}
+#boardVo {
+	margin-left: 30%;
+	margin-top: 5%;
+}
+
+#boardVo div {
+	width: 650px;
+}
+
+#boardVo img {
+	max-width: 100%;
+}
+
+#mini_img {
+	max-width: 50%;
+}
+
+.answerArea textarea {
+	width: 500px;
+}
+.boardContent {
+	height: 10px;
 }

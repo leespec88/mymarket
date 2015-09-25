@@ -9,18 +9,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.mymarket.dao.ItemsDao;
+import com.bit.mymarket.dao.ReplyDao;
 import com.bit.mymarket.dao.UserDao;
 import com.bit.mymarket.util.FileUtils;
 import com.bit.mymarket.vo.HashTagVo;
-import com.bit.mymarket.vo.ItemOnePicVo;
+import com.bit.mymarket.vo.ItemListVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
+import com.bit.mymarket.vo.ReplyVo;
 import com.bit.mymarket.vo.UserVo;
 
 
@@ -32,6 +35,9 @@ public class ItemsService {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private ReplyDao replyDao;
 	
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
@@ -46,8 +52,12 @@ public class ItemsService {
 		return itemsVo;
 	}
 	
-	public List<ItemsVo> getList() {
-		List<ItemsVo> list = itemsDao.getList();
+	public List<ItemListVo> getList() {
+		List<ItemListVo> list = itemsDao.getList(); //전체 리스트를 가져오되 필요한 부분만 가져오는부분
+		
+		for(ItemListVo vo : list){
+			vo.setUrl(itemsDao.getUrl(vo.getNo())); // 이미지 추가하는 부분
+		}
 		return list;
 	}
 	
@@ -56,30 +66,24 @@ public class ItemsService {
 		return picList;
 	}
 	//사진 한장에 없으면 null 가져오기
-	public List<ItemOnePicVo> getOnePicList() {
-		List<ItemOnePicVo> onePicList = itemsDao.getOnePicList();
-		List<ItemOnePicVo> onePicList1 = new ArrayList<ItemOnePicVo>();
-		//System.out.println("size:" + onePicList.size());
-		if(onePicList != null){
-			for (int i = 0; i<onePicList.size(); i++) {
-				if(i==0){
-					if(onePicList.get(i).getNo() == onePicList.get(i).getNo()){
-						//System.out.println("i와 사이즈가 같음" + onePicList.get(i).getNo());
-						onePicList1.add(onePicList.get(i));
-					}
-				}else {
-					if(onePicList.get(i).getNo().equals(onePicList.get(i-1).getNo())){
-					//System.out.println("숫자가 겹침" + onePicList.get(i).getNo());
-					}else{
-						//System.out.println("숫자가 안겹침" + onePicList.get(i).getNo());
-						onePicList1.add(onePicList.get(i));
-					}
-				}
-				
-			}
+	public List<ItemListVo> getItemList() {
+		List<ItemListVo> onePicList = itemsDao.getItemList();
+		
+		return onePicList;
+	}
+	
+	//ajax 로 맵이동시 바로바로 해당 위치에서의 간격에 따른 상품 목록리스트 뽑아오는부분 + 가져온 부분에 이미지 url 추가하는 곳
+	public List<ItemListVo> getItemList(String mapBounds) {
+		mapBounds = mapBounds.replace("(", "");
+		mapBounds = mapBounds.replace(")", "");
+		mapBounds = mapBounds.replace(" ", "");
+		String location[] = mapBounds.split(",");
+		List<ItemListVo> list = itemsDao.getItemList(location[0], location[1], location[2], location[3]);
 			
+		for(ItemListVo vo : list){
+			vo.setUrl(itemsDao.getUrl(vo.getNo())); //가져온 리스트들에다가 image url 추가하는부분
 		}
-		return onePicList1;
+		return list;
 	}
 	
 	public List<HashTagVo> getTagList(){
@@ -87,19 +91,22 @@ public class ItemsService {
 		return list;
 	}
 	
-	public List<ItemsVo> getKwdList(String kwd){
-		List<ItemsVo> list = itemsDao.getKwdList(kwd);
+	public List<ItemListVo> getKwdList(String kwd){
+		List<ItemListVo> list = itemsDao.getKwdList(kwd);
+		for(ItemListVo vo : list){
+			vo.setUrl(itemsDao.getUrl(vo.getNo())); //가져온 리스트들에다가 image url 추가하는부분
+		}
 		return list;
 	}
 	
-	public List<ItemsVo> getHashList(String kwd){
-		List<ItemsVo> list=new ArrayList<ItemsVo>();
+	public List<ItemListVo> getHashList(String kwd){
+		List<ItemListVo> list=new ArrayList<ItemListVo>();
 		kwd = sepcialCharacter_replace(kwd);
 		List<HashTagVo> noList = itemsDao.getNoList(kwd);
-
+		
 		for(HashTagVo vo: noList){
-			ItemsVo itemsVo = itemsDao.getItemByNo(vo.getItemNo());
-			System.out.println("넘버로 뽑은"+itemsVo);
+			ItemListVo itemsVo = itemsDao.getItemListByNo(vo.getItemNo());
+			itemsVo.setUrl(itemsDao.getUrl(itemsVo.getNo())); // 이미지 추가하는 부분
 			list.add(itemsVo);
 		}
 		return list;
@@ -118,7 +125,8 @@ public class ItemsService {
 			itemsDao.insertPic(list.get(i));
 		}*/
 	
-	//tag 추출 메서드 1
+	
+	// 태그부분 추출해서 #를 뺀 나머지 정보를 hash_tag DB에 insert 시키는 부분
 	public void hashTagList(Long no, String title, String content){
 		HashTagVo tagVo = new HashTagVo();
 		
@@ -159,7 +167,7 @@ public class ItemsService {
 	    }
 	}
 	
-	//tag 추출 메서드 2
+	//#와 각종 밑에 기호들을 뺀 나머지 스트링을 추출하는 부분!!
 	public static String sepcialCharacter_replace(String str) {
 		str = StringUtils.replaceChars(str, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~`） ", "");
 		if (str.length() < 1) {
@@ -174,26 +182,58 @@ public class ItemsService {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, Object>> list = (List<Map<String, Object>>) itemsDao.selectFileList(no);
 		ItemsVo itemVo = itemsDao.getItemByNo(no);
-		UserVo userVo = userDao.getUserInfobyNo(itemVo.getUserNo());
 		
+		UserVo userVo = userDao.getUserInfobyNo(itemVo.getUserNo());
+//		System.err.println("getItemInfoByNo= " +userVo.getNo());
+		Long regItemCnt=itemsDao.getRegItem(userVo.getNo()); 	/*아이템 레그수-by 이준기 0923*/
+		List<ReplyVo> replyList = replyDao.getReplyList(no);
+		int replyCnt = replyDao.replyCnt(no);
+		
+		resultMap.put("regItemCnt", regItemCnt);
+		resultMap.put("replyCnt", replyCnt);
 		resultMap.put("userVo", userVo);
-		resultMap.put("itemVo", itemsDao.getItemByNo(no));
+		resultMap.put("itemVo", itemVo);
 		resultMap.put("fileList", list);
-//		itemsDao.getItemByNo(no);
+		resultMap.put("replyList", replyList);
+		
 		return resultMap;
 		
 	}
-	
-/*	public void insertBoard(Map<String, Object> map, HttpServletRequest request)
-			throws Exception {
-		boardDao.insertBoard(map);
 
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
-				request);
+	public void addreply(ReplyVo vo) {
+		replyDao.addReply(vo);
+	}
+	
+	public void delreply(Long no) {
+		replyDao.delreply(no);
+	}
+
+	public ReplyVo getReply(Long replyNo) {
+		return replyDao.getReply(replyNo);
+	}
+
+	public void addReReply(ReplyVo rereplyVo) {
+		replyDao.addReReply(rereplyVo);		
+	}
+
+	public void addReplyCnt(Long boardNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void insertItem(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		itemsDao.insertItem(map);
+
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);
 		for (int i = 0, size = list.size(); i < size; i++) {
-			boardDao.insertFile(list.get(i));
+			itemsDao.insertFile(list.get(i));
 		}
-	}*/
+	}
+	/*판매자의 아이템의 삭제   -by 이준기 0925*/
+	public void deleteItem(Long itemno) {
+		itemsDao.deleteItem(itemno);
+		
+	}
 	
 	
 }

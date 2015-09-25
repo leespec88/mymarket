@@ -41,7 +41,4 @@ public class UserService {
 	public void pwModify(String password){
 		userDao.updatePassword(password);
 	}
-	
-	
-
 }

@@ -34,3 +34,5 @@ DROP TABLE ITEM_PIC;
 create sequence seq_ITEM_PIC start with 1 increment by 1;
 insert into ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
 VALUES(seq_ITEM_PIC.nextval, 1, 'imageasdfsadfsdf');
+
+alter table items add (SELL_STATE varchar2(20) default '판매중');

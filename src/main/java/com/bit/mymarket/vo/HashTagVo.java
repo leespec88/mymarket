@@ -5,6 +5,7 @@ public class HashTagVo {
 	private Long no;
 	private String tagName;
 	private Long itemNo;
+	
 	public Long getNo() {
 		return no;
 	}

@@ -84,7 +84,7 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left navbar-right" role="search" action="/" method="post">
+      <form class="navbar-form navbar-left navbar-right" role="search" action="/searchMain" method="post">
         <div class="form-group">
           <input type="text" class="form-control" name="kwd" placeholder="상품검색창입니다.">
         </div>

@@ -54,13 +54,11 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVo> list(int _skip, int _max) {
 		List<BoardVo> list = boardDao.getList(_skip, _max);
 		return list;
-
 	}
 
 	public List<BoardVo> list(int _skip, int _max, String kwd) {
 		List<BoardVo> list = boardDao.getList(_skip, _max, kwd);
 		return list;
-
 	}
 
 	public BoardVo get(long no) {
@@ -74,12 +72,10 @@ public class BoardServiceImpl implements BoardService {
 	public void update(BoardVo vo) {
 		boardDao.update(vo);
 	}
-
 	public void delreply(Long no) {
 		boardDao.delreply(no);
 
 	}
-	
 	public int replyCnt(Long no){
 		return boardDao.replyCnt(no);
 	}
@@ -129,23 +125,6 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	/*
-	 * @Override public void insertBoard(Map<String, Object> map,
-	 * HttpServletRequest request) throws Exception { boardDao.insertBoard(map);
-	 * 
-	 * MultipartHttpServletRequest multipartHttpServletRequest =
-	 * (MultipartHttpServletRequest) request; Iterator<String> iterator =
-	 * multipartHttpServletRequest.getFileNames(); MultipartFile multipartFile =
-	 * null; while (iterator.hasNext()) { multipartFile =
-	 * multipartHttpServletRequest .getFile(iterator.next()); if
-	 * (multipartFile.isEmpty() == false) {
-	 * LOG.debug("------------- file start -------------"); LOG.debug("name : "
-	 * + multipartFile.getName()); LOG.debug("filename : " +
-	 * multipartFile.getOriginalFilename()); LOG.debug("size : " +
-	 * multipartFile.getSize());
-	 * LOG.debug("-------------- file end --------------\n"); } } }
-	 */
 	@Override
 	public void insertBoard(Map<String, Object> map, HttpServletRequest request)
 			throws Exception {
@@ -158,18 +137,6 @@ public class BoardServiceImpl implements BoardService {
 		}
 	}
 
-	/*
-	 * public Map<String, Object> selectBoardDetail(Map<String, Object> map)
-	 * throws Exception { boardDao.updateHitCnt(map); Map<String, Object>
-	 * resultMap = new HashMap<String, Object>(); Map<String, Object> tempMap =
-	 * boardDao.selectBoardDetail(map); resultMap.put("boardvo", tempMap);
-	 * 
-	 * List<Map<String, Object>> list = boardDao.selectFileList(map);
-	 * resultMap.put("filelist", list);
-	 * 
-	 * return resultMap; }
-	 */
-
 	public Map<String, Object> fileList(Long no) throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, Object>> list = (List<Map<String, Object>>) boardDao
@@ -180,19 +147,16 @@ public class BoardServiceImpl implements BoardService {
 
 	public void update(Map<String, Object> map) {
 		boardDao.update(map);
-		// System.out.println("boardNo = " + map.get("no"));
 	}
 
 	public void updateBoard(Map<String, Object> map, HttpServletRequest request)
 			throws Exception {
 		boardDao.update(map);
-//		boardDao.deleteFileList(map);
 		
 		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
 				request);
 		Map<String,Object> tempMap = null;
 		for (int i = 0, size = list.size(); i < size; i++) {
-//			boardDao.appendFile(list.get(i));
 			tempMap = list.get(i);
 		        if("Y".equals(tempMap.get("IS_NEW"))){
 		        	
@@ -201,7 +165,6 @@ public class BoardServiceImpl implements BoardService {
 		        	boardDao.appendFile(tempMap);
 		        }
 		    }
-		
 	}
 
 	public void deleteFile(Integer integer) {

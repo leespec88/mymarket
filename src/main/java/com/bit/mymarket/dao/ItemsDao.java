@@ -11,9 +11,10 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bit.mymarket.vo.HashTagVo;
-import com.bit.mymarket.vo.ItemOnePicVo;
+import com.bit.mymarket.vo.ItemListVo;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
+import com.bit.mymarket.vo.ReplyVo;
 
 @Repository
 public class ItemsDao {
@@ -38,9 +39,10 @@ public class ItemsDao {
 		sqlMapClientTemplate.insert("items.insertByHash", map);
 	}
 	
-	public List<ItemsVo> getList() {
+	public List<ItemListVo> getList() {
 		//System.out.println(list);
-		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.list");
+		List<ItemListVo> list = sqlMapClientTemplate.queryForList("items.list");
+		
 		return list;
 	}
 	
@@ -59,10 +61,36 @@ public class ItemsDao {
 	}
 	
 	//사진 한장에 없으면 null 가져오기
-	public List<ItemOnePicVo> getOnePicList() {
-		System.out.println("getOnePicList");
-		List<ItemOnePicVo> onePicList = sqlMapClientTemplate.queryForList("items.onePicList");
-		return onePicList;
+	public List<ItemListVo> getItemList() {
+		List<ItemListVo> itemList = sqlMapClientTemplate.queryForList("items.list");
+		return itemList;
+	}
+	
+	public List<ItemListVo> getItemList(String minlat, String minlng, String maxlat, String maxlng) {
+		System.out.println("getOnePicListmapBounds");
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("minlat",minlat);
+		map.put("minlng",minlng);
+		map.put("maxlat",maxlat);
+		map.put("maxlng", maxlng);
+		
+		//System.out.println(mapBounds);
+		List<ItemListVo> itemList = sqlMapClientTemplate.queryForList("items.getItemList", map);
+		return itemList;
+}
+	public String getUrl(Long itemNo){
+		List<ItemPicVo> list= sqlMapClientTemplate.queryForList("items.getUrlByItemNo", itemNo);
+		String url = null;
+		if(list.size()!=0){
+			url=list.get(0).getUrl();
+		}
+		return url;
+				
+	}
+	
+	public List<HashTagVo> getTagName(Long itemNo){
+		List<HashTagVo> list = sqlMapClientTemplate.queryForList("items.getTagName",itemNo);
+		return list;
 	}
 	
 	public List<HashTagVo> getTagList(){
@@ -70,8 +98,8 @@ public class ItemsDao {
 		return list;
 	}
 	
-	public List<ItemsVo> getKwdList(String kwd){
-		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.kwdList",kwd);
+	public List<ItemListVo> getKwdList(String kwd){
+		List<ItemListVo> list = sqlMapClientTemplate.queryForList("items.kwdList",kwd);
 		return list;
 	}
 	
@@ -82,6 +110,11 @@ public class ItemsDao {
 	
 	public ItemsVo getItemByNo(Long no){
 		ItemsVo itemsVo = (ItemsVo)sqlMapClientTemplate.queryForObject("items.getItemByNo", no);
+		return itemsVo;
+	}
+	
+	public ItemListVo getItemListByNo(Long no){
+		ItemListVo itemsVo = (ItemListVo)sqlMapClientTemplate.queryForObject("items.getItemListByNo", no);
 		return itemsVo;
 	}
 	
@@ -98,6 +131,28 @@ public class ItemsDao {
 	public List<Map<String, Object>> selectFileList(Long no) {
 		
 		return (List<Map<String, Object>>)sqlMapClientTemplate.queryForList("items.selectFileList", no);
+	}
+
+	public void addReply(ReplyVo vo) {
+		sqlMapClientTemplate.insert("itemreply.insert", vo);
+	}
+
+	public Long getRegItem(Long no) {
+		return (Long) sqlMapClientTemplate.queryForObject("items.regItem", no);
+		
+	}
+
+	public void insertItem(Map<String, Object> map) {
+		System.err.println("insertItem!!!!1 = " + map.get("userNo"));
+		sqlMapClientTemplate.insert("items.insertItem", map);
+	}
+
+	public void insertFile(Map<String, Object> map) {
+		sqlMapClientTemplate.insert("items.insertFile", map);
+	}
+	/*판매자의 아이템의 삭제   -by 이준기 0925*/
+	public void deleteItem(Long itemno) {
+		sqlMapClientTemplate.delete("items.deleteItem", itemno);
 	}
 	
 }

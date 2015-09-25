@@ -4,6 +4,7 @@ public class ItemPicVo {
 	private Long no;
 	private Long itemNo;
 	private String url;
+	
 	public Long getNo() {
 		return no;
 	}

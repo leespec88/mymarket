@@ -15,8 +15,15 @@ public class ItemsVo {
 	private Long viewCount;
 	private String regDate; //등록시간 추가
 	private String address;
+	private String sellState; /*09/24 추가함*/
 	
 	
+	public String getSellState() {
+		return sellState;
+	}
+	public void setSellState(String sellState) {
+		this.sellState = sellState;
+	}
 	public String getUserName() {
 		return userName;
 	}
@@ -110,6 +117,7 @@ public class ItemsVo {
 				+ ", userNo=" + userNo + ", userName=" + userName
 				+ ", location=" + location + ", email=" + email
 				+ ", shippingFee=" + shippingFee + ", viewCount=" + viewCount
-				+ ", regDate=" + regDate + ", address=" + address + "]";
+				+ ", regDate=" + regDate + ", address=" + address
+				+ ", sellState=" + sellState + "]";
 	}
 }

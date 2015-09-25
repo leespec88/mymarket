@@ -1,0 +1,328 @@
+@CHARSET "EUC-KR";
+.largeImg{
+	margin-right: 5px;
+}
+.itemDelete {
+    background: url("/assets/css/images/btn_side_item_delete_normal.png");
+    width: 152px;
+    height: 41px;
+    cursor: pointer;
+    float: left;
+    display: block;
+    margin: 10px 0 0 10px;
+}
+.itemModifybtn {
+    background: url("/assets/css/images/btn_side_item_modify_normal.png");
+    width: 152px;
+    height: 41px;
+    cursor: pointer;
+    float: left;
+    display: block;
+    margin: 10px 0 0 20px;
+}
+.itemStatArea div {
+    float: left;
+}
+.detailBenner {
+    width: 353px;
+    min-height: 452px;
+    float: left;
+}
+.sorttimeBtn {
+    background: url("/assets/css/images/btn_side_item_exposure_rollover.png") no-repeat;
+    width: 152px;
+    height: 41px;
+    cursor: pointer;
+    float: left;
+    display: block;
+    margin: 20px 10px 20px 0;
+}
+.cloneBtn {
+    background: url("/assets/css/images/btn_side_item_reentrance_normal.png") no-repeat;
+    width: 152px;
+    height: 41px;
+    cursor: pointer;
+    float: left;
+    display: block;
+    margin: 20px 10px 20px 20px;
+}
+.detailbtnArea {
+    width: 354px;
+    margin: 0 auto;
+}
+.itemStatArea .sellStateBtn {
+    background: url("/assets/css/images/btn_side_status_apply_normal.png");
+    width: 58px;
+    height: 27px;
+    margin-right: 41px;
+    float: right;
+    margin-top: -3px;
+    cursor: pointer;
+}
+input[type=radio].radio1+label.label2 {
+    padding-left: 3px;
+    line-height: 17px;
+    margin-right: 23px;
+    height: 14px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-size: 14px;
+    font-size: 12px;
+    font-weight: normal;
+    background-position: left top;
+    vertical-align: middle;
+    cursor: pointer;
+}
+.itemStatArea {
+    float: left;
+    margin-left: 20px;
+    width: 354px;
+}
+.itemManagerTit {
+    margin: 31px 0 30px 20px;
+    display: block;
+}
+.itemStatTit {
+    margin: 0 0 15px 20px;
+    display: block;
+}
+.answerArea {
+    margin-top: -2px;
+}
+.listComment .commentTextDesc {
+    font-size: 12px;
+    color: #666;
+    line-height: 28px;
+    word-break: break-all;
+    margin-right: 15px;
+}
+
+.answerArea textarea {
+    width: 397px;
+}
+.answerArea textarea {
+    margin-bottom: 16px;
+    margin-left: 25px;
+    font-size: 12px;
+}
+.replyregdate {
+	font-size: 9px;	
+	margin: 0 5px 0px 5px;
+}
+.tb-reply {
+	margin: 0 41px 0 41px;
+}
+.detailBenner1 {
+    margin: 31px 0 16px 20px;
+}
+.detailBenner4 {
+    margin: 31px 0 16px 20px;
+}
+.detailBenner3 {
+    margin: 0 10px 16px 20px;
+}
+
+.itemInfo {
+    width: 478px;
+    min-height: 240px;
+    float: left;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 60px;
+}
+
+.itemInfo .itemPrice {
+    height: 35px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #00aeff;
+    margin-left: 21px;
+    margin-top: 5px;
+}
+
+.itemInfo .itemAddrTxt {
+    font-size: 12px;
+    color: #666;
+    line-height: 25px;
+    margin-left: 5px;
+}
+.itemInfo .itemAddrArea {
+    margin: 17px 21px 0 18px;
+    display: block;
+}
+.itemUserInfo .profileImg {
+    float: left;
+    margin: 25px 14px 31px 21px;
+}
+
+.itemUserInfo {
+    height: 144px;
+    width: 478px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    float: left;
+    z-index: 500;
+}
+
+.itemUserInfo .nick {
+    margin: 37px 0 0 0;
+    height: 23px;
+    font-size: 12px;
+    color: #666;
+}
+.commentUser .commentBtn {
+    margin-top: 20px;
+}
+.commentBtn {
+    float: right;
+    cursor: pointer;
+}
+textArea {
+    resize: none;
+}
+.commentUser {
+    margin: 0 41px 15px 41px;
+    display: inline-block;
+}
+.listCommentLine {
+    padding: 10px;
+}
+.commentTitle {
+    margin: 0 41px;
+    padding: 20px 0;
+}
+.commnetTextArea {
+    width: 541px;
+}
+.commnetTextArea {
+    height: 64px;
+    overflow-y: hidden;
+    font-size: 12px;
+    float: left;
+}
+.detailBenner2 {
+	margin: 0 20px 16px 20px;
+}
+
+.detailBenner {
+	width: 353px;
+	min-height: 452px;
+	float: left;
+}
+
+.descriptionText {
+	font-size: 12px;
+	color: #666;
+	padding: 23px 0 20px 10px;
+	line-height: 18px;
+}
+
+.description {
+	border-bottom: 1px solid #999;
+	margin: 41px 41px 0 41px;
+}
+
+.detailBoxBottom {
+	width: 978px;
+	margin-top: 20px;
+	border: 1px solid #ddd;
+	min-height: 300px;
+	overflow: hidden;
+	margin-left: 10px;
+	margin-bottom: 30px;
+}
+
+.descriptionText {
+	font-size: 12px;
+	color: #666;
+	padding: 23px 0 20px 10px;
+	line-height: 18px;
+}
+
+.detailComment {
+	width: 623px;
+	background-color: #fff;
+	float: left;
+	border-right: 1px solid #ddd;
+	min-height: 615px;
+}
+
+.detailBoxBottom {
+	width: 978px;
+	margin-top: 20px;
+	border: 1px solid #ddd;
+	min-height: 300px;
+	overflow: hidden;
+	margin-left: 10px;
+	margin-bottom: 30px;
+}
+
+.smallImg {
+	float: left;
+	width: 48px;
+	height: 408px;
+	margin-left: 10px;
+}
+
+.mainArea {
+	clear: both;
+	height: 100%;
+	margin: 0 auto;
+	display: table;
+}
+
+.detailBoxTop {
+	height: 408px;
+	width: 990px;
+	z-index: 500;
+}
+
+.largeImg .view {
+	width: 408px;
+	height: 408px;
+	float: left;
+}
+
+.itemImg {
+	
+}
+
+.mainAreaCenter {
+	margin-left: 20%;
+	margin-top: 5%;
+}
+
+.phone {
+	width: 23px;
+	height: 23px;
+}
+
+.itemInfo .itemPrice {
+	height: 35px;
+	font-size: 26px;
+	font-weight: bold;
+	color: #00aeff;
+	margin-left: 21px;
+	margin-top: 5px;
+}
+
+.itemInfo .itemTitleArea {
+	margin: 21px 21px 0 21px;
+	display: block;
+}
+
+.itemInfo {
+	width: 478px;
+	min-height: 240px;
+	float: left;
+	border: 1px solid #ddd;
+	background-color: #fff;
+	margin-bottom: 20px;
+}
+
+.photoArea {
+	width: 466px;
+	float: left;
+	margin-right: 34px;
+}
+

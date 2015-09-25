@@ -19,7 +19,8 @@
 		<result column="shipping_fee" property="shippingFee" />
 		<result column="view_count" property="viewCount" />
 		<result column="reg_date" property="regDate" />
-		<result column="address" property="address" />	
+		<result column="address" property="address" />
+		<result column="sell_state" property="sellState" />
 	</resultMap>
 
 <typeAlias alias="ItemPicVo" type="com.bit.mymarket.vo.ItemPicVo" />
@@ -29,40 +30,28 @@
 		<result column="image" property="url" />	
 	</resultMap>
 
-<typeAlias alias="ItemOnePicVo" type="com.bit.mymarket.vo.ItemOnePicVo" />
-	<resultMap class="ItemOnePicVo" id="resultMapOnePicList">
+<!-- itemListVo --> 
+<typeAlias alias="ItemListVo" type="com.bit.mymarket.vo.ItemListVo" />
+	<resultMap class="ItemListVo" id="resultMapItemList">
 		<result column="no" property="no" />
-		<result column="title" property="title" />
-		<result column="content" property="content" />
-		<result column="trade_category" property="tradeCategory" />
-		<result column="item_condition" property="itemCondition" />
+		<result column="title" property="itemNo" />
 		<result column="price" property="price" />
-		<result column="user_no" property="userNo" />
-		<result column="user_name" property="userName" />
 		<result column="location" property="location" />
-		<result column="email" property="email" />
-		<result column="shipping_fee" property="shippingFee" />
-		<result column="view_count" property="viewCount" />
 		<result column="reg_date" property="regDate" />
-		<result column="address" property="address" />	
-		<result column="item_no" property="itemNo" />
-		<result column="image" property="url" />	
 	</resultMap>
 
-
-
 <typeAlias alias="HashTagVo" type="com.bit.mymarket.vo.HashTagVo" />
-<resultMap class="HashTagVo" id="resultMapTagList">
+	<resultMap class="HashTagVo" id="resultMapTagList">
 		<result column="no" property="no" />
+		<result column="tag_name" property="tagName" />
 		<result column="item_no" property="itemNo" />
-		<result column="tag_name" property="tagName" />	
-</resultMap>
+	</resultMap>
 
 <!-- Items insert -->
 <insert id="insert" parameterClass="ItemsVo">
 <!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
 <![CDATA[
-	insert into items values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName# )  
+	insert into items values(seq_items.nextval,#title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#,'판매중' )  
 ]]>
 </insert>
 
@@ -80,9 +69,9 @@
 </insert>
 
 <!-- items list 출력 -->
-<select id="list" resultMap="resultMapList">
+<select id="list" resultClass="ItemListVo">
 	<![CDATA[
-select * from items
+		select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate from items
 	]]>
 </select>
 
@@ -94,21 +83,34 @@ select * from items
 </select>
 
 <!-- items image 한장씩 출력후 나머지 null 주기 -->
-<select id="onePicList" resultMap="resultMapOnePicList">
-<![CDATA[
-select no, title, content, trade_category, item_condition, price, user_no, location, email, shipping_fee, view_count, to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as reg_date , address, user_name, Item_no, image from items
-  left outer join item_pic on no=item_no 
-  order by no desc
+<select id="getUrlByItemNo" parameterClass="java.lang.Long" resultMap="resultMapPicList">
+	<![CDATA[
+		select * from item_pic where item_no=#itemNo#
+	]]>
+</select>
 
+
+<!-- items image 한장씩 출력후 나머지 null 주기 -->
+<select id="getItemList" parameterClass="java.util.Map" resultClass="ItemListVo">
+<![CDATA[
+select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
+  from items
+  where #maxlat# >= substr(location,0, instr(location, ',')-1) 
+  and substr(location,0, instr(location, ',')-1) >= #minlat#
+  and #maxlng# >= substr(location, instr(location, ',')+1, length(location)-instr(location, ','))
+  and substr(location, instr(location, ',')+1, length(location)-instr(location, ',')) >= #minlng#
+  order by no desc
+  
 ]]>
 </select>
 
 
-
 <!-- 아이템 kwd 리스트 (해시아님) -->
-<select id="kwdList" parameterClass="java.lang.String" resultMap="resultMapList">
+<select id="kwdList" parameterClass="java.lang.String" resultClass="ItemListVo">
 <![CDATA[
-	select * from items where title like '%'||#kwd#||'%' or content like '%'||#kwd#||'%' 
+	select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
+  		from items where title like '%'||#kwd#||'%' or content like '%'||#kwd#||'%'
+ 		order by no desc
 ]]>
 </select>
 
@@ -175,6 +177,13 @@ select no, title, content, trade_category, item_condition, price, user_no, locat
 	]]>
 </select>
 
+<select id="getItemListByNo" parameterClass="java.lang.Long" resultClass="ItemListVo">
+	<![CDATA[
+		select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
+  			from items where no=#no# order by no desc
+	]]>
+</select>
+
 <!-- userNo 로 아이템 찾기 -->
 <select id="getItemsByUserNo" resultMap="resultMapList">
 	<![CDATA[
@@ -223,5 +232,44 @@ select no, title, content, trade_category, item_condition, price, user_no, locat
             ITEM_NO = #no#
     ]]>
 </select>
+
+
+	<!-- 사용자의 아이템개수 -by 이준기 0924 -->
+	<select id="regItem" parameterClass="java.lang.Long"
+		resultClass="java.lang.Long">
+    <![CDATA[
+	    select count(*)
+		from ITEMS i
+		where i.USER_NO = #no#
+	]]>
+	</select>
+
+	<!-- Items insert -->
+	<insert id="insertItem" parameterClass="java.util.HashMap">
+	<![CDATA[
+		insert into ITEMS (NO, TITLE, CONTENT, TRADE_CATEGORY, ITEM_CONDITION, PRICE, USER_NO, LOCATION, EMAIL, SHIPPING_FEE, REG_DATE, ADDRESS, USER_NAME) 
+		VALUES(seq_items.nextval, #title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, #regDate#, #address#, #userName#)  
+	]]>
+	</insert>
+	<!-- 아이템등록 -by 이준기 0924 -->
+	<insert id="insertFile" parameterClass="java.util.HashMap">
+		<selectKey keyProperty="item_no" resultClass="java.lang.Long"> 
+			<![CDATA[ 
+				select max(no) from items
+			]]>
+		</selectKey>
+
+		<![CDATA[
+			insert into ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
+			VALUES(SEQ_ITEM_PIC.nextval, #item_no#, #image#)
+		]]>
+	</insert>
+	<!-- 판매자의 아이템의 삭제 -by 이준기 0925 -->
+	<delete id="deleteItem" parameterClass="java.lang.Long">
+		<![CDATA[
+				delete FROM ITEMS WHERE no = #no# 
+		]]>
+	</delete>
+
 
 </sqlMap>

@@ -17,7 +17,6 @@
 
 
 <%-- <SCRIPT LANGUAGE="JavaScript">
-
    function fileCheck(obj) {
 	   alert("a" + obj);
      document.getElementById('update_image_view').innerHTML = "<img src='" + obj + "'>";
@@ -27,7 +26,6 @@
 <input type="file" name="file1" onchange="fileCheck('${productImageUrl1}');">
 <input type="file" name="file2" onchange="fileCheck('${productImageUrl2}');">
 <input type="file" name="file3" onchange="fileCheck('${productImageUrl3}');">
-
 <table>
  <tr>
   <td align="center" id='update_image_view'>
@@ -50,7 +48,6 @@ var InputImage =
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             //count++;
             if (!ImagePre) {
@@ -70,7 +67,6 @@ var InputImage =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	count++;
         	alert("return" + count);
@@ -88,24 +84,12 @@ var InputImage =
             document.getElementById("imagePreview"+count).src = document.getElementById("image"+count).value;
 })();
  */
-
-
-
-
-
-
-
-
-
-
-
  var InputImage1 = 
 	(function loadImageFile() {
     if (window.FileReader) {
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview1");
@@ -116,7 +100,6 @@ var InputImage =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image1").files;
@@ -128,29 +111,16 @@ var InputImage =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview1").src = document.getElementById("image1").value;
       
 })();
-
-
-
-
-
-
-
-
-
-
-
 var InputImage2 = 
 	(function loadImageFile() {
     if (window.FileReader) {
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview2");
@@ -161,7 +131,6 @@ var InputImage2 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image2").files;
@@ -173,28 +142,16 @@ var InputImage2 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview2").src = document.getElementById("image2").value;
       
 })();
-
-
-
-
-
-
-
-
-
-
 var InputImage3 = 
 	(function loadImageFile() {
     if (window.FileReader) {
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview3");
@@ -205,7 +162,6 @@ var InputImage3 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image3").files;
@@ -217,7 +173,6 @@ var InputImage3 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview3").src = document.getElementById("image3").value;
       
@@ -228,7 +183,6 @@ var InputImage4 =
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview4");
@@ -239,7 +193,6 @@ var InputImage4 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image4").files;
@@ -251,7 +204,6 @@ var InputImage4 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview4").src = document.getElementById("image4").value;
       
@@ -262,7 +214,6 @@ var InputImage5 =
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview5");
@@ -273,7 +224,6 @@ var InputImage5 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image5").files;
@@ -285,7 +235,6 @@ var InputImage5 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview5").src = document.getElementById("image5").value;
       
@@ -296,7 +245,6 @@ var InputImage6 =
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview6");
@@ -307,7 +255,6 @@ var InputImage6 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image6").files;
@@ -319,7 +266,6 @@ var InputImage6 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview6").src = document.getElementById("image6").value;
       
@@ -330,7 +276,6 @@ var InputImage7 =
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview7");
@@ -341,7 +286,6 @@ var InputImage7 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image7").files;
@@ -353,7 +297,6 @@ var InputImage7 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview7").src = document.getElementById("image7").value;
       
@@ -364,7 +307,6 @@ var InputImage8 =
         var ImagePre; 
         var ImgReader = new window.FileReader();
         var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i; 
-
         ImgReader.onload = function (Event) {
             if (!ImagePre) {
                 var newPreview = document.getElementById("imagePreview8");
@@ -375,7 +317,6 @@ var InputImage8 =
             }
             ImagePre.src = Event.target.result;
         };
-
         return function () {
         	
             var img = document.getElementById("image8").files;
@@ -387,17 +328,10 @@ var InputImage8 =
             
             ImgReader.readAsDataURL(img[0]);
         }
-
     }
             document.getElementById("imagePreview8").src = document.getElementById("image8").value;
       
 })();
-
-
-
-
-
-
 function imgdel(){
 	//alert("aa;");
 	for(i=1; i<=count; i++){
@@ -411,7 +345,6 @@ function imgdelselect(i){
 	document.getElementById("imagePreview"+i).innerHTML = '';
 	count--;
 }
-
 </script>
 
 <label>email:</label>
@@ -495,7 +428,6 @@ function imgdelselect(i){
  -->
 
 <!-- <input type="button" value="파일찾기">
-
 <input type="button" value="등록"> --><br/>
 price(가격) <input type="text" name="price">원<br/>
 title(제목) <input type="text" name="title"><br/>

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,6 +25,7 @@ import com.bit.mymarket.service.ItemsService;
 import com.bit.mymarket.service.UserService;
 import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
+import com.bit.mymarket.vo.ReplyVo;
 import com.bit.mymarket.vo.UserVo;
 
 @RequestMapping( "/items" )
@@ -81,7 +83,7 @@ public class ItemsController {
 	}
 
 	
-//파일 업로드
+		//파일 업로드
 		// Logger 객체 얻어온다.
 	private static final Log LOG = LogFactory.getLog( ItemsController.class );
 	
@@ -94,291 +96,15 @@ public class ItemsController {
 	}
 	
 	@RequestMapping( "/upload" )
-	public String upload( @RequestParam String email, 
-			/*@RequestParam( "file1" ) MultipartFile file1, 
-			@RequestParam( "file2" ) MultipartFile file2,
-			@RequestParam( "file3" ) MultipartFile file3,*/
-			@RequestParam( "file1" ) MultipartFile file1,
-			@RequestParam( "file2" ) MultipartFile file2,
-			@RequestParam( "file3" ) MultipartFile file3,
-			@RequestParam( "file4" ) MultipartFile file4,
-			@RequestParam( "file5" ) MultipartFile file5,
-			@RequestParam( "file6" ) MultipartFile file6,
-			@RequestParam( "file7" ) MultipartFile file7,
-			@RequestParam( "file8" ) MultipartFile file8,
-			CommandMap commandMap,
-			HttpServletRequest request,
-			Model model, ItemsVo itemsVo,
-			ItemPicVo itemPicVo ) throws Exception {
-		System.out.println(commandMap.getMap());
-		System.out.println("file1 : " + file1);
-		System.out.println("file2 : " + file2);
-		System.out.println("file3 : " + file3);
-		System.out.println("file4 : " + file4);
-		System.out.println("file5 : " + file5);
-		System.out.println("file6 : " + file6);
-		System.out.println("file7 : " + file7);
-		System.out.println("file8 : " + file8);
-		//itemPicVo.setItemNo(itemNo);
-		System.out.println();
-		
-		System.out.println(model);
-        model.addAttribute("ItemPicVo", itemPicVo);
-        itemsService.insert(itemsVo);        //max(no)를 위해서 인서트 먼저 들어가자!!
-        
-		// 단순 파라미터 값
-		LOG.debug( " ######## email : " + email );
-
-		
-		
-/*		// 파일 처리 연속으로! 줄여보자!! 8개
-		for(int i=1; i<=8; i++){
-			MultipartFile file = (MultipartFile)("file"+i);
-			System.out.println(file);
-				if( file.isEmpty() == false ) {
-					
-			        String fileOriginalName = (file+i).getOriginalFilename();
-			        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-			        String fileName = file.getName();
-			        Long size = file.getSize();
-			        
-			        String saveFileName = genSaveFileName( extName );
-			        String url = "/product-images/" + saveFileName;
+	public String upload(CommandMap commandMap, HttpServletRequest request) throws Exception {
 			
-			        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-			        LOG.debug( " ######## fileName : " + fileName );
-			        LOG.debug( " ######## fileSize : " + size );
-			        LOG.debug( " ######## fileExtensionName : " + extName );
-			        LOG.debug( " ######## saveFileName : " + saveFileName );        
-			        
-			        //itemsVo.setSaveFile1(url); // 파일명 mapVo에 set해줌
-			        writeFile( file, SAVE_PATH, saveFileName );
-			      //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-			        itemPicVo.setUrl(url);
-			        System.out.println("파일처리 : " + itemPicVo);
-			        itemsService.insertPic(itemPicVo);
-			        model.addAttribute( "productImageUrl"+i, url );
-				}
-
-		}*/
+			
+		System.err.println("uploadupload!!!!!");
 		
-		// 첫 번째 파일 처리
-		if( file1.isEmpty() == false ) {
-			
-	        String fileOriginalName = file1.getOriginalFilename();
-	        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-	        String fileName = file1.getName();
-	        Long size = file1.getSize();
-	        
-	        String saveFileName = genSaveFileName( extName );
-	        String url = "/product-images/" + saveFileName;
-	
-	        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-	        LOG.debug( " ######## fileName : " + fileName );
-	        LOG.debug( " ######## fileSize : " + size );
-	        LOG.debug( " ######## fileExtensionName : " + extName );
-	        LOG.debug( " ######## saveFileName : " + saveFileName );        
-	        
-	        //itemsVo.setSaveFile1(url); // 파일명 mapVo에 set해줌
-	        writeFile( file1, SAVE_PATH, saveFileName );
-	      //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-	        itemPicVo.setUrl(url);
-	        System.out.println("파일처리 : " + itemPicVo);
-	        itemsService.insertPic(itemPicVo);
-	        model.addAttribute( "productImageUrl1", url );
-		}
+		itemsService.insertItem(commandMap.getMap(),request);
 		
-		// 두 번째 파일 처리
-			if( file2.isEmpty() == false ) {
-				
-		        String fileOriginalName = file2.getOriginalFilename();
-		        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-		        String fileName = file2.getName();
-		        Long size = file2.getSize();
-		        
-		        String saveFileName = genSaveFileName( extName );
-		        String url = "/product-images/" + saveFileName;
 		
-		        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-		        LOG.debug( " ######## fileName : " + fileName );
-		        LOG.debug( " ######## fileSize : " + size );
-		        LOG.debug( " ######## fileExtensionName : " + extName );
-		        LOG.debug( " ######## saveFileName : " + saveFileName );        
-		
-		       // itemsVo.setSaveFile2(url); // 파일명 mapVo에 set해줌
-		        writeFile( file2, SAVE_PATH, saveFileName );
-		        //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-		        itemPicVo.setUrl(url);
-		        itemsService.insertPic(itemPicVo);
-//		        itemsService.insertPic(itemPicVo.getUrl());
-		        model.addAttribute( "productImageUrl2", url );
-			}
-			
-			// 세 번째 파일 처리
-			if( file3.isEmpty() == false ) {
-				
-		        String fileOriginalName = file3.getOriginalFilename();
-		        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-		        String fileName = file3.getName();
-		        Long size = file3.getSize();
-		        
-		        String saveFileName = genSaveFileName( extName );
-		        String url = "/product-images/" + saveFileName;
-		
-		        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-		        LOG.debug( " ######## fileName : " + fileName );
-		        LOG.debug( " ######## fileSize : " + size );
-		        LOG.debug( " ######## fileExtensionName : " + extName );
-		        LOG.debug( " ######## saveFileName : " + saveFileName );        
-		
-		        //itemsVo.setSaveFile3(url); // 파일명 mapVo에 set해줌
-		        writeFile( file3, SAVE_PATH, saveFileName );
-		        //commandMap.put("file3", url); // commandMap에 file1이라는 이름으로 url을 저장함
-		        itemPicVo.setUrl(url);
-		        itemsService.insertPic(itemPicVo);
-		        model.addAttribute( "productImageUrl3", url );
-			}
-			// 네 번째 파일 처리
-			if( file4.isEmpty() == false ) {
-				
-		        String fileOriginalName = file4.getOriginalFilename();
-		        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-		        String fileName = file4.getName();
-		        Long size = file4.getSize();
-		        
-		        String saveFileName = genSaveFileName( extName );
-		        String url = "/product-images/" + saveFileName;
-		
-		        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-		        LOG.debug( " ######## fileName : " + fileName );
-		        LOG.debug( " ######## fileSize : " + size );
-		        LOG.debug( " ######## fileExtensionName : " + extName );
-		        LOG.debug( " ######## saveFileName : " + saveFileName );        
-		        
-		        //itemsVo.setSaveFile1(url); // 파일명 mapVo에 set해줌
-		        writeFile( file4, SAVE_PATH, saveFileName );
-		      //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-		        itemPicVo.setUrl(url);
-		        System.out.println("파일처리 : " + itemPicVo);
-		        itemsService.insertPic(itemPicVo);
-		        model.addAttribute( "productImageUrl4", url );
-			}
-			
-			// 다섯 번째 파일 처리
-				if( file5.isEmpty() == false ) {
-					
-			        String fileOriginalName = file5.getOriginalFilename();
-			        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-			        String fileName = file5.getName();
-			        Long size = file5.getSize();
-			        
-			        String saveFileName = genSaveFileName( extName );
-			        String url = "/product-images/" + saveFileName;
-			
-			        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-			        LOG.debug( " ######## fileName : " + fileName );
-			        LOG.debug( " ######## fileSize : " + size );
-			        LOG.debug( " ######## fileExtensionName : " + extName );
-			        LOG.debug( " ######## saveFileName : " + saveFileName );        
-			
-			       // itemsVo.setSaveFile2(url); // 파일명 mapVo에 set해줌
-			        writeFile( file5, SAVE_PATH, saveFileName );
-			        //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-			        itemPicVo.setUrl(url);
-			        itemsService.insertPic(itemPicVo);
-//			        itemsService.insertPic(itemPicVo.getUrl());
-			        model.addAttribute( "productImageUrl5", url );
-				}
-				
-				// 여섯 번째 파일 처리
-				if( file6.isEmpty() == false ) {
-					
-			        String fileOriginalName = file6.getOriginalFilename();
-			        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-			        String fileName = file6.getName();
-			        Long size = file6.getSize();
-			        
-			        String saveFileName = genSaveFileName( extName );
-			        String url = "/product-images/" + saveFileName;
-			
-			        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-			        LOG.debug( " ######## fileName : " + fileName );
-			        LOG.debug( " ######## fileSize : " + size );
-			        LOG.debug( " ######## fileExtensionName : " + extName );
-			        LOG.debug( " ######## saveFileName : " + saveFileName );        
-			
-			        //itemsVo.setSaveFile3(url); // 파일명 mapVo에 set해줌
-			        writeFile( file6, SAVE_PATH, saveFileName );
-			        //commandMap.put("file3", url); // commandMap에 file1이라는 이름으로 url을 저장함
-			        itemPicVo.setUrl(url);
-			        itemsService.insertPic(itemPicVo);
-			        model.addAttribute( "productImageUrl6", url );
-				}
-				// 일곱 번째 파일 처리
-				if( file7.isEmpty() == false ) {
-					
-			        String fileOriginalName = file7.getOriginalFilename();
-			        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-			        String fileName = file7.getName();
-			        Long size = file7.getSize();
-			        
-			        String saveFileName = genSaveFileName( extName );
-			        String url = "/product-images/" + saveFileName;
-			
-			        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-			        LOG.debug( " ######## fileName : " + fileName );
-			        LOG.debug( " ######## fileSize : " + size );
-			        LOG.debug( " ######## fileExtensionName : " + extName );
-			        LOG.debug( " ######## saveFileName : " + saveFileName );        
-			        
-			        //itemsVo.setSaveFile1(url); // 파일명 mapVo에 set해줌
-			        writeFile( file7, SAVE_PATH, saveFileName );
-			      //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-			        itemPicVo.setUrl(url);
-			        System.out.println("파일처리 : " + itemPicVo);
-			        itemsService.insertPic(itemPicVo);
-			        model.addAttribute( "productImageUrl7", url );
-				}
-				
-				// 여덟 번째 파일 처리
-					if( file8.isEmpty() == false ) {
-						
-				        String fileOriginalName = file8.getOriginalFilename();
-				        String extName = fileOriginalName.substring( fileOriginalName.lastIndexOf(".") + 1, fileOriginalName.length() );
-				        String fileName = file8.getName();
-				        Long size = file8.getSize();
-				        
-				        String saveFileName = genSaveFileName( extName );
-				        String url = "/product-images/" + saveFileName;
-				
-				        LOG.debug( " ######## fileOriginalName : " + fileOriginalName );
-				        LOG.debug( " ######## fileName : " + fileName );
-				        LOG.debug( " ######## fileSize : " + size );
-				        LOG.debug( " ######## fileExtensionName : " + extName );
-				        LOG.debug( " ######## saveFileName : " + saveFileName );        
-				
-				       // itemsVo.setSaveFile2(url); // 파일명 mapVo에 set해줌
-				        writeFile( file8, SAVE_PATH, saveFileName );
-				        //commandMap.put("file2", url); // commandMap에 file1이라는 이름으로 url을 저장함
-				        itemPicVo.setUrl(url);
-				        itemsService.insertPic(itemPicVo);
-//				        itemsService.insertPic(itemPicVo.getUrl());
-				        model.addAttribute( "productImageUrl8", url );
-					}
-					
-					
-			
-			//인서트 들어가자!!!!!!
-//			System.out.println("filename : " + file1.getName() + "," +  file2.getOriginalFilename() + "," + file3.getContentType());
-//			System.out.println("itemPicVo : " + itemPicVo);
-//			System.out.println(commandMap.getMap());
-//			System.out.println(commandMap.get("file1"));
-//			
-//			System.out.println("마지막 itemsVo" + itemsVo);
-//			itemsService.insertPic(commandMap.getMap(), request);
-				
-		
-        return "items/itemsinsertok";
+        return "/items/itemsinsertok";
 	}
 	
 	private void writeFile( MultipartFile file, String path, String fileName ) {
@@ -418,33 +144,92 @@ public class ItemsController {
         
         return fileName;
 	}
-//파일업로드 close
+	//파일업로드 close
 	
 	/*아이템 상제정보 보기 컨드톨러 -by 이준기 0922*/
 	@RequestMapping("/detailView/{no}")
 	public String itemDetailInfo(@PathVariable Long no, Model model){
-		
 		Map<String, Object> map  = itemsService.getItemInfoByNo(no);
+
+		model.addAttribute("regItemCnt", map.get("regItemCnt"));
+		model.addAttribute("replyCnt", map.get("replyCnt"));
 		model.addAttribute("userVo", map.get("userVo"));
 		model.addAttribute("itemVo", map.get("itemVo"));
 		model.addAttribute("fileList", map.get("fileList"));
-		
+		model.addAttribute("replyList", map.get("replyList"));
 		return "/items/itemsView";
 		
 	}
-/*	@RequestMapping("/view/{no}")
-	public String view(@PathVariable Long no, Model model) throws Exception {
+	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
+	@RequestMapping("/deletereply/{no}")
+	public String deleteReply(@PathVariable Long no, @RequestParam Long itemNo) {
+//		System.out.println("zdeleteReply = "+no + " , "+itemNo);
+		itemsService.delreply(no);
+		return "redirect:/items/detailView/" + itemNo;
+	}
+	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
+	@RequestMapping("/addreply/{no}")
+	public String addReply(@PathVariable Long no,
+			@RequestParam(required = false) String content, HttpSession session) {
 
-		Map<String, Object> map = boardService.fileList(no);
-		boardService.viewcnt(no);
-		int replyCnt = boardService.replyCnt(no);
-		model.addAttribute("replyCnt", replyCnt);
-		model.addAttribute("fileList", map.get("fileList"));
-		model.addAttribute("vo", boardService.view(no));
-		model.addAttribute("replyList", boardService.getReplyList(no));
+		if (session.getAttribute("authUser") == null) 
+			return "redirect:/user/loginform";
+		
+		UserVo userVo = (UserVo) session.getAttribute("authUser");
+		ReplyVo vo = new ReplyVo();
+		vo.setUserName(userVo.getName());
+		vo.setContent(content);
+		vo.setBoardNo(no);
+		vo.setUserNo(userVo.getNo());
 
-		return "/board/view";
-	}*/
+		itemsService.addreply(vo);
+
+		return "redirect:/items/detailView/" + no;
+	}
+	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
+	@RequestMapping("/subreply")
+	public String subreply(@RequestParam Long replyNo, @RequestParam String replyContent, @RequestParam Long parentGroupNo, Model model, HttpSession session) {
+		System.out.println(replyContent + ", subreply 시작" + replyNo );
+		
+		if (session == null)
+			return "redirect:/user/loginform";
+		ReplyVo tatgetReplyVo = (ReplyVo) itemsService.getReply(replyNo);
+
+		UserVo userVo = (UserVo) session.getAttribute("authUser");
+		System.out.println("session에서 가져온 유저정보 : " + userVo);
+
+		ReplyVo rereplyVo = new ReplyVo();
+		rereplyVo.setUserName(userVo.getName());
+		rereplyVo.setBoardNo(tatgetReplyVo.getBoardNo());
+		rereplyVo.setContent(replyContent);
+		rereplyVo.setGroupNo(tatgetReplyVo.getGroupNo());
+		rereplyVo.setOrderNo(tatgetReplyVo.getOrderNo() +1);
+		rereplyVo.setDepth(tatgetReplyVo.getDepth() + 1);
+		rereplyVo.setUserNo(userVo.getNo());
+
+		System.out.println("rereplyVo : " + rereplyVo);
+		itemsService.addReReply(rereplyVo);
+
+		model.addAttribute("rereplyVo", rereplyVo);
+		itemsService.addReplyCnt(tatgetReplyVo.getBoardNo());// 리플카운트 올라감..*/	
+		return "redirect:/items/detailView/" + rereplyVo.getBoardNo();
+	}
 	
-	
+	/*판매자의 아이템의 전체리스트   -by 이준기 0924*/
+	@RequestMapping("/userItemList/{userNo}")
+	public String userItemList(@PathVariable Long userNo){
+		return "/user/profile/"+userNo;
+	}
+	/*판매자의 아이템의 sellState 변경   -by 이준기 0924*/
+	@RequestMapping("/updateSellState/{itemno}")
+	public String updateSellState(@PathVariable Long itemno, String sellState){
+		System.err.println(sellState);
+		return "redirect:/items/detailView/" + itemno;
+	}
+	/*판매자의 아이템의 삭제   -by 이준기 0925*/
+	@RequestMapping("/itemDelete/{itemno}")
+	public String itemDelete(@PathVariable Long itemno){
+		itemsService.deleteItem(itemno);
+		return "redirect:/";
+	}
 }

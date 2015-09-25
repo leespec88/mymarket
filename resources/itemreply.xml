@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
-<sqlMap namespace="reply">
+<sqlMap namespace="itemreply">
 	<typeAlias alias="ReplyVo" type="com.bit.mymarket.vo.ReplyVo" />
 	<resultMap class="ReplyVo" id="resultMapList">
 		<result column="no" property="no" />
-		<result column="BOARD_NO" property="boardNo" />
+		<result column="ITEM_NO" property="boardNo" />
 		<result column="CONTENT" property="content" />
 		<result column="USER_NO" property="userNo" />
 		<result column="USER_NAME" property="userName" />
@@ -18,7 +18,7 @@
 	<select id="list" resultMap="resultMapList" parameterClass="java.lang.Long">
 		<![CDATA[
 			  SELECT NO,
-		         BOARD_NO,
+		         ITEM_NO,
 		         CONTENT,
 		         USER_NO,
 		         USER_NAME,
@@ -26,45 +26,53 @@
 		         GROUP_NO,
 		         ORDER_NO,
 		         DEPTH
-			  FROM REPLY
-			  WHERE BOARD_NO=#NO#
-			  ORDER BY group_no ASC, order_no ASC, REG_DATE DESC
+			  FROM ITEMS_REPLY
+			  WHERE ITEM_NO=#NO#
+			  ORDER BY group_no ASC, order_no asc, NO asc
 			]]>
 	</select>
 	<insert id="insert" parameterClass="ReplyVo">
 		<![CDATA[
-		 	insert into reply (NO, BOARD_NO, CONTENT, USER_NO, USER_NAME, REG_DATE, GROUP_NO, ORDER_NO, DEPTH )
-			VALUES(seq_reply.nextval, #boardNo#, #content#, #userNo#, #userName#, sysdate, (select max(group_no+1) from reply), 0 ,0)
-			
+		 	insert into ITEMS_REPLY (NO, ITEM_NO, CONTENT, USER_NO, USER_NAME, REG_DATE, GROUP_NO, ORDER_NO, DEPTH )
+			VALUES(SEQ_ITEMS_REPLY.nextval, #boardNo#, #content#, #userNo#, #userName#, sysdate, (select nvl(max(group_no+1), 0) from ITEMS_REPLY), 0 ,0)
 		]]>
-
 	</insert>
 	<delete id="delete" parameterClass="java.lang.Long">
 	<![CDATA[
 		delete 
-		from reply
+		from ITEMS_REPLY
 		where no=#no#
 		]]>
 	</delete>
-	<insert id="replyreply" parameterClass="ReplyVo">
-		<![CDATA[
-		 	insert into reply (NO, BOARD_NO, CONTENT, USER_NO, USER_NAME, REG_DATE, GROUP_NO, ORDER_NO, DEPTH )
-			VALUES(seq_reply.nextval, #boardNo#, #content#, #userNo#, #userName#, sysdate, #groupNo#, #orderNo#, #depth#)
-		]]>
-	</insert>
-	<select id="getreplybyno" resultMap="resultMapList"
-		parameterClass="java.lang.Long">
-	<![CDATA[
-		select * from reply where no=#no#
-	]]>
-	</select>
 
 
 	<select id="replyCount" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
 		<![CDATA[
-			select count(*) from REPLY where BOARD_NO = #boardNo#
+			select count(*) from ITEMS_REPLY where ITEM_NO = #boardNo#
 		]]>
 	</select>
+	
+	<insert id="replyreply" parameterClass="ReplyVo">
+		<![CDATA[
+		 	insert into ITEMS_REPLY (NO, ITEM_NO, CONTENT, USER_NO, USER_NAME, REG_DATE, GROUP_NO, ORDER_NO, DEPTH )
+			VALUES(seq_reply.nextval, #boardNo#, #content#, #userNo#, #userName#, sysdate, #groupNo#, #orderNo#, #depth#)
+		]]>
+	</insert>
+	
+	<select id="getReplybyNo" resultMap="resultMapList" parameterClass="java.lang.Long">
+	<![CDATA[
+		select * from ITEMS_REPLY where no=#no#
+	]]>
+	</select>
+	
+	<update id="updateReply" parameterClass="ReplyVo">
+	<![CDATA[
+		update ITEMS_REPLY
+		set order_no = order_no+1
+		where GROUP_NO=#groupNo#
+		 and order_no<=#orderNo#
+	]]>
+	</update>
 
 
 </sqlMap>

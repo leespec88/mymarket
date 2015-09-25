@@ -19,13 +19,14 @@
 </head>
 
 
-	<c:set var="status" value="${fn:length(list)}">
+	<c:set var="status" value="${fn:length(onePicList)}">
 	</c:set>
-	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
+	<c:forEach var="vo" items="${onePicList }" varStatus="status" begin="0">
 	
-	<input type="hidden" id="vo" value="${fn:length(list)}">
+	<input type="hidden" id="vo" value="${fn:length(onePicList)}">
 	<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
 	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
+	<input type="hidden" id="address${status.index+1 }" value="${vo.address}">
 	<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
 
 	</c:forEach>
@@ -53,7 +54,7 @@
 	
 <script type="text/javascript" src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
-<script type="text/javascript" src="/assets/js/main.js"></script>
+<script type="text/javascript" src="/assets/js/searchMain.js"></script>
 <!-- <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b"></script> -->
 	
 
@@ -86,26 +87,22 @@
 	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
 	<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
  <!-- 이미지한장에 없으면 null 리스트 -->
-<%-- 		<c:choose>
-				<c:when test="${vo.itemNo eq vo.no}">
-						<c:choose>
-							<c:when test="${not empty vo.url }">
-								<img class="thumbnailImg" src="${vo.url }">
-							</c:when>
-						</c:choose>
-						
-				</c:when>
-				
-			 	<c:otherwise>
-						<img class="thumbnailImg">
-				</c:otherwise>
-				 
-		</c:choose> --%>
+	<img class="thumbnailImg" src="${vo.url }">
+			
 <!-- 이미지한장에 없으면 null 리스트 close -->
 		    <span class="itemTitle"><a href="/items/detailView/${vo.no}" >${vo.title}</a><a class="pull-right" href="javascript:setPosition('${vo.location}');"><img id="itemPoint" src="/assets/images/map-marker.png" ></a></span>
 			<span class="itemPrice">${vo.price}원</span>
 			<span class="itemTimeago">${vo.regDate}</span>
 			<span class="tag">		
+		<c:forEach var="tagList" items="${tagList}" varStatus="status">
+		<c:choose>
+				<c:when test="${vo.no eq tagList.itemNo}">
+						<c:if test="${not empty tagList }">
+							<span class="tagName"><a href="/tagList?kwd=${tagList.tagName }">#${tagList.tagName }</a></span>
+						</c:if>
+				</c:when>
+			</c:choose>
+		</c:forEach>
 </span>	
 </li>	
 	</c:forEach>
@@ -117,7 +114,6 @@
 	<!-- /사이드바 -->
  
 </div>
-
 
 
 </aside>
