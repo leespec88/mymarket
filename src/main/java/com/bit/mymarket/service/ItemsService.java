@@ -19,6 +19,7 @@ import com.bit.mymarket.dao.ItemsDao;
 import com.bit.mymarket.dao.ReplyDao;
 import com.bit.mymarket.dao.UserDao;
 import com.bit.mymarket.util.FileUtils;
+import com.bit.mymarket.util.FileUtils2;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemListVo;
 import com.bit.mymarket.vo.ItemPicVo;
@@ -38,20 +39,31 @@ public class ItemsService {
 	
 	@Autowired
 	private ReplyDao replyDao;
-	
+	// board 뷰에서 이미지 업로드
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtils;
+	// item 뷰에서 이미지 업로드
+	@Resource(name = "fileUtils2")
+	private FileUtils2 fileUtils2;
 	
-
-	public ItemsVo insert(ItemsVo itemsVo){
+	// item 등록
+	public void insert(ItemsVo itemsVo, Map<String, Object> map, HttpServletRequest request) throws Exception{
+		System.out.println(map);
 		itemsDao.insert(itemsVo);
+		
 		Long itemNo = itemsDao.getItemNo(itemsVo.getEmail(), itemsVo.getTitle());
-		System.out.println("아 이 템 넘 버 :"+itemNo);
 		hashTagList(itemNo, itemsVo.getTitle(), itemsVo.getContent());
 		
-		return itemsVo;
+		map.put("itemNo", itemNo);
+		System.out.println(map);
+		List<Map<String,Object>> list = fileUtils2.parseInsertFileInfo(map, request);
+		System.out.println(list);
+		for(int i=0, size=list.size(); i<size; i++){
+            itemsDao.insertPic(list.get(i));
+        }
+		
 	}
-	
+
 	public List<ItemListVo> getList() {
 		List<ItemListVo> list = itemsDao.getList(); //전체 리스트를 가져오되 필요한 부분만 가져오는부분
 		
@@ -111,20 +123,6 @@ public class ItemsService {
 		}
 		return list;
 	}
-	
-	public ItemPicVo insertPic(ItemPicVo itemPicVo){
-		itemsDao.insertPic(itemPicVo);
-		return itemPicVo;
-	}
-	
-		/*System.out.println("itemsService insertPic : " + map);
-		//itemsDao.insertPic(map);
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
-				request);
-		for (int i = 0, size = list.size(); i < size; i++) {
-			itemsDao.insertPic(list.get(i));
-		}*/
-	
 	
 	// 태그부분 추출해서 #를 뺀 나머지 정보를 hash_tag DB에 insert 시키는 부분
 	public void hashTagList(Long no, String title, String content){

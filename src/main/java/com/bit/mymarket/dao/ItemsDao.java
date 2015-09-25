@@ -1,7 +1,5 @@
 package com.bit.mymarket.dao;
 
-
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,17 +16,20 @@ import com.bit.mymarket.vo.ReplyVo;
 
 @Repository
 public class ItemsDao {
+	
 	@Autowired
 	private SqlMapClientTemplate sqlMapClientTemplate;
-
+	
+	// item 등록
 	public void insert(ItemsVo itemsVo){
-		System.out.println("itemsdao : " + itemsVo);
+		System.out.println(itemsVo);
 		sqlMapClientTemplate.insert("items.insert", itemsVo);
 	}
-	
-	public void insertPic(ItemPicVo itemPicVo){
-		System.out.println("itemsdao : " + itemPicVo);
-		sqlMapClientTemplate.insert("items.insertPic", itemPicVo);
+	// 위 아이템에 대한 사진 등록
+	public void insertPic(Map<String, Object> map){
+		System.out.println(map);
+		sqlMapClientTemplate.insert("items.insertPic", map);
+		
 	}
 	
 	public void insertByHash(Long no, String tagName){

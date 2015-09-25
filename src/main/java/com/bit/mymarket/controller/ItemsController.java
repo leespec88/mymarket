@@ -1,29 +1,22 @@
 package com.bit.mymarket.controller;
 
-import java.io.FileOutputStream;
-import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.service.ItemsService;
-import com.bit.mymarket.service.UserService;
-import com.bit.mymarket.vo.ItemPicVo;
 import com.bit.mymarket.vo.ItemsVo;
 import com.bit.mymarket.vo.ReplyVo;
 import com.bit.mymarket.vo.UserVo;
@@ -82,69 +75,19 @@ public class ItemsController {
 		return "redirect:/itemsinsertok";
 	}
 
-	
-		//파일 업로드
-		// Logger 객체 얻어온다.
-	private static final Log LOG = LogFactory.getLog( ItemsController.class );
-	
-	// 파일 저장 경로
-	private static final String SAVE_PATH = "//192.168.1.6//temp//";
-	  
 	@RequestMapping( "/form" )
 	public String form() {
 		return "items/form";
 	}
 	
 	@RequestMapping( "/upload" )
-	public String upload(CommandMap commandMap, HttpServletRequest request) throws Exception {
-			
-			
-		System.err.println("uploadupload!!!!!");
+	public String upload(@ModelAttribute ItemsVo itemsVo, CommandMap commandMap, HttpServletRequest request ) throws Exception {
+		System.out.println(itemsVo);
+		//System.out.println(commandMap.getMap());
+		itemsService.insert(itemsVo, commandMap.getMap(), request);
 		
-		itemsService.insertItem(commandMap.getMap(),request);
-		
-		
-        return "/items/itemsinsertok";
+        return "redirect:/";
 	}
-	
-	private void writeFile( MultipartFile file, String path, String fileName ) {
-		System.out.println(path);
-		System.out.println(fileName);
-		System.out.println(path + "\\" + fileName);
-		FileOutputStream fos = null;
-		try {
-			byte fileData[] = file.getBytes();
-			fos = new FileOutputStream( path + "\\" + fileName );
-			fos.write(fileData);
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (fos != null) {
-				try {
-					fos.close();
-				} catch (Exception e) {
-				}
-			}
-		}
-	}
-	
-	private String genSaveFileName( String extName ) {
-		
-        Calendar calendar = Calendar.getInstance();
-		String fileName = "";
-        
-        fileName += calendar.get( Calendar.YEAR );
-        fileName += calendar.get( Calendar.MONTH );
-        fileName += calendar.get( Calendar.DATE );
-        fileName += calendar.get( Calendar.HOUR );
-        fileName += calendar.get( Calendar.MINUTE );
-        fileName += calendar.get( Calendar.SECOND );
-        fileName += calendar.get( Calendar.MILLISECOND );
-        fileName += ( "." + extName );
-        
-        return fileName;
-	}
-	//파일업로드 close
 	
 	/*아이템 상제정보 보기 컨드톨러 -by 이준기 0922*/
 	@RequestMapping("/detailView/{no}")
