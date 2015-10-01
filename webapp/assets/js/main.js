@@ -37,7 +37,8 @@
 				message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
 							mapBounds.toString() + '입니다.';
 			console.log(message);
-
+		
+		
 
 //json ajax 통신
 //((37.435498302313846, 126.96167294507056), (37.5536803730644, 127.09252834314474))
@@ -69,7 +70,6 @@
 						}
 						
 						listData +="</li>";
-						
 					}
 					listData +="</ul>";
 					$('.mainImgList').html(listData);
@@ -81,8 +81,6 @@
 //json ajax 통신 close
 			 
 			//console.log(message);
-			
-			
 		});
 
 		// 지도 시점 변화 완료 이벤트를 등록한다
@@ -261,11 +259,13 @@ var markers = [];
 		addMarker(new daum.maps.LatLng(lat, lng));
 		
 		//인포윈도우
-		var iwContent = '<div style="padding:5px;">'+title+'<button action="javascript:iteminfo()" type="button" >상세정보</button></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+		var iwContent = '<div id="infoWindow"style="padding:10px; text:14px">'+title+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
 	    iwPosition = new daum.maps.LatLng(lat, lng), //인포윈도우 표시 위치입니다
 	    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
+		/*removeable=true;*/
 	
-	/*  var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+		
+		/*  var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
         message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
     
     	// 마커와 인포윈도우를 표시합니다
@@ -276,7 +276,6 @@ var markers = [];
 		    map: map, // 인포윈도우가 표시될 지도
 		    position : iwPosition, 
 		    content : iwContent,
-		    removable : iwRemoveable
 		});
 		//인포윈도우 close
 		
@@ -303,7 +302,7 @@ var markers = [];
 		
 	} 
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
-
+ 	
 
 //addMarker(new daum.maps.LatLng(latlng)); 37.49228309542601, 127.02738748779916
 }

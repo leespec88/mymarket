@@ -64,7 +64,7 @@ public class UserController {
 		if(userVo==null){
 			return "redirect:/user/loginform";
 		}
-		if("ê´€ë¦¬ì".equals(userVo.getMemberType())){
+		if("°ü¸®ÀÚ".equals(userVo.getMemberType())){
 			session.setAttribute("authUser", userVo);
 			return "redirect:/admin/memberList";
 		}else{

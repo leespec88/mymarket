@@ -101,7 +101,7 @@ $(function(){
         <td>${items.price }</td>
         <td>${items.regDate }</td>
         <td>
-        <a href="#" type="button" class="btn">
+        <a href="/admin/viewItem?no=${items.no }" type="button" class="btn">
         	<span class="glyphicon glyphicon-zoom-in"></span>
         </a>
         <a href="/admin/deleteItems?no=" type="button" class="btn">

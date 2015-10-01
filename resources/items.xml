@@ -102,17 +102,11 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 
 <!-- 아이템 kwd 리스트 (해시아님) -->
 <select id="kwdList" parameterClass="java.lang.String" resultClass="ItemListVo">
-	<![CDATA[
-		  SELECT no,
-	         title,
-	         TO_CHAR (price, '9,999,999,999,999') AS price,
-	         location,
-	         TO_CHAR (reg_date, 'MM"월 "DD"일 "HH24"시"') AS regDate
-	    FROM items
-	   WHERE    title LIKE '%' || #kwd# || '%'
-	         OR content LIKE '%' || #kwd# || '%'
-	ORDER BY no DESC
-	]]>
+<![CDATA[
+	select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
+  		from items where title like '%'||#kwd#||'%' or content like '%'||#kwd#||'%'
+ 		order by no desc
+]]>
 </select>
 
 <!-- 아이템 해시태그 검색 -->
@@ -157,7 +151,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 <select id="items" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name from items)A) 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name, sell_state from items)A) 
 				 where page=#currentPageNo#
 	]]>
 </select>
@@ -167,15 +161,14 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 <select id="itemsBySearch" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name from items where title like '%'||#kwd#||'%')A) 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name,sell_state from items where title like '%'||#kwd#||'%')A) 
 				 where page=#currentPageNo#
 	]]>
 </select>
 <!-- 아이템 고유 No 로 아이템 찾기 -->
 <select id="getItemByNo" parameterClass="java.lang.Long" resultMap="resultMapList">
 	<![CDATA[
-		select NO, TITLE, CONTENT, TRADE_CATEGORY, ITEM_CONDITION, price, USER_NO, LOCATION, EMAIL, SHIPPING_FEE, VIEW_COUNT, REG_DATE, ADDRESS, USER_NAME, SELL_STATE
-		from items where no=#no#
+		select * from items where no=#no#
 	]]>
 </select>
 
@@ -210,7 +203,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 <!-- 해시태그 아이템 No + 태그네임으로 찾기  -->
 <select id="getTagListByItemNo" parameterClass="HashTagVo" resultMap="resultMapTagList">
 	<![CDATA[
-		select * from hash_tag where UPPER(tag_name) like'%VGA%'
+		select * from hash_tag where item_no=#itemNo# and tag_name=#tagName#
 	]]>
 </select>
 
@@ -272,19 +265,6 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 				delete FROM ITEMS WHERE no = #no# 
 		]]>
 	</delete>
-	<update id="updateState" parameterClass="java.util.HashMap">
-		<![CDATA[
-				UPDATE ITEMS
-				   SET SELL_STATE = #sellState#
-				 WHERE no = #itemNo#
-		]]>
-	</update>
-	
-	<update id="updateItems" parameterClass="java.util.HashMap">
-		<![CDATA[
-			UPDATE ITEMS 
-			   SET TITLE=#title#, CONTENT=#content#, TRADE_CATEGORY=#tradeCategory#, ITEM_CONDITION=#itemCondition#, PRICE=#price#, LOCATION=#location#, EMAIL=#email#, SHIPPING_FEE=#shippingFee#, ADDRESS=#address#
-			 where no=#itemNo#
-		]]>		
-	</update>
+
+
 </sqlMap>
