@@ -100,7 +100,7 @@ public class AdminController {
 		return "/admin/boardList";
 	}
 	
-	//°Ô½Ã¹° »ó¼¼º¸±â
+	//ê²Œì‹œë¬¼ ìƒì„¸ë³´ê¸°
 	@RequestMapping("/viewContext")
 	public String viewContext(@RequestParam Long no, Model model){
 		BoardVo boardVo = adminService.getViewContext(no);
@@ -109,13 +109,13 @@ public class AdminController {
 	}
 	
 	
-	//ÆÇ¸Å»óÇ° »ó¼¼º¸±â
+	//íŒë§¤ìƒí’ˆ ìƒì„¸ë³´ê¸°
 	@RequestMapping("/viewItem")
 	public String viewItem(@RequestParam Long no, Model model){
 		ItemsVo itemsVo = adminService.getItemByNo(no);
 		List<ItemPicVo> picList= adminService.getPicListByItemNo(no);
 		System.out.println(itemsVo);
-		UserVo userVo = adminService.getUserInfobyNo(itemsVo.getUserNo());
+		UserVo userVo = adminService.getNameByUserNo(itemsVo.getUserNo());
 		model.addAttribute("item", itemsVo);
 		model.addAttribute("user", userVo);
 		model.addAttribute("itemPic",picList);
@@ -127,7 +127,7 @@ public class AdminController {
 		return "redirect:/admin/boardList";
 	}
 	
-	//°³ÀÎ °Ô½Ã¹°, »óÇ° º¸±â
+	//ê°œì¸ ê²Œì‹œë¬¼, ìƒí’ˆ ë³´ê¸°
 	@RequestMapping("/memberInfo")
 	public String memberInfo(@RequestParam Long no,@RequestParam String name, Model model){
 		List<BoardVo> list = adminService.getBoardByUserNo(no);

@@ -106,16 +106,16 @@ public class AdminService {
 		ItemsVo itemsVo = adminDao.getItemByNo(no);
 		return itemsVo;
 	}
-	// À¯Àú number ·Î À¯ÀúÀÌ¸§ ¾ò±â
-	public UserVo getUserInfobyNo(Long no){
-		UserVo userVo = adminDao.getUserInfobyNo(no);
+	// ìœ ì € number ë¡œ ìœ ì €ì´ë¦„ ì–»ê¸°
+	public UserVo getNameByUserNo(Long no){
+		UserVo userVo = adminDao.getNameByUserNo(no);
 		return userVo;
 	}
 	public List<ItemPicVo> getPicListByItemNo(Long no){
 		List<ItemPicVo> list = adminDao.getPicListByItemNo(no);
 		return list;
 	}
-	// À¯Àú number ·Î ¸®½ºÆ® »Ì±â
+	// ìœ ì € number ë¡œ ë¦¬ìŠ¤íŠ¸ ë½‘ê¸°
 	public List<ItemsVo> getItemsByUserNo(Long no){
 		List<ItemsVo> list = adminDao.getItemsByUserNo(no);
 		return list;

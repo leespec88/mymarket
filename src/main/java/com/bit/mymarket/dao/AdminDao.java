@@ -122,11 +122,10 @@ public class AdminDao {
 		return itemsVo;
 	}
 	
-	public UserVo getUserInfobyNo(Long no){
-		UserVo userVo = (UserVo)sqlMapClientTemplate.queryForObject("user.getUserInfobyNo", no);
+	public UserVo getNameByUserNo(Long no){
+		UserVo userVo = (UserVo) sqlMapClientTemplate.queryForObject("user.getUserName", no);
 		return userVo;
 	}
-	
 	public List<ItemsVo> getItemsByUserNo(Long no){
 		List<ItemsVo> list = sqlMapClientTemplate.queryForList("items.getItemsByUserNo", no);
 		return list;

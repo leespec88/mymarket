@@ -6,199 +6,67 @@
 <html>
 <head>
 <title>main view</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-  .modal-header, h4, .close {
-      background-color: #f9f9f9;
-      color:black !important;
-      text-align: center;
-      font-size: 30px;
-  }
-  .modal-footer {
-      background-color: #f9f9f9;
-  }
-</style>
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<meta charset="UTF-8">
+</head>
+<!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/assets/css/main.css" type="text/css">
-<link rel="stylesheet" href="/assets/css/bootstrp-social.css" type="text/css">
-<link rel="stylesheet" href="/assets/css/bootstrp-social.less" type="text/css">
-<script src="/assets/js/jquery-1.11.3.js"></script>
+
 <script>
-  window.fbAsyncInit = function() {  
-	    FB.init({appId: "986739934701573", status: true, cookie: true, xfbml: true});      
-	};  
-
-	(function(d){  
-	   var js, id = "facebook-jssdk", ref = d.getElementsByTagName("script")[0];  
-	   if (d.getElementById(id)) {return;}  
-	   js = d.createElement("script"); js.id = id; js.async = true;  
-	   js.src = "//connect.facebook.net/en_US/all.js";  
-	   ref.parentNode.insertBefore(js, ref);  
-	 }(document));     
-
-	function facebooklogin() {  
-		 
-	    //페이스북 로그인 버튼을 눌렀을 때의 루틴.  
-	  FB.login(function(response) {  
-	    var fbname;  
-	    var accessToken = response.authResponse.accessToken;  
-	    FB.api('/me', function(response) {
-	    	var path="http://www.mymarket.com/user/loginBySns";
-	    	var name = response.name;
-	    	var idNo = response.id;
-	    	var method="post";
-	    	post_to_url(path,name,idNo,null,null,method);
-	    });   
-	  });  
-	}  
+  // This is called with the results from from FB.getLoginStatus().
   
-  
-  //구글 연동
-  
-  (function() {
-	    var po = document.createElement('script'); 
-	    po.type = 'text/javascript'; 
-	    po.async = true;
-	    po.src = 'https://apis.google.com/js/client:plusone.js';
-	    var s = document.getElementsByTagName('script')[0]; 
-	    s.parentNode.insertBefore(po, s);
-  	})();
-   function signinCallback(authResult) {
-	   if (authResult['access_token']) {
-	     // 승인 성공
-	     // 사용자가 승인되었으므로 로그인 버튼 숨김. 예:
-	    	 console.log("error");
-	    	 getEmail();
-	    	 
-	   } else if (authResult['error']) {
-	     // 오류가 발생했습니다.
-	     // 가능한 오류 코드:
-	     //   "access_denied" - 사용자가 앱에 대한 액세스 거부
-	     //   "immediate_failed" - 사용자가 자동으로 로그인할 수 없음
-	     console.log('오류 발생: ' + authResult['error']);
-	   }
-	 } 
-   function getEmail(){
-	    // userinfo 메소드를 사용할 수 있도록 oauth2 라이브러리를 로드합니다.
-	    gapi.client.load('oauth2', 'v2', function() {
-	          var request = gapi.client.oauth2.userinfo.get();
-	          request.execute(getEmailCallback);
-	        });
-	  }
-   function getEmailCallback(obj){
-		console.log(obj);
-		var path="http://www.mymarket.com/user/loginBySns";
-	  	var name = obj.name;
-	  	var idNo = obj.id;
-	  	var gender = obj.gender;
-	  	var email = obj.email;
-	  	var method="post";
-	  	post_to_url(path, name, idNo, email, gender, method);
-	  }  
-   function post_to_url(path, name,idNo,email,gender,method) {
-	    method = method || "post";
-	    var form = document.createElement("form");
-	    form.setAttribute("method", method);
-	    form.setAttribute("action", path);
-		
-	    var hiddenField1 = document.createElement("input");
-		hiddenField1.setAttribute("type", "hidden");
-		hiddenField1.setAttribute("name", "name");
-		hiddenField1.setAttribute("value", name);
-		
-	    var hiddenField2 = document.createElement("input");
-		hiddenField2.setAttribute("type", "hidden");
-		hiddenField2.setAttribute("name", "idNo");
-		hiddenField2.setAttribute("value", idNo);
-		
-	    var hiddenField3 = document.createElement("input");
-		hiddenField3.setAttribute("type", "hidden");
-		hiddenField3.setAttribute("name", "email");
-		hiddenField3.setAttribute("value", email);
-		
-	    var hiddenField4 = document.createElement("input");
-		hiddenField4.setAttribute("type", "hidden");
-		hiddenField4.setAttribute("name", "gender");
-		hiddenField4.setAttribute("value", gender);
-		
-		form.appendChild(hiddenField1);
-		form.appendChild(hiddenField2);
-		form.appendChild(hiddenField3);
-		form.appendChild(hiddenField4);
-		
-		document.body.appendChild(form);
-	   
-	    form.submit();
-	}
-   function logout(){
-		  FB.logout(function(response){});
-   }
-   
-   $(document).ready(function(){
-       $("#myBtn").click(function(){
-           $("#myModal").modal();
-       });
-   });
-   
-</script>
-</head> 
-<body>
-<div class="modal fade" id="myModal" role="dialog">
-    <div class="modal-dialog">
-    
-      <!-- Modal content-->
-      <div class="modal-content">
-      	<div class="modal-header" style="padding:35px 50px;">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h3>Login</h3>
-        </div>
-        <div class="modal-body" style="padding:40px 50px;">
-            <span class="form-group">
-            	<button class="btn btn-primary" style="width:240px; height:40px;" onclick="facebooklogin();">
-					Facebook 계정으로 로그인
-				</button>
-            	<span
-					class="g-signin"
-					data-callback="signinCallback"
-					data-clientid="919722381404-nrcd5fqcad52k4b02p2aotu1975nba0l.apps.googleusercontent.com"
-					data-theme="light"
-					data-cookiepolicy="single_host_origin"
-					data-requestvisibleactions="http://schemas.google.com/AddActivity"
-					data-scope="https://www.googleapis.com/auth/plus.login">
-					<button class="btn btn-danger" style="width:240px; height:40px;">
-						Google 계정으로 로그인
-					</button>
-				</span>
-       		</span>
-       	  </div>
-       	  <div class="modal-body" style="padding:40px 50px;">
-          <form role="form" action="/user/login">
-            <div class="form-group">
-              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Email</label>
-              <input type="text" class="form-control" id="usrname" name="email" placeholder="Email Address">            
-            </div>
-            <div class="form-group">
-              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="text" class="form-control" id="psw" name="password"placeholder="Password">
-            </div>
-            <div class="checkbox">
-              <label><input type="checkbox" value="" checked>Remember me</label>
-            </div>
-              <button type="submit" class="btn btn-success btn-block"></span>Login</button>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal"></span>Cancel</button>
-          <p>회원이 아니신가요? <a href="/user/joinform">회원가입</a></p>
-        </div>
-      </div>
+  function statusChangeCallback(response) {
+    console.log('statusChangeCallback');
+    console.log(response);
+    if (response.status === 'connected') {
       
-    </div>
-  </div> 
-</div>
+    } else if (response.status === 'not_authorized') {
+      
+    } else {
+      
+    }
+  }
+  function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+    	  loginSuccess();
+    	  statusChangeCallback(response);
+    });
+  }
+ 
+  window.fbAsyncInit = function() {
+  FB.init({
+    appId      :'986739934701573',
+    cookie     : true,  // 쿠키가 세션을 참조할 수 있도록 허용
+    xfbml      : true,  // 소셜 플러그인이 있으면 처리
+    version    : 'v2.1' // 버전 2.1 사용
+  });
+    FB.getLoginStatus(function(response) {
+      statusChangeCallback(response);
+    });
+ 
+  };
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+
+  function loginSuccess() {
+    FB.api('/me', function(response) {
+    	var path="http://www.mymarket.com/user/loginBySns";
+    	var name = response.name;
+    	var idNo = response.id;
+    	var method="post";
+    	post_to_url(path,name,idNo,null,null,method);
+    });
+  }
+  
+  function logout(){
+	  FB.logout(function(response){});
+  }
+</script>
+<body>
 </body>
 </html>
 
@@ -226,7 +94,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">메뉴 <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-          
+           
+            
             <li class="divider"></li>
             <li><a href="#">공지사항</a></li>
             <li><a href="#">이벤트</a></li>
@@ -248,7 +117,8 @@
       <ul class="nav navbar-nav navbar-right">
       <c:choose>
       <c:when test="${empty authUser }">
-      	<li ><a type="button" class="btn" id="myBtn">로그인</a><span class="sr-only">(current)</span></li>
+      	<li ><a href="/user/loginform">로그인 <span class="sr-only">(current)</span></a></li>
+      	<li><a href="/face.jsp">SNS 로그인 <span class="sr-only">(current)</span></a></li>
       	<li><a href="/user/joinform">회원가입 <span class="sr-only">(current)</span></a></li>
       </c:when>
       <c:otherwise>
