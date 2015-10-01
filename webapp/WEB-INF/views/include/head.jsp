@@ -163,7 +163,7 @@
 					data-cookiepolicy="single_host_origin"
 					data-requestvisibleactions="http://schemas.google.com/AddActivity"
 					data-scope="https://www.googleapis.com/auth/plus.login">
-					<button class="btn btn-danger" style="width:240px; height:40px;">
+					<button class="btn btn-default" style="color:#EB4646; width:240px; height:40px;">
 						Google 계정으로 로그인
 					</button>
 				</span>
@@ -182,7 +182,7 @@
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
             </div>
-              <button type="submit" class="btn btn-success btn-block"></span>Login</button>
+              <button type="submit" class="btn btn-danger btn-block"></span>Login</button>
           </form>
         </div>
         <div class="modal-footer">

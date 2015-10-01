@@ -40,7 +40,7 @@ public class UserController {
 		if(pwCheck.equals(vo.getPassword())){
 			userService.join(vo);
 			emailService.sendEmail(vo.getEmail());
-			return "/user/loginform";
+			return "/";
 		}
 		
 		return "redirect:/user/joinform";
@@ -120,6 +120,7 @@ public class UserController {
 		session.setAttribute("authUser", authUser);
 		return "redirect:/";
 	}
+	
 	@RequestMapping("/pwModify")
 	public String pwModify(@RequestParam String password, HttpSession session){
 		userService.pwModify(password);

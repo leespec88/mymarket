@@ -55,9 +55,6 @@
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
 <script type="text/javascript" src="/assets/js/main.js"></script>
 <!-- <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b"></script> -->
-	
-
-
 </section>
 
 <aside>

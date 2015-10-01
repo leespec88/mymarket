@@ -31,9 +31,8 @@
 		});
 
 		// 지도 영역 변화 이벤트를 등록한다
-		var mapBounds;
 		daum.maps.event.addListener(map, 'bounds_changed', function () {
-			mapBounds = map.getBounds(),
+			var mapBounds = map.getBounds(),
 				message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
 							mapBounds.toString() + '입니다.';
 			console.log(message);
