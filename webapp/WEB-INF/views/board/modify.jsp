@@ -34,12 +34,13 @@
 				</tr>
 				<tr>
 					<th scope="row">제목</th>
-					<td colspan="3"><input type="text" id="title" name="title"
-						class="wdp_90" value="${vo.title }" /></td>
+					<td colspan="3">
+						<input type="text" id="title" name="title" class="wdp_90" value="${vo.title }" />
+					</td>
 				</tr>
 				<tr>
-					<td colspan="4" class="view_text"><textarea rows="20"
-							cols="100" title="내용" id="content" name="content">${vo.content }</textarea>
+					<td colspan="4" class="view_text">
+					<textarea rows="20" cols="100" title="내용" id="content" name="content">${vo.content }</textarea>
 					</td>
 				</tr>
 				<tr>
@@ -49,7 +50,7 @@
 							<c:forEach var="file" items="${fileList }" varStatus="var">
 								<p>
 									<input type="hidden" class="fileNo"value="${file.NO }">
-									<img src="/images/${file.STORED_FILE_NAME}" width="100px"
+									<img src="/product-images/${file.STORED_FILE_NAME}" width="100px"
 										height="100px" > <a href="#this">${file.ORIGINAL_FILE_NAME }</a>
 									(${file.FILE_SIZE }kb) <button class="delFile"
 										name="delete_${var.index }" value="${file.NO}">삭제</button>

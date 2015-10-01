@@ -44,15 +44,13 @@
 					<td colspan="3">${vo.title }</td>
 				</tr>
 				<tr>
-					<td colspan="4" scope="row" height="20%">
-						<div class="boardContent">
+						<td colspan="4" scope="row" height="20%"><div>
 							<c:forEach var="file" items="${fileList }">
 								<p style="text-align: center;">
 									<img src="/product-images/${file.STORED_FILE_NAME}">
 								</p>
 							</c:forEach>
-						</div>${vo.content }
-						</td>
+						</div>${vo.content }</td>
 				</tr>
 				<tr>
 					<th scope="row">첨부파일</th>

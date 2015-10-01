@@ -143,7 +143,7 @@ public class BoardDao {
 	}
 
 	public void update(Map<String, Object> map) {
-		System.out.println("update!!!");
+//		System.out.println("update!!!");
 		map.toString();
 		sqlMapClientTemplate.update("board.updateboard", map);
 		

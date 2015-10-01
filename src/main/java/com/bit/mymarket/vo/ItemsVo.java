@@ -13,102 +13,130 @@ public class ItemsVo {
 	private String email;
 	private String shippingFee;
 	private Long viewCount;
-	private String regDate; //등록시간 추가
+	private String regDate; // 등록시간 추가
 	private String address;
-	private String sellState; /*09/24 추가함*/
-	
-	
+	private String sellState; /* 09/24 추가함 */
+
 	public String getSellState() {
 		return sellState;
 	}
+
 	public void setSellState(String sellState) {
 		this.sellState = sellState;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public Long getNo() {
 		return no;
 	}
+
 	public void setNo(Long no) {
 		this.no = no;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
 	public String getTradeCategory() {
 		return tradeCategory;
 	}
+
 	public void setTradeCategory(String tradeCategory) {
 		this.tradeCategory = tradeCategory;
 	}
+
 	public String getItemCondition() {
 		return itemCondition;
 	}
+
 	public void setItemCondition(String itemCondition) {
 		this.itemCondition = itemCondition;
 	}
-	public Long getPrice() {
-		return price;
-	}
-	public void setPrice(Long price) {
-		this.price = price;
-	}
+
 	public Long getUserNo() {
 		return userNo;
 	}
+
 	public void setUserNo(Long userNo) {
 		this.userNo = userNo;
 	}
+
 	public String getLocation() {
 		return location;
 	}
+
 	public void setLocation(String location) {
 		this.location = location;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getShippingFee() {
 		return shippingFee;
 	}
+
 	public void setShippingFee(String shippingFee) {
 		this.shippingFee = shippingFee;
 	}
+
 	public Long getViewCount() {
 		return viewCount;
 	}
+
 	public void setViewCount(Long viewCount) {
 		this.viewCount = viewCount;
 	}
+
 	public String getRegDate() {
 		return regDate;
 	}
+
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
+	public Long getPrice() {
+		return price;
+	}
+
+	public void setPrice(Long price) {
+		this.price = price;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemsVo [no=" + no + ", title=" + title + ", content="
@@ -120,4 +148,6 @@ public class ItemsVo {
 				+ ", regDate=" + regDate + ", address=" + address
 				+ ", sellState=" + sellState + "]";
 	}
+
+	
 }

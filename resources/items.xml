@@ -113,7 +113,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 
 <select id="noList"  parameterClass="java.lang.String" resultMap="resultMapTagList">
 <![CDATA[
-	select * from hash_tag where tag_name=#kwd#
+	select * from hash_tag where UPPER(tag_name)=#kwd# or lower(tag_name)=#kwd#
 ]]>
 </select>
 
@@ -151,7 +151,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 <select id="items" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name from items)A) 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name, sell_state from items)A) 
 				 where page=#currentPageNo#
 	]]>
 </select>
@@ -161,7 +161,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 <select id="itemsBySearch" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name from items where title like '%'||#kwd#||'%')A) 
+				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name,sell_state from items where title like '%'||#kwd#||'%')A) 
 				 where page=#currentPageNo#
 	]]>
 </select>

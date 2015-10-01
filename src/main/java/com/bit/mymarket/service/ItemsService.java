@@ -233,5 +233,26 @@ public class ItemsService {
 		
 	}
 	
+	public void updateSellState(Map<String, Object> map) {
+		itemsDao.updateSellState(map);
+		
+	}
+
+	public void updateItem(Map<String, Object> map, HttpServletRequest request) {
+		itemsDao.update(map);
+		/*
+		List<Map<String, Object>> list = fileUtils2.parseInsertFileInfo(map, request);
+		Map<String,Object> tempMap = null;
+		for (int i = 0, size = list.size(); i < size; i++) {
+			tempMap = list.get(i);
+		        if("Y".equals(tempMap.get("IS_NEW"))){
+		        	
+		        }
+		        else{
+		        	itemsDao.appendFile(tempMap);
+		        }
+		    }*/
+	}
+	
 	
 }

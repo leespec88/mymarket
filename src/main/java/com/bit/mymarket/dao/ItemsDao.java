@@ -101,6 +101,7 @@ public class ItemsDao {
 	
 	public List<ItemListVo> getKwdList(String kwd){
 		List<ItemListVo> list = sqlMapClientTemplate.queryForList("items.kwdList",kwd);
+
 		return list;
 	}
 	
@@ -154,6 +155,16 @@ public class ItemsDao {
 	/*판매자의 아이템의 삭제   -by 이준기 0925*/
 	public void deleteItem(Long itemno) {
 		sqlMapClientTemplate.delete("items.deleteItem", itemno);
+	}
+	
+	public void updateSellState(Map<String, Object> map) {
+		sqlMapClientTemplate.update("items.updateState", map);
+		
+	}
+	public void update(Map<String, Object> map) {
+		System.err.println("update!!!"+map.toString());
+		sqlMapClientTemplate.update("items.updateItems", map);
+		
 	}
 	
 }

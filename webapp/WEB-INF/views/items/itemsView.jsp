@@ -55,7 +55,7 @@
 								</c:if>
 							</span> <span class="itemTitle" id="itemTitle">${itemVo.title }</span>
 						</div>
-						<div class="itemPrice">${itemVo.price}원</div>
+						<div id="price" class="itemPrice" >${itemVo.price}원</div>
 						<div class="itemAddrArea">
 							<img src="/assets/images/ico_item_details_location.png"	width="23" height="23"> <span class="itemAddrTxt">${itemVo.address}</span>
 						</div>
@@ -65,7 +65,7 @@
 								<a href=""><img width="94" height="94" src="/assets/css/images/img_itemdetail_profile_noimage.png"></a>
 							</div>
 						<div class="nick">
-							<a href="">${userVo.name}</a>
+							<a class="userName" href="">${userVo.name}</a>
 						</div>
 						<div class="itemCount">
 							<a href="/items/userItemList/${userVo.no}">등록 아이템 : ${regItemCnt}</a>
@@ -106,7 +106,7 @@
 									<td style="padding-left:${reply.depth*30}px"><input
 										type="hidden" name="articleNo" value="">
 									<td><img src="/assets/css/images/gc_img.gif"></td></c:if>
-									<td>${reply.userName}</td>
+									<td><a class="userName"href=>${reply.userName}</a></td>
 									<td><div class="replyregdate">${reply.regDate}</div></td>
 									<td>
 									<a href="javascript:testOne(${reply.no})" class="subreply" data-toggle="tooltip" data-placement="" title="답장하기">
@@ -179,25 +179,29 @@
 							<div class="detailbtnArea">
 								<img src="/assets/images/img_side_item_management_title.png" alt="아이템 판매 관리 텍스트" width="162" height="33" class="itemManagerTit">
 								<img src="/assets/images/img_item_details_title_description.png" alt="아이템 판매 관리 텍스트" width="59" height="15" class="itemStatTit">
-								<form action="/items/updateSellState/${itemVo.no}" method="post"><div class="itemStatArea">
-									<div>
-			                			<input type="radio" class="radio1" id="sellState01" name="sellState" value="판매중 " >
-			                			<label class="label2" for="sellState01">판매중</label>
-			                		</div>
-			                		<div>
-			                			<input type="radio" class="radio1" id="sellState02" name="sellState" value="예약중" >
-			                			<label class="label2" for="sellState02">예약중</label>
-			                		</div>
-			                		<div>
-			                			<input type="radio" class="radio1" id="sellState03" name="sellState" value="판매완료" >
-			                			<label class="label2" for="sellState03">판매완료</label>
-			                		</div>
-			                		<div><button class="sellStateBtn" id="sellStateBtn" type="sumbit"></button></div>
-								</div></form>
+								<form action="/items/updateSellState/${itemVo.no}" method="post">
+									<div class="itemStatArea">
+										<div>
+				                			<input type="radio" class="radio1" name="sellState" value="판매중" >
+				                			<label class="label2" for="sellState01">판매중</label>
+				                		</div>
+				                		<div>
+				                			<input type="radio" class="radio1" name="sellState" value="예약중" >
+				                			<label class="label2" for="sellState02">예약중</label>
+				                		</div>
+				                		<div>
+				                			<input type="radio" class="radio1" name="sellState" value="판매완료" >
+				                			<label class="label2" for="sellState03">판매완료</label>
+				                		</div>
+				                		
+				                		<input type="hidden" name="itemNo" value="${itemVo.no}">
+				                		<button class="sellStateBtn" id="sellStateBtn" type="sumbit"></button>
+									</div>
+								</form>
 								<span class="cloneBtn" id="noCloneBtn"></span>
 								<span class="sorttimeBtn" id="sorttimeBtn"></span>
 								<hr color="#d0d0d0">
-								<span class="itemModifybtn" id="itemModify"></span>
+								<a href="/items/updateItem/${itemVo.no}"><span class="itemModifybtn" id="itemModify"></span></a>
 								<a href="/items/itemDelete/${itemVo.no}"><span class="itemDelete" id="itemDelete"></span></a>
 							</div>
 						</div>
@@ -208,14 +212,24 @@
 	</div>
 
 </body>
+<script type="text/javascript">
+$(document).ready(function() {
+	$('input:radio[name=sellState]:input[value='+"${itemVo.sellState}"+']').attr("checked", true);
+	/* $('#price').val().replace(/,/g, ''); */
+	
+	
+	
+	/* var splitCode = $("#splitCode").val().split(","); */
+	var price = $("#price").val();
+	console.log(price);
+		/* Number($('#price').value()).toLocaleString('en'); */
+		
+});
+
+</script>
 <script>
 	function setImage(obj) {
 		$(".largeImg img").attr('src', obj);
 	}
-	/* function checkSellState(){
-		document.getElementById("sellState01").getAttribute(name)
-		document.getElementById("sellState02")
-		document.getElementById("sellState03")
-	} */
 </script>
 </html>

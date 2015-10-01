@@ -21,7 +21,7 @@ public class EmailService {
 		
 		Properties p = new Properties();
 		 
-		p.put("mail.smtp.user", "leespec88@gmail.com"); // Googleê³„ì •@gmail.comìœ¼ë¡œ ì„¤ì •
+		p.put("mail.smtp.user", "leespec88@gmail.com"); // Google°èÁ¤@gmail.comÀ¸·Î ¼³Á¤
 		p.put("mail.smtp.host", "smtp.gmail.com");
 		p.put("mail.smtp.port", "465");
 		p.put("mail.smtp.starttls.enable","true");
@@ -37,20 +37,20 @@ public class EmailService {
 			   
 			   Session session = Session.getInstance(p, auth);
 			   
-			   session.setDebug(true); // ë©”ì¼ì„ ì „ì†¡í•  ë•Œ ìƒì„¸í•œ ìƒí™©ì„ ì½˜ì†”ì— ì¶œë ¥í•œë‹¤.
+			   session.setDebug(true); // ¸ŞÀÏÀ» Àü¼ÛÇÒ ¶§ »ó¼¼ÇÑ »óÈ²À» ÄÜ¼Ö¿¡ Ãâ·ÂÇÑ´Ù.
 			 
 			   MimeMessage msg = new MimeMessage(session);
 			   
-			   String message = "MyMarket ì— ê°€ì…í•´ ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.";
+			   String message = "MyMarket ¿¡ °¡ÀÔÇØ ÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù.";
 			   
-			   msg.setSubject("MyMarket ê°€ì… ì¶•í•˜ Email ë°œì†¡");
+			   msg.setSubject("MyMarket °¡ÀÔ ÃàÇÏ Email ¹ß¼Û");
 			   
-			   Address fromAddr = new InternetAddress("leespec88@gmail.com"); // ë³´ë‚´ëŠ” ì‚¬ëŒì˜ ë©”ì¼ì£¼ì†Œ
+			   Address fromAddr = new InternetAddress("leespec88@gmail.com"); // º¸³»´Â »ç¶÷ÀÇ ¸ŞÀÏÁÖ¼Ò
 			   
 			   msg.setFrom(fromAddr);
 			   
-			   //Address toAddr = new InternetAddress("smjjal8828@naver.com");  // ë°›ëŠ” ì‚¬ëŒì˜ ë©”ì¼ì£¼ì†Œ
-			   Address toAddr = new InternetAddress(receiver);  // ë°›ëŠ” ì‚¬ëŒì˜ ë©”ì¼ì£¼ì†Œ
+			   //Address toAddr = new InternetAddress("smjjal8828@naver.com");  // ¹Ş´Â »ç¶÷ÀÇ ¸ŞÀÏÁÖ¼Ò
+			   Address toAddr = new InternetAddress(receiver);  // ¹Ş´Â »ç¶÷ÀÇ ¸ŞÀÏÁÖ¼Ò
 			   
 			   msg.addRecipient(Message.RecipientType.TO, toAddr); 
 			   
@@ -60,7 +60,7 @@ public class EmailService {
 			   
 			   Transport.send(msg);
 			   
-			   System.out.println("Gmail SMTPì„œë²„ë¥¼ ì´ìš©í•œ ë©”ì¼ë³´ë‚´ê¸° ì„±ê³µ");
+			   System.out.println("Gmail SMTP¼­¹ö¸¦ ÀÌ¿ëÇÑ ¸ŞÀÏº¸³»±â ¼º°ø");
 			  }
 			  catch (Exception mex) { // Prints all nested (chained) exceptions as well 
 			   

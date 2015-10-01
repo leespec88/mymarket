@@ -1,0 +1,257 @@
+------------------------------------------------------------------
+--  TABLE BOARD_COMMUNITY
+------------------------------------------------------------------
+
+CREATE TABLE BOARD_COMMUNITY
+(
+   NO            NUMBER (7),
+   TITLE         VARCHAR2 (100),
+   CONTENT       VARCHAR2 (2000),
+   REG_DATE      DATE,
+   VIEW_COUNT    NUMBER (30) DEFAULT 0,
+   USER_NO       NUMBER (7),
+   USER_NAME     VARCHAR2 (50),
+   REPLY_COUNT   NUMBER (5) DEFAULT 0
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE BOARD_COMMUNITY_PIC
+------------------------------------------------------------------
+
+CREATE TABLE BOARD_COMMUNITY_PIC
+(
+   NO                   NUMBER (7),
+   BOARD_NO             NUMBER (7),
+   ORIGINAL_FILE_NAME   VARCHAR2 (260),
+   STORED_FILE_NAME     VARCHAR2 (36),
+   DEL_GB               VARCHAR2 (1) DEFAULT 'N',
+   FILE_SIZE            NUMBER
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE HASH_TAG
+------------------------------------------------------------------
+
+CREATE TABLE HASH_TAG
+(
+   NO         NUMBER (7),
+   TAG_NAME   VARCHAR2 (200),
+   ITEM_NO    NUMBER (7)
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE ITEM_PIC
+------------------------------------------------------------------
+
+CREATE TABLE ITEM_PIC
+(
+   NO_ITEM_PIC   NUMBER (7),
+   ITEM_NO       NUMBER (7),
+   IMAGE         VARCHAR2 (200)
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE ITEMS
+------------------------------------------------------------------
+
+CREATE TABLE ITEMS
+(
+   NO               NUMBER (7),
+   TITLE            VARCHAR2 (50),
+   CONTENT          VARCHAR2 (2000),
+   TRADE_CATEGORY   VARCHAR2 (50),
+   ITEM_CONDITION   VARCHAR2 (50),
+   PRICE            NUMBER (30),
+   USER_NO          VARCHAR2 (60),
+   LOCATION         VARCHAR2 (70),
+   EMAIL            VARCHAR2 (30),
+   SHIPPING_FEE     VARCHAR2 (30),
+   VIEW_COUNT       NUMBER (30),
+   REG_DATE         DATE,
+   ADDRESS          VARCHAR2 (100),
+   USER_NAME        VARCHAR2 (50),
+   SELL_STATE       VARCHAR2 (20) DEFAULT '∆«∏≈¡ﬂ'
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE ITEMS_REPLY
+------------------------------------------------------------------
+
+CREATE TABLE ITEMS_REPLY
+(
+   NO          NUMBER (7),
+   ITEM_NO     NUMBER (7),
+   USER_NO     NUMBER (7),
+   CONTENT     VARCHAR2 (2000),
+   REG_DATE    DATE,
+   GROUP_NO    NUMBER (7) DEFAULT 0,
+   ORDER_NO    NUMBER (7),
+   DEPTH       NUMBER (2),
+   USER_NAME   VARCHAR2 (50)
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE MEMBER
+------------------------------------------------------------------
+
+CREATE TABLE MEMBER
+(
+   NO            NUMBER (8),
+   ID_NO         VARCHAR2 (50),
+   NAME          VARCHAR2 (20),
+   EMAIL         VARCHAR2 (30),
+   PASSWORD      VARCHAR2 (50),
+   BIRTH         VARCHAR2 (20),
+   GENDER        VARCHAR2 (20),
+   PHONE         VARCHAR2 (15),
+   MEMBER_TYPE   VARCHAR2 (10),
+   WISH_ITEM     VARCHAR2 (200),
+   REG_DATE      DATE
+)
+NOCACHE
+LOGGING;
+
+
+------------------------------------------------------------------
+--  TABLE REPLY
+------------------------------------------------------------------
+
+CREATE TABLE REPLY
+(
+   NO          NUMBER (7),
+   BOARD_NO    NUMBER (7),
+   USER_NO     NUMBER (7),
+   CONTENT     VARCHAR2 (2000),
+   REG_DATE    DATE,
+   GROUP_NO    NUMBER (7) DEFAULT 0,
+   ORDER_NO    NUMBER (7),
+   DEPTH       NUMBER (2),
+   USER_NAME   VARCHAR2 (50)
+)
+NOCACHE
+LOGGING;
+------------------------------------------------------------------
+--  SEQUENCE SEQ_BOARD_COMMUNITY
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_BOARD_COMMUNITY START WITH 481
+                                    INCREMENT BY 1
+                                    MAXVALUE 9999999999999999999999999999
+                                    NOMINVALUE
+                                    NOORDER
+                                    NOCYCLE
+                                    CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_BOARD_COMMUNITY_PIC
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_BOARD_COMMUNITY_PIC START WITH 221
+                                        INCREMENT BY 1
+                                        MAXVALUE 9999999999999999999999999999
+                                        NOMINVALUE
+                                        NOORDER
+                                        NOCYCLE
+                                        CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_HASH
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_HASH START WITH 41
+                         INCREMENT BY 1
+                         MAXVALUE 9999999999999999999999999999
+                         NOMINVALUE
+                         NOORDER
+                         NOCYCLE
+                         CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_ITEM_PIC
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_ITEM_PIC START WITH 101
+                             INCREMENT BY 1
+                             MAXVALUE 9999999999999999999999999999
+                             NOMINVALUE
+                             NOORDER
+                             NOCYCLE
+                             CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_ITEMS
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_ITEMS START WITH 281
+                          INCREMENT BY 1
+                          MAXVALUE 9999999999999999999999999999
+                          NOMINVALUE
+                          NOORDER
+                          NOCYCLE
+                          CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_ITEMS_REPLY
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_ITEMS_REPLY START WITH 41
+                                INCREMENT BY 1
+                                MAXVALUE 9999999999999999999999999999
+                                NOMINVALUE
+                                NOORDER
+                                NOCYCLE
+                                CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_MEMBER
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_MEMBER START WITH 61
+                           INCREMENT BY 1
+                           MAXVALUE 9999999999999999999999999999
+                           NOMINVALUE
+                           NOORDER
+                           NOCYCLE
+                           CACHE 20;
+
+
+------------------------------------------------------------------
+--  SEQUENCE SEQ_REPLY
+------------------------------------------------------------------
+
+CREATE SEQUENCE SEQ_REPLY START WITH 301
+                          INCREMENT BY 1
+                          MAXVALUE 9999999999999999999999999999
+                          NOMINVALUE
+                          NOORDER
+                          NOCYCLE
+                          CACHE 20;
+
+
+
+
+

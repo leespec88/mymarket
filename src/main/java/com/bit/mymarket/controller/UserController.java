@@ -51,20 +51,15 @@ public class UserController {
 		return "/user/joinsuccess";
 	}
 
-	@RequestMapping("/loginform")
-	public String loginform() {
-		return "/user/loginform";
-	}
-	
 	@RequestMapping("/login")
 	public String login(HttpSession session, 
 						@ModelAttribute UserVo vo) {
 		UserVo userVo =  userService.getLoginInfo(vo);
 		
 		if(userVo==null){
-			return "redirect:/user/loginform";
+			return "redirect:/";
 		}
-		if("ê´€ë¦¬ì".equals(userVo.getMemberType())){
+		if("°ü¸®ÀÚ".equals(userVo.getMemberType())){
 			session.setAttribute("authUser", userVo);
 			return "redirect:/admin/memberList";
 		}else{

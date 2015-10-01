@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.service.ItemsService;
@@ -132,7 +133,7 @@ public class ItemsController {
 	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
 	@RequestMapping("/subreply")
 	public String subreply(@RequestParam Long replyNo, @RequestParam String replyContent, @RequestParam Long parentGroupNo, Model model, HttpSession session) {
-		System.out.println(replyContent + ", subreply 시작" + replyNo );
+//		System.out.println(replyContent + ", subreply 시작" + replyNo );
 		
 		if (session == null)
 			return "redirect:/user/loginform";
@@ -164,10 +165,10 @@ public class ItemsController {
 		return "/user/profile/"+userNo;
 	}
 	/*판매자의 아이템의 sellState 변경   -by 이준기 0924*/
-	@RequestMapping("/updateSellState/{itemno}")
-	public String updateSellState(@PathVariable Long itemno, String sellState){
-		System.err.println(sellState);
-		return "redirect:/items/detailView/" + itemno;
+	@RequestMapping("/updateSellState/{itemNo}")
+	public String updateSellState(CommandMap commandMap){
+		itemsService.updateSellState(commandMap.getMap());
+		return "redirect:/items/detailView/" + commandMap.get("itemNo");
 	}
 	/*판매자의 아이템의 삭제   -by 이준기 0925*/
 	@RequestMapping("/itemDelete/{itemno}")
@@ -175,4 +176,23 @@ public class ItemsController {
 		itemsService.deleteItem(itemno);
 		return "redirect:/";
 	}
+	
+	@RequestMapping("/updateItem/{itemNo}")
+	public String updateItem(@PathVariable Long itemNo, Model model){
+		Map<String, Object> map = itemsService.getItemInfoByNo(itemNo);
+		model.addAttribute("userVo", map.get("userVo"));
+		model.addAttribute("itemVo", map.get("itemVo"));
+		model.addAttribute("fileList", map.get("fileList"));
+		
+		return "/items/itemsModify";
+	}
+	
+	@RequestMapping("/updateItems")
+	public ModelAndView updateItem(CommandMap commandMap, HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("redirect:/items/detailView/" + commandMap.get("itemNo"));
+		itemsService.updateItem(commandMap.getMap(), request);
+		mv.addObject("no", commandMap.get("no"));
+		return mv;
+	}
+	
 }

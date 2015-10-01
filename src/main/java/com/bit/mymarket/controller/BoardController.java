@@ -102,8 +102,7 @@ public class BoardController {
 	}
 
 	@RequestMapping("/updateBoard")
-	public ModelAndView modifyform(CommandMap commandMap,
-			HttpServletRequest request) throws Exception {
+	public ModelAndView modifyform(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView("redirect:/board/view/"+commandMap.get("no"));
 		boardService.updateBoard(commandMap.getMap(), request);
 		mv.addObject("no", commandMap.get("no"));

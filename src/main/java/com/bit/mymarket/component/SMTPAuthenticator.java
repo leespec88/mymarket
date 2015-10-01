@@ -5,6 +5,6 @@ import javax.mail.PasswordAuthentication;
 
 public class SMTPAuthenticator extends Authenticator {
 	public PasswordAuthentication getPasswordAuthentication() {
-		   return new PasswordAuthentication("leespec88", "pbvsjhkvoxdjvbui"); // Google id, pwd, ì£¼ì˜) @gmail.com ì€ ì œì™¸í•˜ì„¸ìš”
+		   return new PasswordAuthentication("leespec88", "pbvsjhkvoxdjvbui"); // Google id, pwd, ÁÖÀÇ) @gmail.com Àº Á¦¿ÜÇÏ¼¼¿ä
 		 } 
 }

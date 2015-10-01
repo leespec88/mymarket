@@ -1,4 +1,9 @@
 @CHARSET "EUC-KR";
+
+.userName {
+	font-weight: bold;
+	font-size: 14px;
+}
 .largeImg{
 	margin-right: 5px;
 }
