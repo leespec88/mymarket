@@ -129,22 +129,32 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 					console.log(tagList[0].itemNo);
 					console.log(itemList);
 					for(var i=0; i<itemList.length; i++){
-						listData += "<li class='mainImgCard'> " 
-						+"<img class='thumbnailImg' src='"+itemList[i].url+"'>"
-						+"<span class='itemTitle'><a href='/items/detailView/"+itemList[i].no+"'>"+itemList[i].title+"</a><a class='pull-right' href=javascript:setPosition('"+itemList[i].location+"');><img id='itemPoint' src='/assets/images/map-marker.png' ></a></span>"
-						+"<span class='itemPrice'>"+itemList[i].price+"원</span>"
-						+"<span class='itemTimeago'>"+itemList[i].regDate+"</span>"
-						+"<span class='tag'>";
+						/*
+					<div class="col-sm-12 col-md-6">
+			    		<div class="well">
+			    			<img class="img-thumbnail" src="/images/puppy.jpg" alt="Chania" width="530" height="345">
+			    			<p><span>강아지장난감</span><a href="#"><span class="glyphicon glyphicon-map-marker"></span></a></p>
+			    			<p><span>가격 : </span><span>10000원</span><span>10월 10일 10시</span></p>
+			    			<p><span>tag : </span><span>#원</span></p>
+			    		</div>
+		    		</div>
+*/
+						listData += "<div class='col-sm-12 col-md-6'><div class='well'> " 
+						+"<img class='img-thumbnail' src='"+itemList[i].url+"'>"
+						+"<p><span class='itemTitle'><a href='/items/detailView/"+itemList[i].no+"'>"+itemList[i].title+"</a> <a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
+						+"<p><span>가격 : "+itemList[i].price+"원</span>"
+						+"<span>"+itemList[i].regDate+"</span></p>"
+						+"<p><span class='tag'>tag : ";
 						for(var j=0; j<tagList.length; j++){
 							if(tagList[j].itemNo == itemList[i].no){
 								listData +="<span class='tagName'><a href='/tagList?kwd="+tagList[j].tagName+"'>#"+tagList[j].tagName+"</a></span>";
 							}
 						}
 						
-						listData +="</li>";
+						listData +="</p></div></div>";
 					}
-					listData +="</ul>";
-					$('.mainImgList').html(listData);
+					//listData +="</ul>";
+					$('.row .row').html(listData);
 					},
 				error : function(jqXHR, status, e) {
 					alert(status + " n:n " + e);
