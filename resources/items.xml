@@ -265,6 +265,20 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 				delete FROM ITEMS WHERE no = #no# 
 		]]>
 	</delete>
+	
+	<insert id="insertKwd" parameterClass="java.util.Map">
+		<![CDATA[
+				INSERT INTO STORED_KEYWORD (NO,
+		                            USER_NO,
+		                            KEYWORD,
+		                            REG_DATE)
+		     VALUES (SEQ_STORED_KEYWORD_NO.NEXTVAL,
+		             #userNo#,
+		             #kwd#,
+		             SYSDATE)
+	
+		]]>
+	</insert>
 
 
 </sqlMap>

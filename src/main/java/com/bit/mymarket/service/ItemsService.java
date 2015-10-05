@@ -15,6 +15,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.dao.ItemsDao;
 import com.bit.mymarket.dao.ReplyDao;
 import com.bit.mymarket.dao.UserDao;
@@ -252,6 +253,11 @@ public class ItemsService {
 		        	itemsDao.appendFile(tempMap);
 		        }
 		    }*/
+	}
+
+	public void addKwd(Map<String, Object> map) {
+		itemsDao.insertKwd(map);
+		
 	}
 	
 	

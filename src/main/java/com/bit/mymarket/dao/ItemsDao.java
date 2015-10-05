@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemListVo;
 import com.bit.mymarket.vo.ItemPicVo;
@@ -164,7 +165,9 @@ public class ItemsDao {
 	public void update(Map<String, Object> map) {
 		System.err.println("update!!!"+map.toString());
 		sqlMapClientTemplate.update("items.updateItems", map);
-		
+	}
+	public void insertKwd(Map<String, Object> map) {
+		sqlMapClientTemplate.insert("items.insertKwd", map);
 	}
 	
 }

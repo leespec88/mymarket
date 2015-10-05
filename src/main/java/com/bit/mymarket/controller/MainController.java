@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.service.ItemsService;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemListVo;
+import com.bit.mymarket.vo.UserVo;
 
 @Controller
 public class MainController {
@@ -33,7 +37,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/searchMain")
-	public String searchMain(Model model, @RequestParam(required=false,defaultValue="")String kwd){
+	public String searchMain(Model model, @RequestParam(required=false,defaultValue="")String kwd, HttpSession session){
 		System.out.println("kwd:"+kwd);
 		List<ItemListVo> list=null;
 		char ch='#';
@@ -44,6 +48,13 @@ public class MainController {
 			list=itemsService.getHashList(kwd);
 		}else{
 			list = itemsService.getKwdList(kwd);
+		}
+		UserVo userVo = (UserVo) session.getAttribute("authUser");
+		if(userVo != null) {
+			CommandMap commandMap = new CommandMap();
+			commandMap.put("kwd", kwd);
+			commandMap.put("userNo", userVo.getNo());
+			itemsService.addKwd(commandMap.getMap());
 		}
 		
 		for(ItemListVo vo: list){
