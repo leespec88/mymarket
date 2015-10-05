@@ -42,6 +42,16 @@ div#boardlist               {padding-top:10%}
     float: left;
     /* z-index: auto; */
     position:static;left:0px;top:0px;
+}
+
+.mapImg {
+	background: url("/assets/images/No_images.jpg") no-repeat;
+    width: 140px;
+    height: 140px;
+    margin-top: 20px;
+    float: left;
+    /* z-index: auto; */
+    position:static;left:0px;top:0px;
 } 
 .mainImgCard {
     background: url("/assets/images/img_contents_card_bg.png") no-repeat;

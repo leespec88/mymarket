@@ -1,6 +1,81 @@
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+
+
+/* 마커 이미지 */
+	var imageSrc = '/assets/images/map-marker.png', // 마커이미지의 주소입니다    
+	imageSize = new daum.maps.Size(0, 0), // 마커이미지의 크기입니다
+	imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	  
+	//마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+	var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
+	/* 마커 이미지 close */
+	
+var keyword = null;
+var curLat=null;
+var curLon=null;
+if(keyword == null){
+ //HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+if (navigator.geolocation) {
+ 
+ // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+ navigator.geolocation.getCurrentPosition(function(position) {
+     
+     var lat = position.coords.latitude, // 위도
+         lon = position.coords.longitude; // 경도
+     curLat=lat;
+     curLon=lon;
+     var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+         message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
+     
+     // 마커와 인포윈도우를 표시합니다
+     displayMarker(locPosition, message);
+     // 지도 중심좌표를 접속위치로 변경합니다
+     map.setCenter(locPosition);  
+   });
+ 
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+ 
+ var locPosition = new daum.maps.LatLng(33.450701, 126.570667),    
+     message = 'geolocation을 사용할수 없어요..'
+     
+ displayMarker(locPosition, message);
+}
+
+//지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+
+ // 마커를 생성합니다
+ var marker = new daum.maps.Marker({  
+     map: map, 
+     position: locPosition
+ }); 
+ 
+ var iwContent = message, // 인포윈도우에 표시할 내용
+     iwRemoveable = true;
+
+ // 인포윈도우를 생성합니다
+ var infowindow = new daum.maps.InfoWindow({
+     content : iwContent,
+     removable : iwRemoveable
+ });
+ 
+ // 인포윈도우를 마커위에 표시합니다 
+ infowindow.open(map, marker);
+ 
+ getList(); // 마커 위치로 가기 대문에 지도 중심좌표를 접속위치로 변경을 나중에 해줘야함.
+ 
+ // 지도 중심좌표를 접속위치로 변경합니다
+ map.setCenter(locPosition);
+} 
+
+}else{
+	alert("null이 아니래!!!");
+}
+/* 현재 위치 표시 close */
+
+
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
-		        center: new daum.maps.LatLng(37.56420, 126.98101), // 지도의 중심좌표
+		        center: new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
 		        level: 7, // 지도의 확대 레벨
 		        mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
 		    }; 
@@ -21,14 +96,16 @@
 		map.addControl(zoomControl, daum.maps.ControlPosition.RIGHT);
 
 		// 지도 중심 좌표 변화 이벤트를 등록한다
-		daum.maps.event.addListener(map, 'center_changed', function () {
+/*		daum.maps.event.addListener(map, 'center_changed', function () {
 			//console.log('지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.');
-		});
+		});*/
 
 		// 지도 확대 레벨 변화 이벤트를 등록한다
 		daum.maps.event.addListener(map, 'zoom_changed', function () {
 			console.log('지도의 현재 확대레벨은 ' + map.getLevel() +'레벨 입니다.');
 		});
+		
+		
 
 		// 지도 영역 변화 이벤트를 등록한다
 		daum.maps.event.addListener(map, 'bounds_changed', function () {
@@ -36,12 +113,8 @@
 				message = '지도의 남서쪽, 북동쪽 영역좌표는 ' +
 							mapBounds.toString() + '입니다.';
 			console.log(message);
-		
-		
-
-//json ajax 통신
-//((37.435498302313846, 126.96167294507056), (37.5536803730644, 127.09252834314474))
-//latlng1 = latlng1.replace(/\s/gi, ''); // 모든 공백을 제거
+			//json ajax 통신
+			//latlng1 = latlng1.replace(/\s/gi, ''); // 모든 공백을 제거
 			var no=0;
 			var listData="<ul class='mainImgList' id='items'>" ;
 			 $.ajax({
@@ -82,82 +155,8 @@
 			//console.log(message);
 		});
 
-		// 지도 시점 변화 완료 이벤트를 등록한다
-		daum.maps.event.addListener(map, 'idle', function () {
-			var message = '지도의 중심좌표는 ' + map.getCenter().toString() + ' 이고,' + 
-							'확대 레벨은 ' + map.getLevel() + ' 레벨 입니다.';
-		});
-
-		// 지도 드래깅 이벤트를 등록한다 (드래그 시작 : dragstart, 드래그 종료 : dragend)
-		daum.maps.event.addListener(map, 'drag', function () {
-			var message = '지도를 드래그 하고 있습니다. ' + 
-							'지도의 중심 좌표는 ' + map.getCenter().toString() +' 입니다.';
-			//console.log(message);
-		});
-
 /* 현재 위치 표시 */
-if(keyword == null){
- //HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-if (navigator.geolocation) {
- 
- // GeoLocation을 이용해서 접속 위치를 얻어옵니다
- navigator.geolocation.getCurrentPosition(function(position) {
-     
-     var lat = position.coords.latitude, // 위도
-         lon = position.coords.longitude; // 경도
-     
-     var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-         message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
-     
-     // 마커와 인포윈도우를 표시합니다
-     displayMarker(locPosition, message);
-         
-   });
- 
-} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
- 
- var locPosition = new daum.maps.LatLng(33.450701, 126.570667),    
-     message = 'geolocation을 사용할수 없어요..'
-     
- displayMarker(locPosition, message);
-}
-
-//지도에 마커와 인포윈도우를 표시하는 함수입니다
-function displayMarker(locPosition, message) {
-
- // 마커를 생성합니다
- var marker = new daum.maps.Marker({  
-     map: map, 
-     position: locPosition
- }); 
- 
- var iwContent = message, // 인포윈도우에 표시할 내용
-     iwRemoveable = true;
-
- // 인포윈도우를 생성합니다
- var infowindow = new daum.maps.InfoWindow({
-     content : iwContent,
-     removable : iwRemoveable
- });
- 
- // 인포윈도우를 마커위에 표시합니다 
- infowindow.open(map, marker);
- 
- 
- getList(); // 마커 위치로 가기 대문에 지도 중심좌표를 접속위치로 변경을 나중에 해줘야함.
- 
- 
-  // 지도 중심좌표를 접속위치로 변경합니다
- map.setCenter(locPosition);  
-  
-
-	
-} 
-
-}else{
-	alert("null이 아니래!!!");
-}
-/* 현재 위치 표시 close */
+// 키워드 검색을 요청하는 함수입니다
 
 /* 장소검색 */
 //장소 검색 객체를 생성합니다
@@ -166,8 +165,7 @@ var ps = new daum.maps.services.Places();
 // 키워드로 장소를 검색합니다
 searchPlaces();
 
-// 키워드 검색을 요청하는 함수입니다
-var keyword = null;
+
 function searchPlaces() {
 
     keyword = document.getElementById('keyword').value;
@@ -235,11 +233,7 @@ function getListItem(index, places) {
 //list 뽑아주기
 function getList(){
 	
-var markers = [];
-	
-
-//alert(document.getElementById("mapBounds").value);
-	//alert("getList");
+	//리스트 크기
 	var vo = document.getElementById("vo").value;
  	for(i=1; i<=vo; i++){
 		//alert("aa");
@@ -247,57 +241,28 @@ var markers = [];
 		console.log(no);
 		var location = document.getElementById("location"+i).value;
 		var title = document.getElementById("title"+i).value;
-		// 마커 하나를 지도위에 표시합니다 
+
 		console.log(location);
 		latlng = location.split(','); // 37.49228309542601, 127.02738748779916를 짤라줌 
 		var lat = latlng[0];
 		var lng = latlng[1];
-		console.log(lat + lng);
 		
-		// 마커 하나를 지도위에 표시합니다 
-		addMarker(new daum.maps.LatLng(lat, lng));
+		var position=new daum.maps.LatLng(lat, lng);
+		var iwContent = '<div class="iwContent'+i+'"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
-		//인포윈도우
-		var iwContent = '<div id="infoWindow"style="padding:10px; text:14px">'+title+'</div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-	    iwPosition = new daum.maps.LatLng(lat, lng), //인포윈도우 표시 위치입니다
-	    iwRemoveable = true; // removeable 속성을 ture 로 설정하면 인포윈도우를 닫을 수 있는 x버튼이 표시됩니다
-		/*removeable=true;*/
-	
-		
-		/*  var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-        message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
-    
-    	// 마커와 인포윈도우를 표시합니다
-    	displayMarker(locPosition, message); */
+		var marker = new daum.maps.Marker({
+	    	position: position,
+	    	image:markerImage
+	    });
+
+	    marker.setMap(map);
 	    
-		// 인포윈도우를 생성하고 지도에 표시합니다
 		var infowindow = new daum.maps.InfoWindow({
 		    map: map, // 인포윈도우가 표시될 지도
-		    position : iwPosition, 
 		    content : iwContent,
 		});
-		//인포윈도우 close
 		
-		function addMarker(position) {
-		    //alert("add");
-		    // 마커를 생성합니다
-		    var marker = new daum.maps.Marker({
-		    	position: position
-		    });
-
-		    // 마커가 지도 위에 표시되도록 설정합니다
-		    marker.setMap(map);
-		    
-		    // 생성된 마커를 배열에 추가합니다
-		    markers.push(marker);
-		}
-
-		// 배열에 추가된 마커들을 지도에 표시하거나 삭제하는 함수입니다
-		function setMarkers(map) {
-		    for (var i = 0; i < markers.length; i++) {
-		        markers[i].setMap(map);
-		    }            
-		}
+		infowindow.open(map, marker);
 		
 	} 
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
@@ -316,14 +281,43 @@ function setPosition(location){
 	map.setCenter(new daum.maps.LatLng(lat, lng));
 	map.setLevel(3);
 	
-	
-	
-	daum.maps.event.addListener(marker, 'click', function() {
-	    alert('marker click!');
-	});
 }
 
 function goInfo(){
 	location.href="/";
 }
+
+
+
+function IWclick(no){
+	var length = $('#vo').val();
+		for(var i=1; i<=length; i++){
+			var itemNo= $('#no'+i).val();
+			var url= $('#url'+i).val();
+			var price= $('#price'+i).val();
+			var regDate= $('#regDate'+i).val();
+			var title = $('#title'+i).val();
+			
+			if(no==itemNo){
+				var text=$('.delete'+i).html();
+				if(text==""){
+					$('.delete').remove();
+					$('.iwContent'+i).html(title).css('background-color','#ACACAC');
+				}else{
+					var info='<img class="mapImg delete'+i+'" src="'+url+'"/>';
+					info+='<p class="delete'+i+'">'+title+'</p>';
+					info+='<p class="delete'+i+'">'+price+'원</p>';
+					info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
+					info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; width:70px;">상세보기</a>';
+					$('.iwContent'+i).html(info).css('background-color','#ff5a5f');
+					break;
+				}
+			}
+		}	
+}
+
+
+
+
+
 

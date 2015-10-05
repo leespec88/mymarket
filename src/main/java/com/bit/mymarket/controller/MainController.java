@@ -34,6 +34,7 @@ public class MainController {
 	
 	@RequestMapping("/searchMain")
 	public String searchMain(Model model, @RequestParam(required=false,defaultValue="")String kwd){
+		System.out.println("kwd:"+kwd);
 		List<ItemListVo> list=null;
 		char ch='#';
 		if("".equals(kwd)){
@@ -58,6 +59,7 @@ public class MainController {
 	@RequestMapping("/tagList")
 	public String tagList(Model model, String kwd){
 		
+		System.out.println("kwd:"+kwd);
 		List<ItemListVo> list = itemsService.getHashList(kwd);
 		List<HashTagVo> tagList = itemsService.getTagList();
 		model.addAttribute("list", list);

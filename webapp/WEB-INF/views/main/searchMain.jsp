@@ -74,7 +74,6 @@
 <br>
 <h1>상품 목록</h1>
 <div class="imgArea">
-	<input type="text" class="mapBounds">
 <ul class="mainImgList" id="items">
 	
 <c:set var="status" value="${fn:length(list)}"></c:set>
