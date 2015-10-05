@@ -9,7 +9,12 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc">
 
 	<context:annotation-config />
-	<context:component-scan base-package="com.bit.mymarket.controller" />
+	
+	 <context:component-scan base-package="com.bit.mymarket.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+	
+	
 	<!-- CustomMapArgumentResolver 등록 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
@@ -23,6 +28,10 @@
 			<bean id="loggerInterceptor" class="com.bit.mymarket.LoggerInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+	
+	<aop:aspectj-autoproxy/>
+    <bean id="LoginCheck" class="com.bit.mymarket.aop.LoginCheck" />
+	
 	<!-- the mvc resources tag does the magic 파일업로드처리3-->
  	<mvc:resources mapping="/product-images/**" location="file://192.168.1.6/temp/" />
  	<!-- ex) http://localhost/fileupload//product-images/20157211414515.png -->

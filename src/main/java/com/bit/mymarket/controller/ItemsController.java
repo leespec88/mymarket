@@ -29,12 +29,13 @@ public class ItemsController {
 	@Autowired
 	private ItemsService itemsService;
 	
-	@RequestMapping( "itemsinsert" )
-	public String index() {
-		System.out.println("aa");
-		return "/items/itemsinsert";
+	/*10.05 AOP login check 처리 - 이준기*/
+	@RequestMapping( "/itemsinsert" )
+	public ModelAndView index(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/items/itemsinsert");
+		return mv;
 	}
-	
 	
 	@RequestMapping( "itemsleft" )
 	public String mapleft() {
