@@ -43,7 +43,7 @@
 	      <ul class="nav navbar-nav navbar-right">
 	      <c:choose>
 	      <c:when test="${empty authUser }">
-	      	<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+	      	<li><a href="/user/loginform"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
 	      	<li><a href="#"><span class="glyphicon glyphicon-log-in"></span> SNS Login</a></li>
 	      	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
 	      </c:when>
