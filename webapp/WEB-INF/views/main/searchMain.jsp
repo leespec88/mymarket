@@ -1,47 +1,138 @@
-<%@page import="java.net.URLEncoder"%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <!DOCTYPE html>
-
 <html>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 <head>
-	<meta charset="utf-8">
-	<title>MyMarket 지도</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<!-- bootstrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	
+	
+	<style>
+		#textlist {padding-top:50px;color:#A6A6A7;}
+		.img-thumbnail{width: 100px; height: 100px;}
+	</style>
+	
+<style>
+/* 사이드바 래퍼 스타일 */
+@media(max-width:767px){
+	#sidebar-wrapper{
+	/* position: fixed; */
+	/* width: 95%; */
+	height: 100%;
+	margin-left: -33px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	}
+}
+@media(min-width:768px){
+#sidebar-wrapper {
+	position: fixed;
+	width: 58%;
+	height: 80%;
+	margin-left: -33px;
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+}
+.mapContent {
+	padding:5px;
+	text-align:center;
+	width:150px;
+	background-color:#ff5a5f;
+	color:#fff;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.mapPic {
+	width: 120px;
+	height: 120px;
+}
+/* 사이드바 래퍼 스타일 close */
+</style>
+ 	
+ 	
+	<title></title>
 </head>
 
-
-	<c:set var="status" value="${fn:length(onePicList)}">
-	</c:set>
-	<c:forEach var="vo" items="${onePicList }" varStatus="status" begin="0">
+<body>
 	
-	<input type="hidden" id="vo" value="${fn:length(onePicList)}">
-	<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
-	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
-	<input type="hidden" id="address${status.index+1 }" value="${vo.address}">
-	<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
+	<div class="container-fluid">
+	    <div class="row">
+	    	<!-- 사이드바 넣을 블럭을 잡아주고 닫아줌 -->
+	    	
 
+ 			    <div class="col-sm-7">
+ 			    <h1 class="text-center"  id="textlist"><strong>상품리스트</strong></h1>
+		    	
+	    			    
+<div id="page-wrapper">
+	<!-- 사이드바 -->
+	<div id="sidebar-wrapper">
+	
+		    	<!-- 아이템 리스트 부분 코딩 -->
+		    	<div class="row">
+		    		<c:set var="status" value="${fn:length(list)}"></c:set>
+		    		<c:set var="length" value="${fn:length(tagList)}"></c:set>
+		    		<c:forEach var="list" items="${list}" varStatus="status" begin="0">
+		    		<div class="col-sm-12 col-md-6">
+			    		<div class="well">
+			    			<img class="img-thumbnail" src="${list.url }" alt="Chania" width="530" height="345">
+			    			<p><span><a href='/items/detailView/${list.no }'>${list.title }</a></span><a href="#"><span class="glyphicon glyphicon-map-marker"></span></a></p>
+			    			<p><span>가격 : </span><span>${list.price }원</span></p>
+			    			<p><span>${list.regDate }</span></p>
+			    			<p><span>#태그 : 
+			    			<c:forEach var="tagList" items="${tagList }" varStatus="status">
+			    				<c:choose>
+									<c:when test="${list.no eq tagList.itemNo}">
+											<c:if test="${not empty tagList }">
+												<span class="tagName"><a href="/tagList?kwd=${tagList.tagName }">#${tagList.tagName }</a></span>
+											</c:if>
+									</c:when>
+								</c:choose>
+			    			</c:forEach>
+			    			</span></p>
+			    		</div>
+		    		</div> 
+		    		</c:forEach>
+		    </div>
+		    
+		</div>
+	</div>
+</div>	
+<!-- /사이드바 -->	 
+		 
+<div class="col-sm-5" style="padding-top:50px;">
+<!-- 맵부분 코딩 -->
+		    
+   	<c:set var="status" value="${fn:length(list)}"></c:set>
+   	
+	<c:forEach var="vo" items="${list }" varStatus="status" begin="0">
+		<input type="hidden" id="vo" value="${fn:length(list)}">
+		<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
+		<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
+		<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
+		<input type="hidden" id="url${status.index+1 }" value="${vo.url}">
+		<input type="hidden" id="regDate${status.index+1 }" value="${vo.regDate}">
+		<input type="hidden" id="price${status.index+1 }" value="${vo.price}">
 	</c:forEach>
-<section>
-
-
+	
+		    	
 <div class="map_wrap">
     <div id="map" style="width:100%;height:820px;position:relative;overflow:hidden;"></div><!-- 지도가 뒤에 깔리게 들어감. -->
-
     <div id="menu_wrap" class="bg_white">
         <div class="option">
-                <form onsubmit="searchPlaces(); return false;">
-                키워드 : <input type="text" id="keyword" size="15"> 
-                <button type="submit">검색하기</button> 
-                </form>
+			<form onsubmit="searchPlaces(); return false;">
+				키워드 : <input type="text" id="keyword" size="15"> 
+				<button type="submit">검색하기</button> 
+			</form>
         </div>
         <hr>
         <ul id="placesList"></ul>
@@ -49,81 +140,16 @@
     </div>
 </div>
 
-	<div id="map" style="height:780px;"></div><!-- 위쪽에 올리면 키워드 검색이 아래로 내려감 -->
-	
-	
 <script type="text/javascript" src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
 <script type="text/javascript" src="/assets/js/searchMain.js"></script>
-<!-- <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b"></script> -->
-	
-
-
-</section>
-
-<aside>
-
-<!-- 사이드바 넣을 블럭을 잡아주고 닫아줌 -->
-<div id="page-wrapper">
-	<!-- 사이드바 -->
-	<div id="sidebar-wrapper">
-
-	
-<br>
-<br>
-<br>
-<h1>상품 목록</h1>
-<div class="imgArea">
-<ul class="mainImgList" id="items">
-	
-<c:set var="status" value="${fn:length(list)}"></c:set>
-	<c:forEach var="vo" items="${list}" varStatus="status" begin="0">
-	<%-- <a href="javascript:setPosition('${vo.location}');"> --%>
-	<li class="mainImgCard">
-	
-	<input type="hidden" id="vo" value="${fn:length(list)}">
-	<input type="hidden" id="no${status.index+1 }" value="${vo.no}">
-	<input type="hidden" id="location${status.index+1 }" value="${vo.location}">
-	<input type="hidden" id="title${status.index+1 }" value="${vo.title}">
- <!-- 이미지한장에 없으면 null 리스트 -->
-	<img class="thumbnailImg" src="${vo.url }">
-			
-<!-- 이미지한장에 없으면 null 리스트 close -->
-		    <span class="itemTitle"><a href="/items/detailView/${vo.no}" >${vo.title}</a><a class="pull-right" href="javascript:setPosition('${vo.location}');"><img id="itemPoint" src="/assets/images/map-marker.png" ></a></span>
-			<span class="itemPrice">${vo.price}원</span>
-			<span class="itemTimeago">${vo.regDate}</span>
-			<span class="tag">		
-		<c:forEach var="tagList" items="${tagList}" varStatus="status">
-		<c:choose>
-				<c:when test="${vo.no eq tagList.itemNo}">
-						<c:if test="${not empty tagList }">
-							<span class="tagName"><a href="/tagList?kwd=${tagList.tagName }">#${tagList.tagName }</a></span>
-						</c:if>
-				</c:when>
-			</c:choose>
-		</c:forEach>
-</span>	
-</li>	
-	</c:forEach>
-
-</ul>
+		    	
 </div>
-
+<!-- 맵부분 코딩 close-->
+		</div>
 	</div>
-	<!-- /사이드바 -->
- 
-</div>
-
-
-</aside>
-
-<body>
-
-<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
+	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

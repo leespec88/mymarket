@@ -1,3 +1,5 @@
+
+
 /* 마커 이미지 */
 	var imageSrc = '/assets/images/map-marker.png', // 마커이미지의 주소입니다    
 	imageSize = new daum.maps.Size(0, 0), // 마커이미지의 크기입니다
@@ -6,7 +8,7 @@
 	//마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 	var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 	/* 마커 이미지 close */
-
+	
 var keyword = null;
 var curLat=null;
 var curLon=null;
@@ -26,7 +28,8 @@ if (navigator.geolocation) {
      
      // 마커와 인포윈도우를 표시합니다
      displayMarker(locPosition, message);
-         
+     // 지도 중심좌표를 접속위치로 변경합니다
+     //map.setCenter(locPosition);  
    });
  
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -60,8 +63,8 @@ function displayMarker(locPosition, message) {
  
  getList(); // 마커 위치로 가기 대문에 지도 중심좌표를 접속위치로 변경을 나중에 해줘야함.
  
-  // 지도 중심좌표를 접속위치로 변경합니다
- map.setCenter(locPosition);  
+ // 지도 중심좌표를 접속위치로 변경합니다
+ map.setCenter(locPosition);
 } 
 
 }else{
@@ -102,7 +105,10 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			console.log('지도의 현재 확대레벨은 ' + map.getLevel() +'레벨 입니다.');
 		});
 		
+		
 
+/* 현재 위치 표시 */
+// 키워드 검색을 요청하는 함수입니다
 
 /* 장소검색 */
 //장소 검색 객체를 생성합니다
@@ -193,9 +199,8 @@ function getList(){
 		var lat = latlng[0];
 		var lng = latlng[1];
 		
-		console.log("!!!"+lat+":"+lng);
 		var position=new daum.maps.LatLng(lat, lng);
-		var iwContent = '<div class="IWEvent" style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:14px; font-weight:bold;">'+title+'</div>';
+		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
 		var marker = new daum.maps.Marker({
 	    	position: position,
@@ -228,14 +233,43 @@ function setPosition(location){
 	map.setCenter(new daum.maps.LatLng(lat, lng));
 	map.setLevel(3);
 	
-	
-	
-	daum.maps.event.addListener(marker, 'click', function() {
-	    alert('marker click!');
-	});
 }
 
 function goInfo(){
 	location.href="/";
 }
+
+
+
+function IWclick(no){
+	var length = $('#vo').val();
+		for(var i=1; i<=length; i++){
+			var itemNo= $('#no'+i).val();
+			var url= $('#url'+i).val();
+			var price= $('#price'+i).val();
+			var regDate= $('#regDate'+i).val();
+			var title = $('#title'+i).val();
+			
+			if(no==itemNo){
+				var text=$('.delete'+i).html();
+				if(text==""){
+					$('.delete').remove();
+					$('.iwContent'+i).html(title).css('background-color','#ACACAC');
+				}else{
+					var info='<img class="mapPic delete'+i+'" src="'+url+'"/>';
+					info+='<p class="delete'+i+'">'+title+'</p>';
+					info+='<p class="delete'+i+'">'+price+'원</p>';
+					info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
+					info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
+					$('.iwContent'+i).html(info).css('background-color','#ff5a5f');
+					break;
+				}
+			}
+		}	
+}
+
+
+
+
+
 

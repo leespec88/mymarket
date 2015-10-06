@@ -144,7 +144,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 						+"<p><span class='itemTitle'><a href='/items/detailView/"+itemList[i].no+"'>"+itemList[i].title+"</a> <a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
 						+"<p><span>가격 : "+itemList[i].price+"원</span>"
 						+"<span>"+itemList[i].regDate+"</span></p>"
-						+"<p><span class='tag'>tag : ";
+						+"<p><span class='tag'>#태그 : ";
 						for(var j=0; j<tagList.length; j++){
 							if(tagList[j].itemNo == itemList[i].no){
 								listData +="<span class='tagName'><a href='/tagList?kwd="+tagList[j].tagName+"'>#"+tagList[j].tagName+"</a></span>";
@@ -258,7 +258,7 @@ function getList(){
 		var lng = latlng[1];
 		
 		var position=new daum.maps.LatLng(lat, lng);
-		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;">'+title+'</div>';
+		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
 		var marker = new daum.maps.Marker({
 	    	position: position,
