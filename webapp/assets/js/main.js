@@ -139,11 +139,11 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			    		</div>
 		    		</div>
 */
-						listData += "<div class='col-sm-12 col-md-6'><div class='well'> " 
+						listData += "<div class='col-sm-12 col-md-4'><div class='well'> " 
 						+"<img class='img-thumbnail' src='"+itemList[i].url+"'>"
 						+"<p><span class='itemTitle'><a href='/items/detailView/"+itemList[i].no+"'>"+itemList[i].title+"</a> <a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
-						+"<p><span>가격 : "+itemList[i].price+"원</span>"
-						+"<span>"+itemList[i].regDate+"</span></p>"
+						+"<p><span>가격 : "+itemList[i].price+"원</span></p>"
+						+"<p><span>등록일 : "+itemList[i].regDate+"</span></p>"
 						+"<p><span class='tag'>#태그 : ";
 						for(var j=0; j<tagList.length; j++){
 							if(tagList[j].itemNo == itemList[i].no){

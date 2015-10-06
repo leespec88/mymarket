@@ -16,7 +16,8 @@
 	
 	<style>
 		#textlist {padding-top:50px;color:#A6A6A7;}
-		.img-thumbnail{width: 100px; height: 100px;}
+		.img-thumbnail{ background-color: #FF5A5F; width:200px; height:200px;}
+		.well{max-height: 360px;}
 	</style>
 	
 <style>
