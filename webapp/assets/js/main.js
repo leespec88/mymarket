@@ -1,5 +1,3 @@
-
-
 /* 마커 이미지 */
 	var imageSrc = '/assets/images/map-marker.png', // 마커이미지의 주소입니다    
 	imageSize = new daum.maps.Size(0, 0), // 마커이미지의 크기입니다
@@ -72,7 +70,7 @@ function displayMarker(locPosition, message) {
 }
 /* 현재 위치 표시 close */
 
-
+var mm = 0;
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
@@ -105,8 +103,10 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			console.log('지도의 현재 확대레벨은 ' + map.getLevel() +'레벨 입니다.');
 		});
 		
+		daum.maps.event.addListener(map, 'click', function () {
+			iwClick2();
+		});
 		
-
 		// 지도 영역 변화 이벤트를 등록한다
 		daum.maps.event.addListener(map, 'bounds_changed', function () {
 			var mapBounds = map.getBounds(),
@@ -116,7 +116,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			//json ajax 통신
 			//latlng1 = latlng1.replace(/\s/gi, ''); // 모든 공백을 제거
 			var no=0;
-			var listData="<ul class='mainImgList' id='items'>" ;
+			var listData="<ul>" ;
 			 $.ajax({
 				url : "/OnePicList/" + mapBounds + "/" + no,
 				type : "post",
@@ -153,7 +153,7 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 						
 						listData +="</p></div></div>";
 					}
-					//listData +="</ul>";
+					listData +="</ul>";
 					$('.row .row').html(listData);
 					},
 				error : function(jqXHR, status, e) {
@@ -274,6 +274,7 @@ function getList(){
 		
 		infowindow.open(map, marker);
 		
+		
 	} 
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
  	
@@ -298,7 +299,7 @@ function goInfo(){
 }
 
 
-
+/*
 function IWclick(no){
 	var length = $('#vo').val();
 		for(var i=1; i<=length; i++){
@@ -323,7 +324,54 @@ function IWclick(no){
 					break;
 				}
 			}
-		}	
+		}
+}*/
+
+function IWclick(no){
+	var length = $('#vo').val();
+	var eq =null;
+	
+	for(var i=1; i<=length; i++){
+			
+		var itemNo= $('#no'+i).val();
+		var url= $('#url'+i).val();
+		var price= $('#price'+i).val();
+		var regDate= $('#regDate'+i).val();
+		var title = $('#title'+i).val();
+			
+		if(no==itemNo){
+			var text=$('.delete'+i).html();
+			if(text==""){
+					$('.delete').remove();
+					$('.iwContent'+i).html(title).css('background-color','#3C3C3C');
+			}else{
+				var info='<img class="mapPic delete'+i+'" src="'+url+'"/>';
+				info+='<p class="delete'+i+'">'+title+'</p>';
+				info+='<p class="delete'+i+'">'+price+'원</p>';
+				info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
+				info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
+				$('.iwContent'+i).html(info).css('background-color','#3C3C3C');
+				eq=i;
+				break;
+			}
+		}
+	}
+	
+	for(var j=1;j<=length;j++){
+		if(j!=eq){
+			var title = $('#title'+j).val();
+			$('.iwContent'+j).html(title);
+		}
+	}
+}
+
+function iwClick2(){
+	length = $('#vo').val(); 
+	for(var i=1; i<=length; i++){
+		var title=$('#title'+i).val();
+		$('.delete'+i).remove();
+		$('.iwContent'+i).html(title);
+	}
 }
 
 

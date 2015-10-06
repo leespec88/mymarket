@@ -105,9 +105,23 @@ function joinCheck(){
 				<div class="form-group">
 					<label class="col-lg-2 control-label">성별</label>
 					<div class="col-lg-8" id="genderForm">
-						<select class="form-control" id="">
-								<option value='male'>남 자</option>
-								<option value='femail'>여 자</option>
+						<select class="form-control" id="" name="gender">
+								<c:choose>
+									<c:when test="${authUser.gender eq 'male' }">
+										<option value='male' selected="selected">남 자</option>
+										<option value='female'>여 자</option>
+									</c:when>
+									<c:when test="${authUser.gender eq 'female' }">
+										<option value='male'>남 자</option>
+										<option value='female' selected="selected">여 자</option>
+									</c:when>
+									<c:otherwise>
+										<option value=''>선 택</option>
+										<option value='male'>남 자</option>
+										<option value='female'>여 자</option>
+									</c:otherwise>
+								</c:choose>
+								
 						</select>
 					</div>
 				</div>

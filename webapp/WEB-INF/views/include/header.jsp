@@ -135,6 +135,10 @@
        $("#myBtn").click(function(){
     	   $("#myModal").modal();
        });
+       
+       $('#myItems').click(function(){
+    	   $("#myModal").modal();
+       });
    });
    
 </script>
@@ -247,7 +251,15 @@
 	      </c:otherwise>
 	       </c:choose>
 	        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> 찜상품</a></li>
-	        <li><a href="/items/itemsinsert">상품등록</a></li>
+	        <c:choose>
+	        	<c:when test="${not empty authUser }">
+	        		<li><a href="/items/itemsinsert">상품등록</a></li>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<li><a type="button" class="btn" id="myItems">상품등록</a></li>
+	        	</c:otherwise>
+	        </c:choose>
+	        
 	     
 	      </ul>
 	    </div>

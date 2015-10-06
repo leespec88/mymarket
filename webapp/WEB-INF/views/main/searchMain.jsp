@@ -16,7 +16,8 @@
 	
 	<style>
 		#textlist {padding-top:50px;color:#A6A6A7;}
-		.img-thumbnail{width: 100px; height: 100px;}
+		.img-thumbnail{ background-color: #FF5A5F; width:200px; height:200px;}
+		.well{max-height: 360px;}
 	</style>
 	
 <style>
@@ -57,9 +58,8 @@
 }
 /* 사이드바 래퍼 스타일 close */
 </style>
- 	
- 	
 	<title></title>
+	
 </head>
 
 <body>
@@ -79,29 +79,33 @@
 	
 		    	<!-- 아이템 리스트 부분 코딩 -->
 		    	<div class="row">
+		    	<ul>
 		    		<c:set var="status" value="${fn:length(list)}"></c:set>
 		    		<c:set var="length" value="${fn:length(tagList)}"></c:set>
 		    		<c:forEach var="list" items="${list}" varStatus="status" begin="0">
-		    		<div class="col-sm-12 col-md-6">
+		    		<div class="col-sm-12 col-md-4">
 			    		<div class="well">
 			    			<img class="img-thumbnail" src="${list.url }" alt="Chania" width="530" height="345">
-			    			<p><span><a href='/items/detailView/${list.no }'>${list.title }</a></span><a href="#"><span class="glyphicon glyphicon-map-marker"></span></a></p>
+			    			<p><span class='itemTitle'><a href='/items/detailView/${list.no }'>${list.title }</a> <a href="javascript:setPosition('${list.location}');" class="glyphicon glyphicon-map-marker"></a></span></p>
+			    			
+			    			
 			    			<p><span>가격 : </span><span>${list.price }원</span></p>
 			    			<p><span>${list.regDate }</span></p>
 			    			<p><span>#태그 : 
-			    			<c:forEach var="tagList" items="${tagList }" varStatus="status">
-			    				<c:choose>
-									<c:when test="${list.no eq tagList.itemNo}">
-											<c:if test="${not empty tagList }">
-												<span class="tagName"><a href="/tagList?kwd=${tagList.tagName }">#${tagList.tagName }</a></span>
-											</c:if>
-									</c:when>
-								</c:choose>
-			    			</c:forEach>
+				    			<c:forEach var="tagList" items="${tagList }" varStatus="status">
+				    				<c:choose>
+										<c:when test="${list.no eq tagList.itemNo}">
+												<c:if test="${not empty tagList }">
+													<span class="tagName"><a href="/tagList?kwd=${tagList.tagName }">#${tagList.tagName }</a></span>
+												</c:if>
+										</c:when>
+									</c:choose>
+				    			</c:forEach>
 			    			</span></p>
 			    		</div>
 		    		</div> 
 		    		</c:forEach>
+		    	</ul>
 		    </div>
 		    
 		</div>
