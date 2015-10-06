@@ -2,6 +2,8 @@ package com.bit.mymarket.service;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -259,6 +261,43 @@ public class ItemsService {
 		itemsDao.insertKwd(map);
 		
 	}
+	
+	public void kwdProcessing(){
+		System.err.println("kwdProcessing 동작중...");
+		List<Map<String, Object>> list = itemsDao.getKwdList();
+		Map<String,Object> tempMap = null;
+		for (int i = 0, size = list.size(); i < size; i++) {
+			tempMap = list.get(i);
+			UserVo userVo = new UserVo();
+			Object no = tempMap.get("USER_NO");
+			System.out.println(no.toString());
+			userVo = userDao.getUserInfobyNo(Long.parseLong(no.toString()));
+//			System.out.println(userVo.toString());
+			String Birth=userVo.getBirth();
+			String[] year;
+			Calendar c = Calendar.getInstance();
+			year = Birth.split("-");
+			Integer years = Integer.parseInt(year[0]);
+			years =  (c.get(Calendar.YEAR) - years + 1) /10;
+			int age_group = years*10;
+			System.err.println("회원 : "+userVo.getName()+" 연령대는 = "+ age_group);
+			CommandMap commandMap = new CommandMap();
+			commandMap.put("age_group", age_group);
+			commandMap.put("gender", userVo.getGender());
+			commandMap.put("kwd", tempMap.get("KEYWORD"));
+			itemsDao.insertProcessedKwd(commandMap.getMap());
+			
+		}
+
+			
+			
+				
+		
+		
+		
+		
+	}
+	
 	
 	
 }

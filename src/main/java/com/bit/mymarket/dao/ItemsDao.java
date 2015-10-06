@@ -169,5 +169,12 @@ public class ItemsDao {
 	public void insertKwd(Map<String, Object> map) {
 		sqlMapClientTemplate.insert("items.insertKwd", map);
 	}
+	public List<Map<String, Object>> getKwdList() {
+		// TODO Auto-generated method stub
+		return sqlMapClientTemplate.queryForList("items.selectAllStoredKeyword");
+	}
+	public void insertProcessedKwd(Map<String, Object> map) {
+		sqlMapClientTemplate.insert("items.mergeAnalysisKeywod", map);
+	}
 	
 }

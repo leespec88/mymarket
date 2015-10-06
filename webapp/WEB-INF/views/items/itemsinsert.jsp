@@ -1,4 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="fn"%>  
 
 <!DOCTYPE html>
 
@@ -24,18 +27,26 @@ float:right;
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
 #menu_wrap .option button {margin-left:5px;}
+section {padding-top:52px}
+aside   {padding-top:52px}
 </style>
 <head>
 	<meta charset="utf-8">
+	<!-- bootstrap -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<title>MyMarket 지도</title>
 </head>
+<body>
 
 <section>
-
+<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	<div id="map" style="height:750px;"></div>
 <script type="text/javascript" src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
-	
+
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
@@ -354,6 +365,6 @@ function getListItem(index, places) {
 
 </aside>
 
-<body>
+
 </body>
 </html>

@@ -2,9 +2,9 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="items">
-<!-- <typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" /> -->
+	<!-- <typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" /> -->
 
-<typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" />
+	<typeAlias alias="ItemsVo" type="com.bit.mymarket.vo.ItemsVo" />
 	<resultMap class="ItemsVo" id="resultMapList">
 		<result column="no" property="no" />
 		<result column="title" property="title" />
@@ -23,15 +23,15 @@
 		<result column="sell_state" property="sellState" />
 	</resultMap>
 
-<typeAlias alias="ItemPicVo" type="com.bit.mymarket.vo.ItemPicVo" />
+	<typeAlias alias="ItemPicVo" type="com.bit.mymarket.vo.ItemPicVo" />
 	<resultMap class="ItemPicVo" id="resultMapPicList">
 		<result column="no_item_pic" property="no" />
 		<result column="item_no" property="itemNo" />
-		<result column="image" property="url" />	
+		<result column="image" property="url" />
 	</resultMap>
 
-<!-- itemListVo --> 
-<typeAlias alias="ItemListVo" type="com.bit.mymarket.vo.ItemListVo" />
+	<!-- itemListVo -->
+	<typeAlias alias="ItemListVo" type="com.bit.mymarket.vo.ItemListVo" />
 	<resultMap class="ItemListVo" id="resultMapItemList">
 		<result column="no" property="no" />
 		<result column="title" property="itemNo" />
@@ -40,53 +40,56 @@
 		<result column="reg_date" property="regDate" />
 	</resultMap>
 
-<typeAlias alias="HashTagVo" type="com.bit.mymarket.vo.HashTagVo" />
+	<typeAlias alias="HashTagVo" type="com.bit.mymarket.vo.HashTagVo" />
 	<resultMap class="HashTagVo" id="resultMapTagList">
 		<result column="no" property="no" />
 		<result column="tag_name" property="tagName" />
 		<result column="item_no" property="itemNo" />
 	</resultMap>
 
-<!-- Items insert -->
-<insert id="insert" parameterClass="ItemsVo">
-<!-- (no, title, content, trade_category, item_condition, price, User_id, location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
+	<!-- Items insert -->
+	<insert id="insert" parameterClass="ItemsVo">
+		<!-- (no, title, content, trade_category, item_condition, price, User_id, 
+			location, email, shiping_fee, hit_count, file1, file2, file3, reg_date) -->
 	<![CDATA[
 		insert into items values(seq_items.nextval, #title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#, '판매중' )  
 	]]>
-</insert>
+	</insert>
 
-<!-- Items images insert -->
-<insert id="insertPic" parameterClass="Map">
+	<!-- Items images insert -->
+	<insert id="insertPic" parameterClass="Map">
 	<![CDATA[
 		insert into item_Pic 
 		values(seq_item_pic.nextval, #NO#, #IMAGE#)  
 	]]>
-</insert>
+	</insert>
 
-<!-- items list 출력 -->
-<select id="list" resultClass="ItemListVo">
+	<!-- items list 출력 -->
+	<select id="list" resultClass="ItemListVo">
 	<![CDATA[
 		select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate from items
 	]]>
-</select>
+	</select>
 
-<!-- items image list 출력 -->
-<select id="picList" resultMap="resultMapPicList">
+	<!-- items image list 출력 -->
+	<select id="picList" resultMap="resultMapPicList">
 <![CDATA[
 	select no_item_pic, item_no, image from item_pic
 ]]>
-</select>
+	</select>
 
-<!-- items image 한장씩 출력후 나머지 null 주기 -->
-<select id="getUrlByItemNo" parameterClass="java.lang.Long" resultMap="resultMapPicList">
+	<!-- items image 한장씩 출력후 나머지 null 주기 -->
+	<select id="getUrlByItemNo" parameterClass="java.lang.Long"
+		resultMap="resultMapPicList">
 	<![CDATA[
 		select * from item_pic where item_no=#itemNo#
 	]]>
-</select>
+	</select>
 
 
-<!-- items image 한장씩 출력후 나머지 null 주기 -->
-<select id="getItemList" parameterClass="java.util.Map" resultClass="ItemListVo">
+	<!-- items image 한장씩 출력후 나머지 null 주기 -->
+	<select id="getItemList" parameterClass="java.util.Map"
+		resultClass="ItemListVo">
 <![CDATA[
 select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
   from items
@@ -97,125 +100,133 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
   order by no desc
   
 ]]>
-</select>
+	</select>
 
 
-<!-- 아이템 kwd 리스트 (해시아님) -->
-<select id="kwdList" parameterClass="java.lang.String" resultClass="ItemListVo">
+	<!-- 아이템 kwd 리스트 (해시아님) -->
+	<select id="kwdList" parameterClass="java.lang.String"
+		resultClass="ItemListVo">
 <![CDATA[
 	select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
   		from items where title like '%'||#kwd#||'%' or content like '%'||#kwd#||'%'
  		order by no desc
 ]]>
-</select>
+	</select>
 
-<!-- 아이템 해시태그 검색 -->
+	<!-- 아이템 해시태그 검색 -->
 
-<select id="noList"  parameterClass="java.lang.String" resultMap="resultMapTagList">
+	<select id="noList" parameterClass="java.lang.String" resultMap="resultMapTagList">
 <![CDATA[
 	select * from hash_tag where UPPER(tag_name)=#kwd# or lower(tag_name)=#kwd#
 ]]>
-</select>
+	</select>
 
 
 
-<select id="getPicListByItemNo" parameterClass="java.lang.Long" resultMap="resultMapPicList">
+	<select id="getPicListByItemNo" parameterClass="java.lang.Long"
+		resultMap="resultMapPicList">
 	<![CDATA[
 		select no_item_pic, item_no, image from item_pic where item_no=#no#
 	]]>
-</select>
+	</select>
 
-<!-- 아이템 전체 개수 리스트 -->
-<select id="totCnt" resultClass="java.lang.Integer">
+	<!-- 아이템 전체 개수 리스트 -->
+	<select id="totCnt" resultClass="java.lang.Integer">
 	<![CDATA[
 		select count(*) from items
 	]]>
-</select>
+	</select>
 
-<select id="getItemNo" parameterClass="java.util.Map" resultClass="java.lang.Long">
-<!-- SELECT no, name, password, content, TO_CHAR (reg_date, 'YYYY-MMDD HH:MM:SS') FROM guest_table ORDER BY reg_date DESC -->
+	<select id="getItemNo" parameterClass="java.util.Map"
+		resultClass="java.lang.Long">
+		<!-- SELECT no, name, password, content, TO_CHAR (reg_date, 'YYYY-MMDD 
+			HH:MM:SS') FROM guest_table ORDER BY reg_date DESC -->
 <![CDATA[
 	select Max(no) from items where email=#email# and title=#title#
 ]]>
-</select>
+	</select>
 
 
-<!-- 아이템 검색 리스트 총 갯수 -->
-<select id="totCntBySearch" resultClass="java.lang.Integer">
+	<!-- 아이템 검색 리스트 총 갯수 -->
+	<select id="totCntBySearch" resultClass="java.lang.Integer">
 	<![CDATA[
 		select count(*) from items where title like '%'||#kwd#||'%'
 	]]>
-</select>
+	</select>
 
-<!-- 아이템 리스트 ( 검색 x ) -->
-<select id="items" resultMap="resultMapList">
+	<!-- 아이템 리스트 ( 검색 x ) -->
+	<select id="items" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
 				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name, sell_state from items)A) 
 				 where page=#currentPageNo#
 	]]>
-</select>
+	</select>
 
 
-<!-- 아이템 리스트( 검색ok ) -->
-<select id="itemsBySearch" resultMap="resultMapList">
+	<!-- 아이템 리스트( 검색ok ) -->
+	<select id="itemsBySearch" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
 				 from (select no,title,content,trade_category,item_condition, price, user_no,location, email, shipping_Fee, view_count, reg_date, address, user_name,sell_state from items where title like '%'||#kwd#||'%')A) 
 				 where page=#currentPageNo#
 	]]>
-</select>
-<!-- 아이템 고유 No 로 아이템 찾기 -->
-<select id="getItemByNo" parameterClass="java.lang.Long" resultMap="resultMapList">
+	</select>
+	<!-- 아이템 고유 No 로 아이템 찾기 -->
+	<select id="getItemByNo" parameterClass="java.lang.Long"
+		resultMap="resultMapList">
 	<![CDATA[
 		select * from items where no=#no#
 	]]>
-</select>
+	</select>
 
-<select id="getItemListByNo" parameterClass="java.lang.Long" resultClass="ItemListVo">
+	<select id="getItemListByNo" parameterClass="java.lang.Long"
+		resultClass="ItemListVo">
 	<![CDATA[
 		select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
   			from items where no=#no# order by no desc
 	]]>
-</select>
+	</select>
 
-<!-- userNo 로 아이템 찾기 -->
-<select id="getItemsByUserNo" resultMap="resultMapList">
+	<!-- userNo 로 아이템 찾기 -->
+	<select id="getItemsByUserNo" resultMap="resultMapList">
 	<![CDATA[
 		select * from items where user_no=#userNo#
 	]]>
-</select>
+	</select>
 
-<!-- 아이템삭제 -->
-<delete id="deleteItems" parameterClass="java.lang.Long">
+	<!-- 아이템삭제 -->
+	<delete id="deleteItems" parameterClass="java.lang.Long">
 	<![CDATA[
 		delete from items where no=#no#
 	]]>
-</delete>
+	</delete>
 
-<!-- 해시태그 전체 리스트 뽑기 -->
-<select id="tagList" resultMap="resultMapTagList">
+	<!-- 해시태그 전체 리스트 뽑기 -->
+	<select id="tagList" resultMap="resultMapTagList">
 	<![CDATA[
 		select * from hash_tag
 	]]>
-</select>
+	</select>
 
-<!-- 해시태그 아이템 No + 태그네임으로 찾기  -->
-<select id="getTagListByItemNo" parameterClass="HashTagVo" resultMap="resultMapTagList">
+	<!-- 해시태그 아이템 No + 태그네임으로 찾기 -->
+	<select id="getTagListByItemNo" parameterClass="HashTagVo"
+		resultMap="resultMapTagList">
 	<![CDATA[
 		select * from hash_tag where item_no=#itemNo# and tag_name=#tagName#
 	]]>
-</select>
+	</select>
 
-<!-- 해시태그 인서트 -->
-<insert id="insertByHash" parameterClass="java.util.Map">
+	<!-- 해시태그 인서트 -->
+	<insert id="insertByHash" parameterClass="java.util.Map">
 	<![CDATA[
 		insert into hash_tag values(seq_hash.nextval,#tagName#, #itemNo#)
 	]]>
-</insert>
+	</insert>
 
-<!-- 아이템 상제정보 보기 컨드톨러 -by 이준기 0922* -->
-<select id="selectFileList" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+	<!-- 아이템 상제정보 보기 컨드톨러 -by 이준기 0922* -->
+	<select id="selectFileList" parameterClass="java.lang.Long"
+		resultClass="java.util.HashMap">
     <![CDATA[
         SELECT
         	NO_ITEM_PIC,
@@ -226,7 +237,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
         WHERE
             ITEM_NO = #no#
     ]]>
-</select>
+	</select>
 
 
 	<!-- 사용자의 아이템개수 -by 이준기 0924 -->
@@ -265,7 +276,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 				delete FROM ITEMS WHERE no = #no# 
 		]]>
 	</delete>
-	
+	<!-- 아이템등록 -by 이준기 1005 -->
 	<insert id="insertKwd" parameterClass="java.util.Map">
 		<![CDATA[
 				INSERT INTO STORED_KEYWORD (NO,
@@ -276,9 +287,29 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 		             #userNo#,
 		             #kwd#,
 		             SYSDATE)
-	
 		]]>
 	</insert>
-
-
+	<!-- 아이템등록 -by 이준기 1006 -->
+	<select id="selectAllStoredKeyword" resultClass="java.util.HashMap">
+		<![CDATA[
+		select user_no, keyword
+		from STORED_KEYWORD
+		]]>
+	</select>
+	<!-- 키워드 나이별 -by 이준기 1006 -->
+	<update  id="mergeAnalysisKeywod" parameterClass="java.util.Map">
+		<![CDATA[
+		       MERGE INTO ANALYSIS_KEYWORD a
+			     USING DUAL
+			        ON (    a.AGE_GROUP = #age_group#
+			            AND a.GENDER = #gender#
+			            AND a.KEYWORD = #kwd#)
+				WHEN MATCHED
+				THEN
+				   UPDATE SET a.COUNT = a.COUNT + 1
+				WHEN NOT MATCHED
+				THEN
+				   insert (AGE_GROUP, GENDER, KEYWORD) VALUES (#age_group#, #gender#, #kwd#)
+		]]>
+	</update>
 </sqlMap>

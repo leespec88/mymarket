@@ -279,7 +279,8 @@
 	}
 </script>
 <div class="container">
-	<h2>상품 등록</h2>
+	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	<h2 class="text-center" style="padding-top:60px">상품 등록</h2>
 	<form class="form-horizontal" role="form" method="post" action="upload" enctype="multipart/form-data">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="email">Email :</label>

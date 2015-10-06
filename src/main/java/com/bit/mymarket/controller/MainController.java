@@ -50,11 +50,12 @@ public class MainController {
 			list = itemsService.getKwdList(kwd);
 		}
 		UserVo userVo = (UserVo) session.getAttribute("authUser");
-		if(userVo != null) {
+		if(userVo != null && userVo.getBirth() !=null && userVo.getGender() != null) {
 			CommandMap commandMap = new CommandMap();
 			commandMap.put("kwd", kwd);
 			commandMap.put("userNo", userVo.getNo());
 			itemsService.addKwd(commandMap.getMap());
+			itemsService.kwdProcessing();
 		}
 		
 		for(ItemListVo vo: list){
