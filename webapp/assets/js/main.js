@@ -258,7 +258,7 @@ function getList(){
 		var lng = latlng[1];
 		
 		var position=new daum.maps.LatLng(lat, lng);
-		var iwContent = '<div class="iwContent'+i+'"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;">'+title+'</div>';
+		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:14px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
 		var marker = new daum.maps.Marker({
 	    	position: position,
@@ -314,11 +314,11 @@ function IWclick(no){
 					$('.delete').remove();
 					$('.iwContent'+i).html(title).css('background-color','#ACACAC');
 				}else{
-					var info='<img class="mapImg delete'+i+'" src="'+url+'"/>';
+					var info='<img class="mapPic delete'+i+'" src="'+url+'"/>';
 					info+='<p class="delete'+i+'">'+title+'</p>';
 					info+='<p class="delete'+i+'">'+price+'원</p>';
 					info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
-					info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; width:70px;">상세보기</a>';
+					info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
 					$('.iwContent'+i).html(info).css('background-color','#ff5a5f');
 					break;
 				}

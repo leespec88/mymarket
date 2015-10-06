@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	
 	
 	<style>
 		#textlist {padding-top:50px;color:#A6A6A7;}
@@ -41,6 +41,20 @@
 	overflow-y: auto;
 }
 }
+.mapContent {
+	padding:5px;
+	text-align:center;
+	width:150px;
+	background-color:#ff5a5f;
+	color:#fff;
+	font-size:14px;
+	font-weight:bold;
+	cursor:pointer;
+}
+.mapPic {
+	width: 120px;
+	height: 120px;
+}
 /* 사이드바 래퍼 스타일 close */
 </style>
  	
@@ -49,8 +63,7 @@
 </head>
 
 <body>
-	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
-
+	
 	<div class="container-fluid">
 	    <div class="row">
 	    	<!-- 사이드바 넣을 블럭을 잡아주고 닫아줌 -->
@@ -120,5 +133,8 @@
 <!-- 맵부분 코딩 close-->
 		</div>
 	</div>
+	
+	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

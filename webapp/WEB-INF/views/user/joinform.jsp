@@ -44,10 +44,35 @@ $(function(){
 			$email.focus();
 			return false;
 	   	}
-	   	//이메일 중복 체크
-	 
+		
+		//2. 성별 체크
+		
+		var gender = $('#gender').val();
+		if(gender==''){
+			alert("성별을 선택해주세요. 필수입력 사항입니다.");
+			return false;
+		}
+		
+		//3. 생년월일 체크
+		var year = $('#year').val();
+		var month = $('#month').val();
+		var day = $('#day').val();
+		
+		if(month==''){
+			alert("생년월일을 선택해주세요. 필수입력 사항입니다.");
+			return false;
+		}
+		if(year==''){
+			alert("생년월일을 선택해주세요. 필수입력 사항입니다.");
+			return false;
+		}
+		if(day==''){
+			alert("생년월일을 선택해주세요. 필수입력 사항입니다.");
+			return false;
+		}
+		
 	   	
-		//3. 패스워드
+		//4. 패스워드
 		var $password = $("input[type='password']");
 		var password = $password.val();
 		var $pwCheck = $('pwCheck');
@@ -64,8 +89,30 @@ $(function(){
 		
 	});
 	
+	//생년월일 이벤트 등록
+	$('#year').change(function(){
+		$('#month').removeAttr("disabled");
+	});
 	
-
+	$('#month').change(function(){
+		var month = $('#month').val();
+		var days = null;
+		if(month=='2'){
+			days+="<c:forEach var='i' begin='1' end='28' step='1'>";
+			days+="<option value='${i }'>${i }일</option></c:forEach>";
+		}else if(month=='4' || month=='6' || month=='9' || month=='11'){
+			days+="<c:forEach var='i' begin='1' end='30' step='1'>";
+			days+="<option value='${i }'>${i }일</option></c:forEach>";
+		}else{
+			days+="<c:forEach var='i' begin='1' end='31' step='1'>";
+			days+="<option value='${i }'>${i }일</option></c:forEach>";
+		}
+		
+		$('#day').html(days);
+		$('#day').removeAttr("disabled");
+	});
+	
+	
 });
 
 function joinCheck(){
@@ -84,12 +131,20 @@ function joinCheck(){
 		}
 	});
 };
+
 </script>
 <body class="joinform">
 <div class="container">
 	<form class="form-horizontal" id="joinform" action="/user/join" method="post">
 	  <fieldset>
-	    <legend>회원가입</legend>
+	   
+	   <div class="form-group text-center">
+	   		<h2>회 원 가 입</h2>
+	   </div>
+	    
+	    <div class="form-group">
+	     	<p class="col-lg-8 text-right" style="color:red;"> *모두 필수입력사항입니다. 꼭 입력해 주세요.</p>
+	     </div>
 	    <div class="form-group">
 	      <label for="inputName" class="col-lg-2 control-label">이름</label>
 	      	<div class="col-lg-8">
@@ -114,8 +169,44 @@ function joinCheck(){
 	      <div class="col-lg-8">
 	        <input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="Password">
 	      </div>
-	      <div id="message"></div>
 	    </div>
+	    <div class="form-group">
+			<label class="col-lg-2 control-label">성별</label>
+			<div class="col-lg-8" id="genderForm">
+				<select class="form-control" id="gender" name="gender">
+						<option value="">선 택</option>
+						<option value='male'>남 자</option>
+						<option value='femail'>여 자</option>
+				</select>
+			</div>
+		</div>
+				<div class="form-group">
+					<label class="col-lg-2 control-label">생년월일</label>
+					<div class="col-lg-8" id="">
+						<span class="select"> 
+							
+							<select class="form-control" name="year" id="year" > 
+									<option value="">선 택</option>
+									<c:forEach var="i" begin="1931" end="1997" step="1" >
+											<option value="${i }">${i }년</option>
+									</c:forEach>
+							</select> 
+							</span>
+							<span class="select"> 
+							<select class="form-control" name="month" id="month" disabled>
+									<option value="">선 택</option>
+									<c:forEach var="i" begin="1" end="12" step="1" >
+											<option value="${i }">${i }월</option>
+									</c:forEach>
+							</select> 
+							</span>
+							<span class="select"> 
+								<select class="form-control" name="day" id="day" disabled>
+									<option value=''>선 택</option>
+								</select>
+							</span>
+					</div>
+				</div>
 	    <div class="form-group">
 	      <div class="col-lg-8 col-lg-offset-2">
 	        <a href="/"><input type="button" class="btn btn-default" value="취소"/></a>
@@ -125,5 +216,8 @@ function joinCheck(){
 	  </fieldset>
 	</form>
 </div>
+<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+<!-- Latest compiled JavaScript -->
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

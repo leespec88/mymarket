@@ -1,21 +1,18 @@
 package com.bit.mymarket.controller;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.bit.mymarket.service.EmailService;
 import com.bit.mymarket.service.UserService;
 import com.bit.mymarket.vo.UserVo;
-import com.sun.org.glassfish.gmbal.ParameterNames;
 
 @Controller
 @RequestMapping("/user")
@@ -31,7 +28,8 @@ public class UserController {
 		return "/user/joinform";
 	}
 	@RequestMapping("/join")
-	public String join(@ModelAttribute UserVo vo, @RequestParam String pwCheck) {
+	public String join(@ModelAttribute UserVo vo, @RequestParam String pwCheck, String year, String month, String day) {
+		vo.setBirth(year+"-"+month+"-"+day);
 		boolean result = userService.getByEmail(vo.getEmail());
 		if(result){
 			return "redirect:/user/joinform";
@@ -40,7 +38,7 @@ public class UserController {
 		if(pwCheck.equals(vo.getPassword())){
 			userService.join(vo);
 			emailService.sendEmail(vo.getEmail());
-			return "/";
+			return "redirect:/";
 		}
 		
 		return "redirect:/user/joinform";
@@ -64,7 +62,7 @@ public class UserController {
 		if(userVo==null){
 			return "redirect:/user/loginform";
 		}
-		if("∞¸∏Æ¿⁄".equals(userVo.getMemberType())){
+		if("Í¥ÄÎ¶¨Ïûê".equals(userVo.getMemberType())){
 			session.setAttribute("authUser", userVo);
 			return "redirect:/admin/memberList";
 		}else{
@@ -104,14 +102,36 @@ public class UserController {
 	}
 	
 	@RequestMapping("/modifyform")
-	public String modifyform(){
+	public String modifyform(HttpSession session, Model model){
+		UserVo userVo = (UserVo)session.getAttribute("authUser");
+		String year = null;
+		String month = null;
+		String day = null;
+		
+		if(userVo.getBirth()!=null){
+			String birth[] = userVo.getBirth().split("-");
+			year = birth[0];
+			month= birth[1];
+			day = birth[2];
+		}else{
+			year="1931";
+			month="1";
+			day="1";
+		}
+		
+		model.addAttribute("year",year);
+		model.addAttribute("month",month);
+		model.addAttribute("day",day);
+			
+		
 		return "/user/modifyform";
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(@ModelAttribute UserVo vo, HttpSession session){
+	public String modify(@ModelAttribute UserVo vo, HttpSession session, String year, String month, String day){
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		vo.setNo(authUser.getNo());
+		vo.setBirth(year+"-"+month+"-"+day);
 		userService.modify(vo);
 		authUser.setEmail(vo.getEmail());
 		authUser.setPhone(vo.getPhone());
