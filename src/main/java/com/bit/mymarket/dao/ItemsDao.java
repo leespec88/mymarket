@@ -9,6 +9,7 @@ import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.bit.mymarket.CommandMap;
+import com.bit.mymarket.vo.AnalysisKeywordVo;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemListVo;
 import com.bit.mymarket.vo.ItemPicVo;
@@ -131,6 +132,7 @@ public class ItemsDao {
 		return vo;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectFileList(Long no) {
 		
 		return (List<Map<String, Object>>)sqlMapClientTemplate.queryForList("items.selectFileList", no);
@@ -169,12 +171,9 @@ public class ItemsDao {
 	public void insertKwd(Map<String, Object> map) {
 		sqlMapClientTemplate.insert("items.insertKwd", map);
 	}
-	public List<Map<String, Object>> getKwdList() {
-		// TODO Auto-generated method stub
+	
+	@SuppressWarnings("unchecked")
+	public List<AnalysisKeywordVo> getKwdList() {
 		return sqlMapClientTemplate.queryForList("items.selectAllStoredKeyword");
 	}
-	public void insertProcessedKwd(Map<String, Object> map) {
-		sqlMapClientTemplate.insert("items.mergeAnalysisKeywod", map);
-	}
-	
 }

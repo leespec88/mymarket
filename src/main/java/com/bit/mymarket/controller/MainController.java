@@ -29,6 +29,13 @@ public class MainController {
 	@RequestMapping("/")
 	public String index(Model model){
 		List<ItemListVo> list=itemsService.getList();
+		model.addAttribute("ageGrouplist", itemsService.kwdProcessing());
+		return "/main/newIndex";
+	}
+	
+	@RequestMapping("/main")
+	public String main(Model model){
+		List<ItemListVo> list=itemsService.getList();
 		//List<HashTagVo> hashList = itemsService.getTagList();
 
 		model.addAttribute("list", list);
@@ -55,7 +62,7 @@ public class MainController {
 			commandMap.put("kwd", kwd);
 			commandMap.put("userNo", userVo.getNo());
 			itemsService.addKwd(commandMap.getMap());
-			itemsService.kwdProcessing();
+			
 		}
 		
 		for(ItemListVo vo: list){
@@ -65,6 +72,7 @@ public class MainController {
 		model.addAttribute("list", list);
 		model.addAttribute("tagList",tagList);
 		System.out.println(model);
+		
 		return "/main/searchMain";
 	}
 	

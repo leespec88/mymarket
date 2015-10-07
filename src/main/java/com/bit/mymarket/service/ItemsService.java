@@ -23,6 +23,7 @@ import com.bit.mymarket.dao.ReplyDao;
 import com.bit.mymarket.dao.UserDao;
 import com.bit.mymarket.util.FileUtils;
 import com.bit.mymarket.util.FileUtils2;
+import com.bit.mymarket.vo.AnalysisKeywordVo;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemListVo;
 import com.bit.mymarket.vo.ItemPicVo;
@@ -233,7 +234,6 @@ public class ItemsService {
 	/*판매자의 아이템의 삭제   -by 이준기 0925*/
 	public void deleteItem(Long itemno) {
 		itemsDao.deleteItem(itemno);
-		
 	}
 	
 	public void updateSellState(Map<String, Object> map) {
@@ -243,18 +243,6 @@ public class ItemsService {
 
 	public void updateItem(Map<String, Object> map, HttpServletRequest request) {
 		itemsDao.update(map);
-		/*
-		List<Map<String, Object>> list = fileUtils2.parseInsertFileInfo(map, request);
-		Map<String,Object> tempMap = null;
-		for (int i = 0, size = list.size(); i < size; i++) {
-			tempMap = list.get(i);
-		        if("Y".equals(tempMap.get("IS_NEW"))){
-		        	
-		        }
-		        else{
-		        	itemsDao.appendFile(tempMap);
-		        }
-		    }*/
 	}
 
 	public void addKwd(Map<String, Object> map) {
@@ -262,40 +250,9 @@ public class ItemsService {
 		
 	}
 	
-	public void kwdProcessing(){
+	public List<AnalysisKeywordVo> kwdProcessing(){
 		System.err.println("kwdProcessing 동작중...");
-		List<Map<String, Object>> list = itemsDao.getKwdList();
-		Map<String,Object> tempMap = null;
-		for (int i = 0, size = list.size(); i < size; i++) {
-			tempMap = list.get(i);
-			UserVo userVo = new UserVo();
-			Object no = tempMap.get("USER_NO");
-			System.out.println(no.toString());
-			userVo = userDao.getUserInfobyNo(Long.parseLong(no.toString()));
-//			System.out.println(userVo.toString());
-			String Birth=userVo.getBirth();
-			String[] year;
-			Calendar c = Calendar.getInstance();
-			year = Birth.split("-");
-			Integer years = Integer.parseInt(year[0]);
-			years =  (c.get(Calendar.YEAR) - years + 1) /10;
-			int age_group = years*10;
-			System.err.println("회원 : "+userVo.getName()+" 연령대는 = "+ age_group);
-			CommandMap commandMap = new CommandMap();
-			commandMap.put("age_group", age_group);
-			commandMap.put("gender", userVo.getGender());
-			commandMap.put("kwd", tempMap.get("KEYWORD"));
-			itemsDao.insertProcessedKwd(commandMap.getMap());
-			
-		}
-
-			
-			
-				
-		
-		
-		
-		
+		return itemsDao.getKwdList();
 	}
 	
 	

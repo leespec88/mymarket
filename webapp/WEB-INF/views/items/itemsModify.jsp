@@ -352,7 +352,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="price">가격 :</label>
 				<div class="col-sm-8">
-					<input type="text" id="price" name="price" value="" onchange="javascript:AddComma('${itemVo.price}')"
+					<input type="text" id="price" name="price" value="" onfocus="javascript:deletecomma('${itemVo.price}')"
 						placeholder="원">
 				</div>
 			</div>
@@ -421,12 +421,24 @@ $(document).ready(function() {
 	});
 });
 
-function AddComma(data_value) {
-	var input = Number(data_value).toLocaleString('en');
+//포커스 잃었을때 실행됨.
+$('#price').blur(function() {
+	/* 콤마 천단위 세팅 */
+	var n = $('#price').val();
+	var input = Number(n).toLocaleString('en');
 	$('#price').val(input);
+});
+
+
+function deletecomma(){
+	var n =$('#price').val();
+	n = parseInt(n.replace(/,/g,""));
+	$('#price').val(n);
+	
 }
 function fn_updateBoard() {
 	var comSubmit = new ComSubmit("frm");
+	deletecomma();
 	comSubmit.setUrl("<c:url value='/items/updateItems' />");
 	comSubmit.submit();
 }
