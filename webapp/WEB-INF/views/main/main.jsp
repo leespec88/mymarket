@@ -21,26 +21,74 @@
 	</style>
 	
 <style>
-/* 사이드바 래퍼 스타일 */
-@media(max-width:767px){
-	#sidebar-wrapper{
-	/* position: fixed; */
-	/* width: 95%; */
-	height: 100%;
-	margin-left: -33px;
-	overflow-x: hidden;
-	overflow-y: auto;
+/* 
+@media (min-width:992px){
+.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9{float:left}
+.col-md-12{width:100%}
+.col-md-11{width:91.66666667%}
+.col-md-10{width:83.33333333%}
+.col-md-9{width:75%}
+.col-md-8{width:66.66666667%}
+.col-md-7{width:58.33333333%}
+.col-md-6{width:50%}
+.col-md-5{width:41.66666667%}
+.col-md-4{width:33.33333333%}
+.col-md-3{width:25%}
+.col-md-2{width:16.66666667%}
+.col-md-1{width:8.33333333%}
+}*/
+	
+	
+	@media(max-width:767px){
+		.col-md-3{
+		width:100%
+		}
+		.col-sm-7{
+		display: none;
+		}
 	}
-}
-@media(min-width:768px){
-#sidebar-wrapper {
-	position: fixed;
-	width: 58%;
-	height: 80%;
-	margin-left: -33px;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
+
+
+ @media(min-width:768px){
+	@media(max-width:1600px){
+		.col-md-3{
+		width:33.33333333%
+		}
+	}
+	
+	/* @media(min-width:1599px){
+		.col-md-3{
+		width:25%
+		}
+	} */
+	
+	@media(max-width:1400px){
+		.col-md-3{
+		width:50%
+		}
+	}
+	@media(max-width:860px){
+		.col-md-3{
+		width:100%
+		}
+	}
+	/* @media(max-width:767px){
+		.col-md-3{
+		width:100%
+		}
+	} */
+
+/* 사이드바 래퍼 스타일 */
+
+
+	#sidebar-wrapper { /* min-width:768px 되기 전까지 스크롤 먹는다는 의미 스크롤 먹이는 부분 */
+		position: fixed;
+		width: 58%;
+		height: 80%;
+		margin-left: -33px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
 }
 .mapContent {
 	padding:5px;
@@ -71,11 +119,11 @@
 	    	
 
  			    <div class="col-sm-7">
- 			    <h1 class="text-center"  id="textlist"><strong>상품리스트</strong></h1>
 		    	
 	    			    
 <div id="page-wrapper">
 	<!-- 사이드바 -->
+ 			    <h1 class="text-center"  id="textlist"><strong>상품리스트</strong></h1>
 	<div id="sidebar-wrapper">
 	
 		    	<!-- 아이템 리스트 부분 코딩 -->
