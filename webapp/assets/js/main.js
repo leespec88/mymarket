@@ -74,7 +74,7 @@ var mm = 0;
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
-		        level: 7, // 지도의 확대 레벨
+		        level: 5, // 지도의 확대 레벨
 		        mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
 		    }; 
 
@@ -290,7 +290,7 @@ function getList(){
 		var lng = latlng[1];
 		
 		var position=new daum.maps.LatLng(lat, lng);
-		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');" style="padding:5px; text-align:center; width:150px; background-color:#FF66FF; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
+		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');" style="padding:5px; text-align:center; width:150px; background-color:#3399FF; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
 		var marker = new daum.maps.Marker({
 	    	position: position,
@@ -362,7 +362,7 @@ function IWclick(no){
 function IWclick(no){
 	var length = $('#vo').val();
 	var eq =null;
-	
+	var z=2;
 	for(var i=1; i<=length; i++){
 			
 		var itemNo= $('#no'+i).val();
@@ -382,7 +382,7 @@ function IWclick(no){
 				info+='<p class="delete'+i+'">'+price+'원</p>';
 				info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
 				info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
-				$('.iwContent'+i).html(info).css('background-color','#3C3C3C');
+				$('.iwContent'+i).html(info).css('background-color','#3C3C3C').css('z-index',++z);
 				eq=i;
 				break;
 			}

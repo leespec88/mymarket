@@ -41,7 +41,7 @@
 		<h1><strong>우리들의 즐거운 중고장터</strong></h1>
 		<h3><strong>마이마켓에 오신것을 환영합니다.</strong></h3>
 		<p  id="sBtn"><a href="/main/" ><button type="button" class="btn btn-danger btn-lg"><strong>주변상품검색</strong></button></a></p>
-		<form id="indexSearch" role="form">
+		<form id="indexSearch" role="form" action="/searchMain" method="post">
 			<div class="form-group form-inline">
 				<label class="sr-only"></label>
           		<input type="text" name="kwd" placeholder="상품검색창입니다." style="height:35px;color:#000">

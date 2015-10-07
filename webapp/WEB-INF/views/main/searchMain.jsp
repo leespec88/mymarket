@@ -16,31 +16,79 @@
 	
 	<style>
 		#textlist {padding-top:50px;color:#A6A6A7;}
-		.img-thumbnail{ background-color: #FF5A5F; width:200px; height:200px;}
+		.img-thumbnail{width:200px; height:200px;}
 		.well{max-height: 360px;}
 	</style>
 	
 <style>
-/* 사이드바 래퍼 스타일 */
-@media(max-width:767px){
-	#sidebar-wrapper{
-	/* position: fixed; */
-	/* width: 95%; */
-	height: 100%;
-	margin-left: -33px;
-	overflow-x: hidden;
-	overflow-y: auto;
+/* 
+@media (min-width:992px){
+.col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9{float:left}
+.col-md-12{width:100%}
+.col-md-11{width:91.66666667%}
+.col-md-10{width:83.33333333%}
+.col-md-9{width:75%}
+.col-md-8{width:66.66666667%}
+.col-md-7{width:58.33333333%}
+.col-md-6{width:50%}
+.col-md-5{width:41.66666667%}
+.col-md-4{width:33.33333333%}
+.col-md-3{width:25%}
+.col-md-2{width:16.66666667%}
+.col-md-1{width:8.33333333%}
+}*/
+	
+	
+	@media(max-width:767px){
+		.col-md-3{
+		width:100%
+		}
+		.col-sm-7{
+		display: none;
+		}
 	}
-}
-@media(min-width:768px){
-#sidebar-wrapper {
-	position: fixed;
-	width: 58%;
-	height: 80%;
-	margin-left: -33px;
-	overflow-x: hidden;
-	overflow-y: auto;
-}
+
+
+ @media(min-width:768px){
+	@media(max-width:1600px){
+		.col-md-3{
+		width:33.33333333%
+		}
+	}
+	
+	/* @media(min-width:1599px){
+		.col-md-3{
+		width:25%
+		}
+	} */
+	
+	@media(max-width:1400px){
+		.col-md-3{
+		width:50%
+		}
+	}
+	@media(max-width:860px){
+		.col-md-3{
+		width:100%
+		}
+	}
+	/* @media(max-width:767px){
+		.col-md-3{
+		width:100%
+		}
+	} */
+
+/* 사이드바 래퍼 스타일 */
+
+
+	#sidebar-wrapper { /* min-width:768px 되기 전까지 스크롤 먹는다는 의미 스크롤 먹이는 부분 */
+		position: fixed;
+		width: 58%;
+		height: 80%;
+		margin-left: -33px;
+		overflow-x: hidden;
+		overflow-y: auto;
+	}
 }
 .mapContent {
 	padding:5px;
@@ -56,6 +104,17 @@
 	width: 120px;
 	height: 120px;
 }
+
+.locDiv{
+	margin-top:10px;
+	font-weight:bold;
+	
+}
+.locInput{
+	height:34px;
+}
+
+
 /* 사이드바 래퍼 스타일 close */
 </style>
 	<title></title>
@@ -83,7 +142,7 @@
 		    		<c:set var="status" value="${fn:length(list)}"></c:set>
 		    		<c:set var="length" value="${fn:length(tagList)}"></c:set>
 		    		<c:forEach var="list" items="${list}" varStatus="status" begin="0">
-		    		<div class="col-sm-12 col-md-4">
+		    		<div class="col-sm-12 col-md-3">
 			    		<div class="well">
 			    			<img class="img-thumbnail" src="${list.url }" alt="Chania" width="530" height="345">
 			    			<p><span class='itemTitle'><a href='/items/detailView/${list.no }'>${list.title }</a> <a href="javascript:setPosition('${list.location}');" class="glyphicon glyphicon-map-marker"></a></span></p>
@@ -134,8 +193,10 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
 			<form onsubmit="searchPlaces(); return false;">
-				키워드 : <input type="text" id="keyword" size="15"> 
-				<button type="submit">검색하기</button> 
+				<div class="form-group locDiv"> 
+					<input class="col-lg-3 locInput" type="text" id="keyword" size="10" placeholder="지역검색"> 
+					<button class="btn btn-default"type="submit">검색</button>
+				</div>
 			</form>
         </div>
         <hr>

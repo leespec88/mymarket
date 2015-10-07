@@ -1,9 +1,7 @@
-
-
 /* 마커 이미지 */
 	var imageSrc = '/assets/images/map-marker.png', // 마커이미지의 주소입니다    
 	imageSize = new daum.maps.Size(0, 0), // 마커이미지의 크기입니다
-	imageOption = {offset: new daum.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+	imageOption = {offset: new daum.maps.Point(0, 0)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 	  
 	//마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 	var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
@@ -29,7 +27,7 @@ if (navigator.geolocation) {
      // 마커와 인포윈도우를 표시합니다
      displayMarker(locPosition, message);
      // 지도 중심좌표를 접속위치로 변경합니다
-     //map.setCenter(locPosition);  
+     map.setCenter(locPosition);  
    });
  
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
@@ -72,7 +70,7 @@ function displayMarker(locPosition, message) {
 }
 /* 현재 위치 표시 close */
 
-
+var mm = 0;
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 		    mapOption = {
 		        center: new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
@@ -80,8 +78,40 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 		        mapTypeId : daum.maps.MapTypeId.ROADMAP // 지도종류
 		    }; 
 
+
+
+
+/*console.log("안뇽?");
+//latlng1 = latlng1.replace(/\s/gi, ''); // 모든 공백을 제거
+//url : "/OnePicList/" + mapBounds + "/" + no,
+//마커 클러스터러를 생성합니다 
+var clusterer = new daum.maps.MarkerClusterer({
+    map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+    averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+    minLevel: 8 // 클러스터 할 최소 지도 레벨 
+});
+
+// 데이터를 가져오기 위해 jQuery를 사용합니다
+// 데이터를 가져와 마커를 생성하고 클러스터러 객체에 넘겨줍니다
+$.get("/assets/json/chicken.json", function(data) {
+    // 데이터에서 좌표 값을 가지고 마커를 표시합니다
+    // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
+    var markers = $(data.positions).map(function(i, position) {
+        return new daum.maps.Marker({
+            position : new daum.maps.LatLng(position.lat, position.lng)
+        });
+    });
+
+    // 클러스터러에 마커들을 추가합니다
+    clusterer.addMarkers(markers);
+});*/
+
+
+
+
+
 		// 지도를 생성한다 
-		var map = new daum.maps.Map(mapContainer, mapOption); 
+		var map = new daum.maps.Map(mapContainer, mapOption);
 		
 		// 지도 타입 변경 컨트롤을 생성한다
 		var mapTypeControl = new daum.maps.MapTypeControl();
@@ -105,6 +135,9 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 			console.log('지도의 현재 확대레벨은 ' + map.getLevel() +'레벨 입니다.');
 		});
 		
+		daum.maps.event.addListener(map, 'click', function () {
+			iwClick2();
+		});
 		
 
 /* 현재 위치 표시 */
@@ -200,7 +233,7 @@ function getList(){
 		var lng = latlng[1];
 		
 		var position=new daum.maps.LatLng(lat, lng);
-		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
+		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');" style="padding:5px; text-align:center; width:150px; background-color:#3399FF; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
 		var marker = new daum.maps.Marker({
 	    	position: position,
@@ -215,6 +248,7 @@ function getList(){
 		});
 		
 		infowindow.open(map, marker);
+		
 		
 	} 
 		// 지도에 표시된 마커 객체를 가지고 있을 배열입니다
@@ -240,7 +274,7 @@ function goInfo(){
 }
 
 
-
+/*
 function IWclick(no){
 	var length = $('#vo').val();
 		for(var i=1; i<=length; i++){
@@ -265,9 +299,63 @@ function IWclick(no){
 					break;
 				}
 			}
-		}	
+		}
+}*/
+
+function IWclick(no){
+	var length = $('#vo').val();
+	var eq =null;
+	var z=2;
+	for(var i=1; i<=length; i++){
+			
+		var itemNo= $('#no'+i).val();
+		var url= $('#url'+i).val();
+		var price= $('#price'+i).val();
+		var regDate= $('#regDate'+i).val();
+		var title = $('#title'+i).val();
+			
+		if(no==itemNo){
+			var text=$('.delete'+i).html();
+			if(text==""){
+					$('.delete').remove();
+					$('.iwContent'+i).html(title).css('background-color','#3C3C3C');
+			}else{
+				var info='<img class="mapPic delete'+i+'" src="'+url+'"/>';
+				info+='<p class="delete'+i+'">'+title+'</p>';
+				info+='<p class="delete'+i+'">'+price+'원</p>';
+				info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
+				info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
+				$('.iwContent'+i).html(info).css('background-color','#3C3C3C').css('z-index',++z);
+				eq=i;
+				break;
+			}
+		}
+	}
+	
+	for(var j=1;j<=length;j++){
+		if(j!=eq){
+			var title = $('#title'+j).val();
+			$('.iwContent'+j).html(title);
+		}
+	}
 }
 
+function iwClick2(){
+	length = $('#vo').val(); 
+	for(var i=1; i<=length; i++){
+		var title=$('#title'+i).val();
+		$('.delete'+i).remove();
+		$('.iwContent'+i).html(title);
+	}
+}
+
+
+
+
+
+
+
+		
 
 
 
