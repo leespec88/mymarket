@@ -362,7 +362,6 @@ function IWclick(no){
 function IWclick(no){
 	var length = $('#vo').val();
 	var eq =null;
-	var z=2;
 	for(var i=1; i<=length; i++){
 			
 		var itemNo= $('#no'+i).val();
@@ -370,19 +369,31 @@ function IWclick(no){
 		var price= $('#price'+i).val();
 		var regDate= $('#regDate'+i).val();
 		var title = $('#title'+i).val();
+		
+		
 			
 		if(no==itemNo){
 			var text=$('.delete'+i).html();
+			
+			$('.iwContent'+i).css('z-index',1);
+			//$('.iwContent'+i).parents('div#map div div div div').css('z-index',0); // 추가함
+//			아래 를 참고함.
+//			As mentioned by a couple of others, there isn't a way to style an element's parent/s using just CSS but the following works with jQuery:
+//			$("a.active").parents('li').css("property", "value");
+			
+			
 			if(text==""){
 					$('.delete').remove();
-					$('.iwContent'+i).html(title).css('background-color','#3C3C3C');
+					$('.iwContent'+i).html(title).css('background-color','#3C3C3C').css('z-index',0);
+					$('.iwContent'+i).parents('div#map div div div div').css('z-index',1); // 추가함
 			}else{
 				var info='<img class="mapPic delete'+i+'" src="'+url+'"/>';
 				info+='<p class="delete'+i+'">'+title+'</p>';
 				info+='<p class="delete'+i+'">'+price+'원</p>';
 				info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
 				info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
-				$('.iwContent'+i).html(info).css('background-color','#3C3C3C').css('z-index',++z);
+				$('.iwContent'+i).html(info).css('background-color','#3C3C3C').css('z-index',0);
+				$('.iwContent'+i).parents('div#map div div div div').css('z-index',2); // 추가함
 				eq=i;
 				break;
 			}
@@ -393,6 +404,8 @@ function IWclick(no){
 		if(j!=eq){
 			var title = $('#title'+j).val();
 			$('.iwContent'+j).html(title);
+			
+			$('.iwContent'+j).parents('div#map div div div div').css('z-index',0);// 추가함
 		}
 	}
 }
@@ -403,6 +416,9 @@ function iwClick2(){
 		var title=$('#title'+i).val();
 		$('.delete'+i).remove();
 		$('.iwContent'+i).html(title);
+		
+		$('div#map div div div div').css('z-index',0);// 추가함
+		//$('.iwContent'+i).parents('div#map div div div div').css('z-index',1); // 추가함
 	}
 }
 
