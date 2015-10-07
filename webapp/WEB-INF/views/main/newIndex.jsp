@@ -36,7 +36,7 @@
 </head>
 
 <body>
-	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	
 	<div id="section1" class="container-fluid">
 		<h1><strong>우리들의 즐거운 중고장터</strong></h1>
 		<h3><strong>마이마켓에 오신것을 환영합니다.</strong></h3>
@@ -69,5 +69,8 @@
 			</c:forEach>
 		</div>
 	</div>
+	
+	<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

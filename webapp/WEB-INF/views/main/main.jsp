@@ -16,7 +16,7 @@
 	
 	<style>
 		#textlist {padding-top:50px;color:#A6A6A7;}
-		.img-thumbnail{ background-color: #FF5A5F; width:200px; height:200px;}
+		.img-thumbnail{width:200px; height:200px;}
 		.well{max-height: 360px;}
 	</style>
 	
@@ -104,6 +104,17 @@
 	width: 120px;
 	height: 120px;
 }
+
+.locDiv{
+	margin-top:10px;
+	font-weight:bold;
+	
+}
+.locInput{
+	height:34px;
+}
+
+
 /* 사이드바 래퍼 스타일 close */
 </style>
  	
@@ -164,8 +175,10 @@
     <div id="menu_wrap" class="bg_white">
         <div class="option">
 			<form onsubmit="searchPlaces(); return false;">
-				키워드 : <input type="text" id="keyword" size="15"> 
-				<button type="submit">검색하기</button> 
+				<div class="form-group locDiv"> 
+					<input class="col-lg-3 locInput" type="text" id="keyword" size="10" placeholder="지역검색"> 
+					<button class="btn btn-default"type="submit">검색</button>
+				</div>
 			</form>
         </div>
         <hr>

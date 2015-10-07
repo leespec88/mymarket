@@ -290,7 +290,7 @@ function getList(){
 		var lng = latlng[1];
 		
 		var position=new daum.maps.LatLng(lat, lng);
-		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');"style="padding:5px; text-align:center; width:150px; background-color:#ff5a5f; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
+		var iwContent = '<div class="iwContent'+i+' mapContent"onclick="IWclick('+no+');" style="padding:5px; text-align:center; width:150px; background-color:#FF66FF; color:#fff; font-size:13px; font-weight:bold; cursor:pointer;">'+title+'</div>';
 		
 		var marker = new daum.maps.Marker({
 	    	position: position,
