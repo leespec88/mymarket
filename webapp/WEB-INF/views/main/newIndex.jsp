@@ -44,7 +44,8 @@
 		<form id="indexSearch" role="form">
 			<div class="form-group form-inline">
 				<label class="sr-only"></label>
-          		<input type="text" class="form-control" name="kwd" placeholder="상품검색창입니다.">
+          		<input type="text" name="kwd" placeholder="상품검색창입니다." style="height:35px;color:#000">
+          		
           		<button type="submit" class="btn btn-default"><strong>확인</strong></button>
         	</div>
         	

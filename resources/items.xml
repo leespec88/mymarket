@@ -46,6 +46,14 @@
 		<result column="tag_name" property="tagName" />
 		<result column="item_no" property="itemNo" />
 	</resultMap>
+	
+	<typeAlias alias="analysiskeyword" type="com.bit.mymarket.vo.AnalysisKeywordVo" />
+	<resultMap class="analysiskeyword" id="resultMapAnalysisKeywordList">
+		<result column="KEYWORD" property="keyword" />
+		<result column="GENDER" property="gender" />
+		<result column="AGE_GROUP" property="ageGroup" />
+		<result column="COUNT" property="count" />
+	</resultMap>
 
 	<!-- Items insert -->
 	<insert id="insert" parameterClass="ItemsVo">
@@ -90,16 +98,16 @@
 	<!-- items image 한장씩 출력후 나머지 null 주기 -->
 	<select id="getItemList" parameterClass="java.util.Map"
 		resultClass="ItemListVo">
-<![CDATA[
-select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
-  from items
-  where #maxlat# >= substr(location,0, instr(location, ',')-1) 
-  and substr(location,0, instr(location, ',')-1) >= #minlat#
-  and #maxlng# >= substr(location, instr(location, ',')+1, length(location)-instr(location, ','))
-  and substr(location, instr(location, ',')+1, length(location)-instr(location, ',')) >= #minlng#
-  order by no desc
-  
-]]>
+		<![CDATA[
+		select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
+		  from items
+		  where #maxlat# >= substr(location,0, instr(location, ',')-1) 
+		  and substr(location,0, instr(location, ',')-1) >= #minlat#
+		  and #maxlng# >= substr(location, instr(location, ',')+1, length(location)-instr(location, ','))
+		  and substr(location, instr(location, ',')+1, length(location)-instr(location, ',')) >= #minlng#
+		  order by no desc
+		  
+		]]>
 	</select>
 
 
@@ -225,8 +233,7 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 	</insert>
 
 	<!-- 아이템 상제정보 보기 컨드톨러 -by 이준기 0922* -->
-	<select id="selectFileList" parameterClass="java.lang.Long"
-		resultClass="java.util.HashMap">
+	<select id="selectFileList" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
     <![CDATA[
         SELECT
         	NO_ITEM_PIC,
@@ -290,26 +297,37 @@ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(r
 		]]>
 	</insert>
 	<!-- 아이템등록 -by 이준기 1006 -->
-	<select id="selectAllStoredKeyword" resultClass="java.util.HashMap">
+	<select id="selectAllStoredKeyword" resultMap="resultMapAnalysisKeywordList">
 		<![CDATA[
-		select user_no, keyword
-		from STORED_KEYWORD
+		  SELECT KEYWORD, GENDER, AGE_GROUP, COUNT FROM VIEWKEYWORD order by count desc
 		]]>
 	</select>
-	<!-- 키워드 나이별 -by 이준기 1006 -->
-	<update  id="mergeAnalysisKeywod" parameterClass="java.util.Map">
+	
+	<update id="updateState" parameterClass="java.util.HashMap">
 		<![CDATA[
-		       MERGE INTO ANALYSIS_KEYWORD a
-			     USING DUAL
-			        ON (    a.AGE_GROUP = #age_group#
-			            AND a.GENDER = #gender#
-			            AND a.KEYWORD = #kwd#)
-				WHEN MATCHED
-				THEN
-				   UPDATE SET a.COUNT = a.COUNT + 1
-				WHEN NOT MATCHED
-				THEN
-				   insert (AGE_GROUP, GENDER, KEYWORD) VALUES (#age_group#, #gender#, #kwd#)
+				UPDATE ITEMS
+				   SET SELL_STATE = #sellState#
+				 WHERE no = #itemNo#
 		]]>
 	</update>
+	
+	<update id="updateItems" parameterClass="java.util.HashMap">
+		<![CDATA[
+			UPDATE ITEMS 
+			   SET TITLE=#title#, CONTENT=#content#, TRADE_CATEGORY=#tradeCategory#, ITEM_CONDITION=#itemCondition#, PRICE=#price#, LOCATION=#location#, EMAIL=#email#, SHIPPING_FEE=#shippingFee#, ADDRESS=#address#
+			 where no=#itemNo#
+		]]>		
+	</update>
+	<delete id="deletefile" parameterClass="java.lang.Integer">
+		<![CDATA[
+			delete FROM ITEM_PIC 
+			WHERE NO_ITEM_PIC =#fileNo#
+		]]> 
+	</delete>
+	<delete id="deleteHashTag" parameterClass="java.lang.Long">
+		<![CDATA[
+			delete FROM HASH_TAG 
+			WHERE ITEM_NO = #fileNo#
+		]]> 
+	</delete>
 </sqlMap>
