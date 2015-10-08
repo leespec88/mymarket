@@ -29,7 +29,9 @@ public class MainController {
 	@RequestMapping("/")
 	public String index(Model model){
 		List<ItemListVo> list=itemsService.getList();
-		model.addAttribute("ageGrouplist", itemsService.kwdProcessing());
+		model.addAttribute("ageGrouplist", itemsService.kwdProcessing()); //selectAllStoredKeyword
+		model.addAttribute("KwdCntList",itemsService.getKwdCntList()); //selectKeywordCntList
+		model.addAttribute("RecentRegItemlist", itemsService.getRecentRegItemlist());
 		return "/main/newIndex";
 	}
 	

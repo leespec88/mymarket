@@ -186,4 +186,8 @@ public class ItemsDao {
 	public void insertProcessedKwd(Map<String, Object> map) {
 		sqlMapClientTemplate.insert("items.mergeAnalysisKeywod", map);
 	}
+	@SuppressWarnings("unchecked")
+	public List<AnalysisKeywordVo> selectRecentRegItemlist() {
+		return sqlMapClientTemplate.queryForList("items.selectRecentRegItemlist");
+	}
 }

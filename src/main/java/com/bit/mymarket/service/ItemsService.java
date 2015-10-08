@@ -257,6 +257,9 @@ public class ItemsService {
 	public List<AnalysisKeywordVo> getKwdCntList(){
 		return itemsDao.selectKeywordCntList();
 	}
+	public List<AnalysisKeywordVo> getRecentRegItemlist(){
+		return itemsDao.selectRecentRegItemlist();
+	}
 	
 	
 	
