@@ -30,6 +30,17 @@
   .google:hover{
   		color : #fff;
   		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  .google:focus{
+ 		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  .google:active:focus{
+  		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
   }
   
   /* Facebook 계정으로 로그인 */
