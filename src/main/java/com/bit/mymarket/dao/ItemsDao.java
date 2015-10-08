@@ -176,4 +176,14 @@ public class ItemsDao {
 	public List<AnalysisKeywordVo> getKwdList() {
 		return sqlMapClientTemplate.queryForList("items.selectAllStoredKeyword");
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public List<AnalysisKeywordVo> selectKeywordCntList() {
+		return sqlMapClientTemplate.queryForList("items.selectKeywordCntList");
+	}
+	
+	public void insertProcessedKwd(Map<String, Object> map) {
+		sqlMapClientTemplate.insert("items.mergeAnalysisKeywod", map);
+	}
 }

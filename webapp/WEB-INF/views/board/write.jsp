@@ -3,7 +3,12 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="/assets/js/bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet">
+<script src="/assets/js/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
 <%@ include file="/WEB-INF/views/include/include-header.jspf"%>
+<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
 </head>
 <body>
 	<form id="frm" name="frm" enctype="multipart/form-data">

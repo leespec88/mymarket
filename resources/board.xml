@@ -124,11 +124,11 @@
 		<![CDATA[
 			insert into BOARD_COMMUNITY_PIC 
 			(
-				NO, board_no, ORIGINAL_FILE_NAME, STORED_FILE_NAME, FILE_SIZE
+				NO, BOARD_NO, IMAGE
 			) 
 			VALUES
 			(
-				seq_BOARD_COMMUNITY_PIC.nextval, #board_no#, #ORIGINAL_FILE_NAME#, #STORED_FILE_NAME#, #FILE_SIZE#
+				seq_BOARD_COMMUNITY_PIC.nextval, #board_no#, #image#
 			) 
 		]]>
 	</insert>
@@ -136,11 +136,11 @@
 		<![CDATA[
 			insert into BOARD_COMMUNITY_PIC 
 			(
-				no, board_no, ORIGINAL_FILE_NAME, STORED_FILE_NAME, FILE_SIZE
+				no, board_no, image
 			) 
 			VALUES
 			(
-				seq_BOARD_COMMUNITY_PIC.nextval, #BOARD_NO#, #ORIGINAL_FILE_NAME#, #STORED_FILE_NAME#, #FILE_SIZE#
+				seq_BOARD_COMMUNITY_PIC.nextval, #NO#, #IMAGE#
 			)
 		]]>
 	</insert>
@@ -149,25 +149,17 @@
     <![CDATA[
         SELECT
             NO,
-            ORIGINAL_FILE_NAME,
-            STORED_FILE_NAME,
-            ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+            IMAGE,
+            BOARD_NO
         FROM
             BOARD_COMMUNITY_PIC
         WHERE
-            board_no = #no#
-            AND DEL_GB = 'N'
+            BOARD_NO = #no#
+           
     ]]>
 	</select>
 	
-	<update id="deletefile" 
-		parameterClass="java.lang.Integer">
-	    <![CDATA[
-	       	UPDATE BOARD_COMMUNITY_pic
-			SET DEL_GB = 'Y'  
-			WHERE no = #fileNo#
-	    ]]>
-	</update>
+	
 	
 <select id="getBoardByUserNo" parameterClass="java.lang.Long" resultMap="resultMapList">
 	<![CDATA[

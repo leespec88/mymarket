@@ -268,12 +268,12 @@
 	<insert id="insertFile" parameterClass="java.util.HashMap">
 		<selectKey keyProperty="item_no" resultClass="java.lang.Long"> 
 			<![CDATA[ 
-				select max(no) from items
+				SELECT MAX(NO) FROM ITEMS
 			]]>
 		</selectKey>
 
 		<![CDATA[
-			insert into ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
+			INSERT INTO ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
 			VALUES(SEQ_ITEM_PIC.nextval, #item_no#, #image#)
 		]]>
 	</insert>
@@ -299,10 +299,34 @@
 	<!-- 아이템등록 -by 이준기 1006 -->
 	<select id="selectAllStoredKeyword" resultMap="resultMapAnalysisKeywordList">
 		<![CDATA[
-		  SELECT KEYWORD, GENDER, AGE_GROUP, COUNT FROM VIEWKEYWORD order by count desc
+		    SELECT KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		    FROM VIEWKEYWORD
+			WHERE ROWNUM < 11
+			ORDER BY COUNT DESC
 		]]>
 	</select>
-	
+	<!-- 키워드 나이별 -by 이준기 1006 미사용-->
+	<update  id="mergeAnalysisKeywod" parameterClass="java.util.Map">
+		<![CDATA[
+		       MERGE INTO ANALYSIS_KEYWORD a
+			     USING DUAL
+			        ON (    a.AGE_GROUP = #age_group#
+			            AND a.GENDER = #gender#
+			            AND a.KEYWORD = #kwd#)
+				WHEN NOT MATCHED
+				THEN
+				   insert (AGE_GROUP, GENDER, KEYWORD) VALUES (#age_group#, #gender#, #kwd#)
+		]]>
+	</update>
+	<select id="selectKeywordCntList" resultMap="java.util.HashMap">
+		<![CDATA[
+			SELECT KEYWORD, COUNT
+			FROM KEYWORD_COUNT_LIST
+		]]>
+	</select>
 	<update id="updateState" parameterClass="java.util.HashMap">
 		<![CDATA[
 				UPDATE ITEMS
@@ -315,18 +339,18 @@
 		<![CDATA[
 			UPDATE ITEMS 
 			   SET TITLE=#title#, CONTENT=#content#, TRADE_CATEGORY=#tradeCategory#, ITEM_CONDITION=#itemCondition#, PRICE=#price#, LOCATION=#location#, EMAIL=#email#, SHIPPING_FEE=#shippingFee#, ADDRESS=#address#
-			 where no=#itemNo#
+			 WHERE NO=#itemNo#
 		]]>		
 	</update>
 	<delete id="deletefile" parameterClass="java.lang.Integer">
 		<![CDATA[
-			delete FROM ITEM_PIC 
+			DELETE FROM ITEM_PIC 
 			WHERE NO_ITEM_PIC =#fileNo#
 		]]> 
 	</delete>
 	<delete id="deleteHashTag" parameterClass="java.lang.Long">
 		<![CDATA[
-			delete FROM HASH_TAG 
+			DELETE FROM HASH_TAG 
 			WHERE ITEM_NO = #fileNo#
 		]]> 
 	</delete>

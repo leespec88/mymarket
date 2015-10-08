@@ -176,7 +176,7 @@ function joinCheck(){
 				<select class="form-control" id="gender" name="gender">
 						<option value="">선 택</option>
 						<option value='male'>남 자</option>
-						<option value='femail'>여 자</option>
+						<option value='female'>여 자</option>
 				</select>
 			</div>
 		</div>

@@ -6,19 +6,19 @@
 <title>자유게시판</title>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<link rel="stylesheet" type="text/css"
-	href="<c:url value="/assets/css/board.css"/>" />
-<link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<link href="/assets/js/bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="<c:url value="/assets/js/common.js"/>" charset="utf-8"></script>
-<%@ include file="/WEB-INF/views/include/include-header.jspf"%>
+<style type="text/css">
+.board_view {
+	margin-top: 60px;
+}
+</style>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
-	<div id="boardVo">
-		<table class="board_view">
+	<div id="boardVo" class="container board_view">
+		<table class="table">
 			<colgroup>
 				<col width="15%" />
 				<col width="35%" />
@@ -47,7 +47,7 @@
 						<td colspan="4" scope="row" height="20%"><div>
 							<c:forEach var="file" items="${fileList }">
 								<p style="text-align: center;">
-									<img src="/product-images/${file.STORED_FILE_NAME}">
+									<img src="/product-images/${file.IMAGE}">
 								</p>
 							</c:forEach>
 						</div>${vo.content }</td>
@@ -56,7 +56,7 @@
 					<th scope="row">첨부파일</th>
 					<td colspan="3"><c:forEach var="file" items="${fileList}">
 							<input type="hidden" id="no" value="${file.no }">
-							<img id="mini_img" src="/product-images/${file.STORED_FILE_NAME}"
+							<img id="mini_img" src="/product-images/${file.IMAGE}"
 								class="img-thumbnail" width="15%" height="auto">
 
 						</c:forEach></td>
@@ -65,8 +65,7 @@
 		</table>
 		<br />
 		<div>
-			<h4>총 ${replyCnt}개
-				댓글───────────────────────────────────────────────────────</h4>
+			<h5>총 ${replyCnt}개</h5>				
 			<c:forEach var="reply" items="${replyList}">
 				<table class="tb-reply">
 					<tr>
@@ -110,17 +109,18 @@
 							maxlength="500" name="content"></textarea></td>
 				</tr>
 				<tr>
-					<td align="right"><input type="submit" class="btn" value="답글"></td>
+					<td align="right"><input type="submit" class="btn btn-default" value="답글"></td>
 				</tr>
 			</table>
 		</form>
-		<a href="/board/1" class="btn" id="list">목록으로</a>
+		<a href="/board/1" class="btn btn-default" id="list">목록으로</a>
 
 		<c:if test="${authUser.no==vo.userNo }">
 		</c:if>
-		<a href="/board/modifyform/${vo.no}" class="btn" id="update">수정하기</a>
-		<a href="/board/delete/${vo.no}" class="btn" id="delete">삭제하기</a>
-		<%@ include file="/WEB-INF/views/include/include-body.jspf"%>
+		<a href="/board/modifyform/${vo.no}" class="btn btn-default" id="update">수정하기</a>
+		<a href="/board/delete/${vo.no}" class="btn btn-default" id="delete">삭제하기</a>
 	</div>
+	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	<script src="/assets/js/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
 </body>
 </html>
