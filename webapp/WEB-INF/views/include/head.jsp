@@ -44,7 +44,7 @@
   }
   
   .modal-body{
-  	padding:40px 82px;
+  	padding:40px 74px;
   }
   
   #logoutframe{
