@@ -88,8 +88,8 @@
     position: absolute;
     right: 0;
 	} */
-	.form-group{
-	
+
+	.search{
 	background-color: #000;
 	background-color: rgba(0,0,0,0.6);
 	padding-bottom: 30px;
@@ -221,7 +221,7 @@
 		<h3 class="text-subjumbo"><strong>마이마켓에 오신것을 환영합니다.</strong></h3>
 		<p  id="sBtn"><a href="/main/" ><button type="button" class="btn btn-danger btn-lg"><strong>주변상품검색</strong></button></a></p>
 		<form id="indexSearch" role="form" action="/searchMain" method="post">
-			<div class="form-group form-inline">
+			<div class="search form-inline">
 				<label class="sr-only"></label>
           		<input type="text" name="kwd" placeholder="상품검색창입니다." class="kwdinput">
           		<button type="submit" class="searchbar__submit btn btn-primary btn-large" ><strong>확인</strong></button>
