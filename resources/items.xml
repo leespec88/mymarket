@@ -321,7 +321,7 @@
 				   insert (AGE_GROUP, GENDER, KEYWORD) VALUES (#age_group#, #gender#, #kwd#)
 		]]>
 	</update>
-	<select id="selectKeywordCntList" resultMap="java.util.HashMap">
+	<select id="selectKeywordCntList" resultClass="java.util.HashMap">
 		<![CDATA[
 			SELECT KEYWORD, COUNT
 			FROM KEYWORD_COUNT_LIST

@@ -70,22 +70,205 @@
     text-align: center;
     }
   	</style>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+<style>	
+  	/* .form-group form-inline{
+    background-color: #000;
+    background-color: rgba(0,0,0,0.6);
+    bottom: 0;
+    left: 0;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    position: absolute;
+    right: 0;
+	} */
+	.form-group{
+	
+	background-color: #000;
+	background-color: rgba(0,0,0,0.6);
+	padding-bottom: 30px;
+    padding-top: 30px;
+    position: relative;
+	}
+	
+	#indexSearch {
+    padding-top: 123px;
+	}
+	.container-fluid {
+    padding-right: 0px;
+    padding-left: 0px;
+	}
+	
+	.text-jumbo {
+    font-size: 60px;
+    font-weight: 700;
+    }
+
+	.header {
+    background: transparent;
+    border-bottom: none;
+    z-index: 1000;
+    top: 20px;
+    width: 100%;
+    position: absolute;
+    display: block;
+	}
+	
+	.navbar-default {
+	background: transparent;
+	border-color: transparent;
+	/* color: white; */
+    /* background-color: #f8f8f8; */
+    /* border-color: #e7e7e7; */
+	}
+	
+	.navbar-default .navbar-nav > li > a {
+    color: white;
+	}
+	.navbar-default  .navbar-brand {
+    color: white;
+	}
+	.container-fluid > .navbar-collapse {
+    margin-right: 15px;
+    margin-left: 15px;
+	}
+	.container-fluid > .navbar-header{
+	margin-left: 15px;
+	}
+	.btn-primary {
+	    color: #fff;
+	    background-color: #337ab7;
+	    border-color: #2e6da4;
+	    board
+	}
+	.btn {
+	    display: inline-block;
+	    padding: 6px 12px;
+	    margin-bottom: 0;
+	    font-size: 14px;
+	    font-weight: normal;
+	    line-height: 1.42857143;
+	    text-align: center;
+	    white-space: nowrap;
+	    vertical-align: baseline;
+	    -ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	    cursor: pointer;
+	    -webkit-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    background-image: none;
+	    border: 1px solid transparent;
+	    border-radius: 0px;
+	    padding:12px 26px;
+	}
+	
+	.kwdinput{
+		height:46px; 
+		width:80%; 
+		color:#000; 
+		font-size:16px; 
+		margin:-4px;"
+	}
+	
+	
+@media (max-width:713px){
+	.text-jumbo {
+    font-size: 50px;
+    font-weight: 700;
+    }
+    #indexSearch {
+    padding-top: 135px;
+	}
+}
+
+@media (max-width:600px){
+	.text-jumbo {
+    font-size: 40px;
+    font-weight: 700;
+    }
+    .text-subjumbo{
+    font-size: 20px;
+    }
+    #indexSearch {
+    padding-top: 150px;
+	}
+}
+@media (max-width:479px){
+	.text-jumbo {
+    font-size: 40px;
+    font-weight: 700;
+    }
+    #indexSearch {
+    padding-top: 106px;
+	}
+	.kwdinput{
+		width:60%; 
+	}
+}
+</style>
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
 </head>
 
 <body>
 	
 	<div id="section1" class="container-fluid" style="background-image:url(images/t7.jpg)">
-		<h1><strong>우리들의 즐거운 중고장터</strong></h1>
-		<h3><strong>마이마켓에 오신것을 환영합니다.</strong></h3>
-		<p id="sBtn"><a href="/main/" ><button type="button" class="btn btn-danger btn-lg"><strong>주변상품검색</strong></button></a></p>
+		<h1 class="text-jumbo"><strong>우리들의 즐거운 중고장터</strong></h1>
+		<h3 class="text-subjumbo"><strong>마이마켓에 오신것을 환영합니다.</strong></h3>
+		<p  id="sBtn"><a href="/main/" ><button type="button" class="btn btn-danger btn-lg"><strong>주변상품검색</strong></button></a></p>
 		<form id="indexSearch" role="form" action="/searchMain" method="post">
 			<div class="form-group form-inline">
 				<label class="sr-only"></label>
-          		<input type="text" name="kwd" placeholder="상품검색창입니다." style="height:35px;color:#000">
-          		<button type="submit" class="btn btn-default"><strong>확인</strong></button>
+          		<input type="text" name="kwd" placeholder="상품검색창입니다." class="kwdinput">
+          		<button type="submit" class="searchbar__submit btn btn-primary btn-large" ><strong>확인</strong></button>
         	</div>
 		</form>
+		
+
+      
+		
+		
 	</div>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	<div class="container" style="padding-top:10px;" >
 		
 		<ul class="nav nav-tabs nav-justified">
@@ -112,7 +295,9 @@
 		</div>
 	</div>
 	
+	<div class="header">
 	<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
+	</div>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 <script src="<c:url value="/assets/js/common.js"/>" charset="utf-8"></script>
@@ -125,4 +310,3 @@ function goKeyword(obj) {
 }
 </script>
 </html>
-
