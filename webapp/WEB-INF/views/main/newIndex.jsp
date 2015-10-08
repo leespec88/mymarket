@@ -110,16 +110,6 @@
     font-weight: 700;
     }
 
-	.header {
-    background: transparent;
-    border-bottom: none;
-    z-index: 1000;
-    top: 20px;
-    width: 100%;
-    position: absolute;
-    display: block;
-	}
-	
 	.navbar-default {
 	background: transparent;
 	border-color: transparent;
@@ -295,9 +285,8 @@
 		</div>
 	</div>
 	
-	<div class="header">
 	<c:import url="/WEB-INF/views/include/head.jsp"></c:import>
-	</div>
+	
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 <script src="<c:url value="/assets/js/common.js"/>" charset="utf-8"></script>
