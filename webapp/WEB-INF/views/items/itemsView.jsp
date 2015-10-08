@@ -37,7 +37,6 @@ textarea {
 <title>Insert title here</title>
 </head>
 <body>
-	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 
 	<div class="container" id="itemview">
 		<div class="row">
@@ -229,6 +228,8 @@ textarea {
 			</div>
 		</div>
 	</div>
+	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 <script type="text/javascript">
 	$(document).ready(

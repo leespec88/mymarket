@@ -331,33 +331,6 @@ function goInfo(){
 }
 
 
-/*
-function IWclick(no){
-	var length = $('#vo').val();
-		for(var i=1; i<=length; i++){
-			var itemNo= $('#no'+i).val();
-			var url= $('#url'+i).val();
-			var price= $('#price'+i).val();
-			var regDate= $('#regDate'+i).val();
-			var title = $('#title'+i).val();
-			
-			if(no==itemNo){
-				var text=$('.delete'+i).html();
-				if(text==""){
-					$('.delete').remove();
-					$('.iwContent'+i).html(title).css('background-color','#ACACAC');
-				}else{
-					var info='<img class="mapPic delete'+i+'" src="'+url+'"/>';
-					info+='<p class="delete'+i+'">'+title+'</p>';
-					info+='<p class="delete'+i+'">'+price+'원</p>';
-					info+='<p class="delete'+i+'">등록일: '+regDate+'</p>';
-					info+='<a href="/items/detailView/'+itemNo+'"class="btn btn-default delete'+i+'" style="border-radius:0; ">상세보기</a>';
-					$('.iwContent'+i).html(info).css('background-color','#ff5a5f');
-					break;
-				}
-			}
-		}
-}*/
 
 function IWclick(no){
 	var length = $('#vo').val();

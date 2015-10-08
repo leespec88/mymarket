@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>main view</title>
+<title>newIndex view</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -18,6 +18,84 @@
   .modal-footer {
       background-color: #f9f9f9;
   }
+  
+  /* Google 계정으로 로그인 */
+  .google{
+  		background-color: #DD4B39;
+  		border-color: #A42E2E;
+  		color: #fff; 
+  		width:49%;
+  		height:46px;
+  }
+  .google:hover{
+  		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  .google:focus{
+ 		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  .google:active:focus{
+  		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  
+  /* Facebook 계정으로 로그인 */
+  .facebook{
+  		background-color: #3a5795;
+	    width:49%; 
+	    height:46px;
+  }
+  
+  .modal-header{
+  	padding:35px 50px;
+  }
+  
+  .modal-body{
+  	padding:40px 74px;
+  }
+  
+  #logoutframe{
+  	display: none;
+  }
+					
+  @media(max-width:767px){
+  	#myModal{
+  	padding right:0;
+  	}
+  	.modal-content{
+  	max-width: none;
+    height: 100%;
+  	}
+  	.modal-dialog{
+  	max-width: none;
+    height: 100%;
+    border-radius: 0;
+    overflow: auto;
+  	margin:0;
+  	}
+  	.modal{
+  	right: -16px;
+  	}
+  }
+  
+  @media(max-width:600px){
+	  .google{
+	  		width:100%;
+	  		margin-top: 5px;
+	  }
+	  .facebook{
+		    width:100%; 
+	  }
+	  .modal-body{
+	  	align: center;
+	  }
+  }  
+  
+  
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -150,13 +228,13 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-      	<div class="modal-header" style="padding:35px 50px;">
+      	<div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h3>Login</h3>
         </div>
-        <div class="modal-body" style="padding:40px 50px;">
+        <div class="modal-body">
             <span class="form-group">
-            	<button class="btn btn-primary" style="width:240px; height:40px;" onclick="facebooklogin();">
+            	<button class="btn btn-primary facebook" onclick="facebooklogin();">
 					Facebook 계정으로 로그인
 				</button>
             	<span
@@ -167,13 +245,13 @@
 					data-cookiepolicy="single_host_origin"
 					data-requestvisibleactions="http://schemas.google.com/AddActivity"
 					data-scope="https://www.googleapis.com/auth/plus.login">
-					<button class="btn btn-default" style="color:#EB4646; width:240px; height:40px;">
+					<button class="btn btn-default google">
 						Google 계정으로 로그인
 					</button>
 				</span>
        		</span>
        	  </div>
-       	  <div class="modal-body" style="padding:40px 50px;">
+       	  <div class="modal-body">
           <form role="form" action="/user/login">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Email</label>
@@ -197,7 +275,6 @@
       
     </div>
   </div> 
-
 
 <!-- header -->
 <nav class="navbar navbar-default navbar-fixed-top" >
