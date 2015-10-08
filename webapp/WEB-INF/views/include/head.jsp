@@ -24,7 +24,7 @@
   		background-color: #DD4B39;
   		border-color: #A42E2E;
   		color: #fff; 
-  		width:223px;
+  		width:49%;
   		height:46px;
   }
   .google:hover{
@@ -44,10 +44,10 @@
   }
   
   /* Facebook 계정으로 로그인 */
-  .btn btn-primary{
+  .facebook{
   		background-color: #3a5795;
-	   width:240px; 
-	   height:40px;
+	    width:49%; 
+	    height:46px;
   }
   
   .modal-header{
@@ -62,7 +62,38 @@
   	display: none;
   }
 					
+  @media(max-width:767px){
+  	#myModal{
+  	padding right:0;
+  	}
+  	.modal-content{
+  	max-width: none;
+    height: 100%;
+  	}
+  	.modal-dialog{
+  	max-width: none;
+    height: 100%;
+    border-radius: 0;
+    overflow: auto;
+  	margin:0;
+  	}
+  	.modal{
+  	right: -16px;
+  	}
+  }
   
+  @media(max-width:600px){
+	  .google{
+	  		width:100%;
+	  		margin-top: 5px;
+	  }
+	  .facebook{
+		    width:100%; 
+	  }
+	  .modal-body{
+	  	align: center;
+	  }
+  }  
   
   
 </style>
@@ -203,7 +234,7 @@
         </div>
         <div class="modal-body">
             <span class="form-group">
-            	<button class="btn btn-primary" onclick="facebooklogin();">
+            	<button class="btn btn-primary facebook" onclick="facebooklogin();">
 					Facebook 계정으로 로그인
 				</button>
             	<span
