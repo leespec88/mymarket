@@ -18,6 +18,42 @@
   .modal-footer {
       background-color: #f9f9f9;
   }
+  
+  /* Google 계정으로 로그인 */
+  .google{
+  		background-color: #DD4B39;
+  		border-color: #A42E2E;
+  		color: #fff; 
+  		width:223px;
+  		height:46px;
+  }
+  .google:hover{
+  		color : #fff;
+  		background-color: #c9302c;
+  }
+  
+  /* Facebook 계정으로 로그인 */
+  .btn btn-primary{
+  		background-color: #3a5795;
+	   width:240px; 
+	   height:40px;
+  }
+  
+  .modal-header{
+  	padding:35px 50px;
+  }
+  
+  .modal-body{
+  	padding:40px 82px;
+  }
+  
+  #logoutframe{
+  	display: none;
+  }
+					
+  
+  
+  
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -150,13 +186,13 @@
     
       <!-- Modal content-->
       <div class="modal-content">
-      	<div class="modal-header" style="padding:35px 50px;">
+      	<div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h3>Login</h3>
         </div>
-        <div class="modal-body" style="padding:40px 50px;">
+        <div class="modal-body">
             <span class="form-group">
-            	<button class="btn btn-primary" style="width:240px; height:40px;" onclick="facebooklogin();">
+            	<button class="btn btn-primary" onclick="facebooklogin();">
 					Facebook 계정으로 로그인
 				</button>
             	<span
@@ -167,13 +203,13 @@
 					data-cookiepolicy="single_host_origin"
 					data-requestvisibleactions="http://schemas.google.com/AddActivity"
 					data-scope="https://www.googleapis.com/auth/plus.login">
-					<button class="btn btn-default" style="color:#EB4646; width:240px; height:40px;">
+					<button class="btn btn-default google">
 						Google 계정으로 로그인
 					</button>
 				</span>
        		</span>
        	  </div>
-       	  <div class="modal-body" style="padding:40px 50px;">
+       	  <div class="modal-body">
           <form role="form" action="/user/login">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Email</label>
@@ -219,7 +255,7 @@
 	      <c:otherwise>
 	        <li><a href="/user/logout" onclick="logout();" id="revokeSession"><span class="glyphicon glyphicon-log-out"></span>
 	        	Logout
-	       		<iframe id="logoutframe" src="https://accounts.google.com/logout" style="display: none"></iframe>
+	       		<iframe id="logoutframe" src="https://accounts.google.com/logout"></iframe>
 	         <span class="sr-only">(current)</span></a></li>
 	      </c:otherwise>
 	       </c:choose>
