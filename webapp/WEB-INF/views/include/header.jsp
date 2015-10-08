@@ -197,16 +197,20 @@
       
     </div>
   </div> 
-</body>
-</html>
+
 
 <!-- header -->
 <nav class="navbar navbar-default navbar-fixed-top" >
 	<div class="container-fluid">
 	    <div class="navbar-header">
-	      <a class="navbar-brand" href="/"><strong id="my">My</strong>Market</a>
+		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span>
+		        <span class="icon-bar"></span> 
+	    	</button>
+	    <a class="navbar-brand" href="/"><strong id="my">My</strong>Market</a>
 	    </div>
-	    <div class="collapse navbar-collapse">
+	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <form class="navbar-form navbar-right" role="search" action="/searchMain" method="post">
 	        <div class="form-group">
 	          <input type="text" class="form-control" name="kwd" placeholder="상품검색창입니다.">
@@ -265,5 +269,6 @@
 	    </div>
 	</div>
 </nav>
-
+</body>
+</html>
 

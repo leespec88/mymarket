@@ -197,16 +197,19 @@
       
     </div>
   </div> 
-</body>
-</html>
 
 <!-- header -->
 <nav class="navbar navbar-default navbar-fixed-top" >
 	<div class="container-fluid">
 	    <div class="navbar-header">
+		    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span> 
+	      	</button>
 	      <a class="navbar-brand" href="/"><strong id="my">My</strong>Market</a>
 	    </div>
-	    <div class="collapse navbar-collapse">
+	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
 	      <c:choose>
 	      <c:when test="${empty authUser }">
@@ -233,4 +236,6 @@
 	</div>
 </nav>
 
+</body>
+</html>
 

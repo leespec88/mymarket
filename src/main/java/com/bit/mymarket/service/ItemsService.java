@@ -254,6 +254,9 @@ public class ItemsService {
 		System.err.println("kwdProcessing 동작중...");
 		return itemsDao.getKwdList();
 	}
+	public List<AnalysisKeywordVo> getKwdCntList(){
+		return itemsDao.selectKeywordCntList();
+	}
 	
 	
 	
