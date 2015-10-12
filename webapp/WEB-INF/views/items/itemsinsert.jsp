@@ -8,10 +8,12 @@
 <html>
 <style>
 aside{
-width:30%;
+width:34%;
 float:left;
 margin: 0 auto;
 text-align: center;
+color: #A6A6A7;
+height: 850px;
 
 }
 section {
@@ -20,13 +22,41 @@ width:65%;
 float:right;
 }
 
+.itemsNext{
+	display: none;
+    background-color: #EB6868;
+    color: white;
+}
+.itemsNext, .itemsNoNext, .toptitle{
+margin-top: 50px;
+}
+
+.itemsNext, .itemsBack, .itemsNoNext{
+width: 100%;
+height: 40px;
+font-size: 16px;
+}
+
+.subtitle{
+margin-top: 150px;
+}
+
+@media(max-width:800px){
+ .toptitle{
+ font-size: 30px;
+ }
+ .subtitle{
+ font-size: 18px;
+ }
+}
+
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap {position:relative;width:100%;height:500px;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:250px;margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
+.map_wrap {position:relative;width:100%;height:40px;}
+#menu_wrap {position:absolute;top:5;left:5;bottom:0;width:250px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+/* #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
+#menu_wrap .option button {margin-left:5px;} */
 section {padding-top:52px}
 aside   {padding-top:52px}
 </style>
@@ -43,9 +73,29 @@ aside   {padding-top:52px}
 
 <section>
 <c:import url="/WEB-INF/views/include/header.jsp"></c:import>
-	<div id="map" style="height:750px;"></div>
+	
 <script type="text/javascript" src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
+
+<div class="map_wrap">
+    <div id="map" style="width:100%;height:750px;position:relative;overflow:hidden;"></div>
+<!-- <div id="map" style="height:750px;"></div> -->
+    <div id="menu_wrap" class="bg_white">
+        <div class="option">
+            <p>
+                <form onsubmit="searchPlaces(); return false;">
+                키워드 : <input type="text" id="keyword" size="15"> 
+                <button type="submit">검색하기</button> 
+                </form>
+            </p>
+        </div>
+        <hr>
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+    </div>
+    
+</div>
+
 
 	<script>
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
@@ -173,6 +223,8 @@ var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					//console.log(data);
 					console.log(data.fullName);
 					$("#address").val(data.fullName);
+					$(".itemsNext").css('display','block');
+					$(".itemsNoNext").css('display','none');
 					//$("#lat").val(data.lat);
 					
 				},
@@ -325,42 +377,23 @@ function getListItem(index, places) {
 
 </script>
 
-<div class="map_wrap">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
 
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <p>
-                <form onsubmit="searchPlaces(); return false;">
-                키워드 : <input type="text" id="keyword" size="15"> 
-                <button type="submit">검색하기</button> 
-                </form>
-            </p>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
 
 </section>
 
 <aside>
-<h1>판매위치 지정</h1>
-<br/><br/><br/><br/><br/><br/>
-<h3>판매할 위치를</h3> 
-<br/>
-<h3>지정하고</h3>
-<br/>
-<h3>다음 버튼을 눌러주세요.</h3>
-<br/><br/><br/><br/><br/>
+<h1 class="toptitle"><strong>판매위치 지정</strong></h1>
+<h3 class="subtitle">판매할 위치를</h3> 
+<h3 class="subtitle">지정하고</h3>
+<h3 class="subtitle">다음 버튼을 눌러주세요.</h3>
 
 <form action="/items/itemsinsertview" method="post" >
 <input type="hidden" id="lat" name="lat" value="">
 <input type="hidden" id="lng" name="lng" value="">
 <input type="hidden" id="address" name="address" value="">
-<a href="/"><input type="button" value="취소"></a>
-<input type="submit"  value="다음"><br/>
+<input class="itemsNext" type="submit"  value="다음">
+<input class="itemsNoNext" type="button" value="다음">
+<a href="/"><input class="itemsBack" type="button" value="취소"></a>
 </form>
 
 </aside>
