@@ -220,12 +220,10 @@ img[Attributes Style] {
 							</form>
 						</div>
 						<p>
-							<a href="#"><button type="button" class="btn btn-primary"> 
-									재등록</button></a> <a href="#"><button type="button"
-									class="btn btn-success">상단노출</button></a> <a
-								href="/items/updateItem/${itemVo.no}"><button type="button"
-									class="btn btn-warning">아이템수정</button></a> <a href="#" onclick="del_event();"><button
-									type="button" class="btn btn-danger" >아이템삭제</button></a>
+							 <a href="/items/updateRegDate/${itemVo.no}">
+                                <button type="button" class="btn btn-primary">재등록</button></a>  
+                                <a href="/items/updateItem/${itemVo.no}"><button type="button" class="btn btn-warning">아이템수정</button></a> 
+                                <a href="#" onclick="del_event();"> <button type="button" class="btn btn-danger" >아이템삭제</button></a>
 						</p>
 					</c:if>
 				</div>

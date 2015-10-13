@@ -205,5 +205,8 @@ public class ItemsDao {
 	public List<Map<String, Object>> selectUserItemList(Long userNo) {
 		return sqlMapClientTemplate.queryForList("items.selectListUserItem", userNo);
 	}
+	public void updateRegDate(Long itemNo) {
+		sqlMapClientTemplate.update("items.updateRegDate", itemNo);		
+	}
 	
 }

@@ -205,5 +205,10 @@ public class ItemsController {
 		return mv;
 	}
 	
-	
+	@RequestMapping("/updateRegDate/{itemNo}")
+	public ModelAndView deleteFile(@PathVariable Long itemNo){
+	ModelAndView mv= new ModelAndView("redirect:/items/detailView/"+itemNo);
+	itemsService.updateRegDate(itemNo);
+	return mv;
+	}
 }

@@ -277,6 +277,10 @@ public class ItemsService {
 		return  resultMap;
 	}
 
+	public void updateRegDate(Long itemNo) {
+		itemsDao.updateRegDate(itemNo);
+	}
+
 	
 	
 	

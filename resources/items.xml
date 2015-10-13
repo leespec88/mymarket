@@ -404,4 +404,12 @@
 			 WHERE i.no = z1.itemNo and i.USER_NO = #no#
  		]]>
  	</select>
+ 	
+ 	<update id="updateRegDate" parameterClass="java.lang.Long">
+	 	<![CDATA[
+	 		update ITEMS SET reg_date = sysdate where no=#no#
+	 	]]>
+ 	</update>
+ 	
+ 	
 </sqlMap>
