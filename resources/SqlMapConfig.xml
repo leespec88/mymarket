@@ -9,4 +9,5 @@
 	<sqlMap resource="reply.xml"/>
 	<sqlMap resource="items.xml"/>
 	<sqlMap resource="itemreply.xml"/>
+	<sqlMap resource="interest.xml"/>
 </sqlMapConfig>

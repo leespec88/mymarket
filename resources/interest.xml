@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="interest">
+	<typeAlias alias="InterestLocationVo" type="com.bit.mymarket.vo.InterestLocationVo" />
+	
+	<insert id="insertLocation" parameterClass="InterestLocationVo">
+	<![CDATA[ 
+			insert into INTERESTLOCATION
+			VALUES (SEQ_INTERESTLOCATION.nextval, #userNo# , #cityName#, #guName#)
+		]]>
+	</insert>
+	
+	<select id="getList" parameterClass="java.lang.Long" resultClass="InterestLocationVo">
+		<![CDATA[
+			SELECT * 
+			FROM INTERESTLOCATION
+			WHERE USERNO = #userNo#
+		]]>
+	</select>
+	
+	<delete id="deleteLocation" parameterClass="java.lang.Long">
+	<![CDATA[
+		delete from interestlocation where interestno=#interestNo#
+	]]>
+	</delete>
+	
+</sqlMap>
