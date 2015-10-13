@@ -157,4 +157,5 @@ public class UserController {
 		session.setAttribute("authUser", authUser);
 		return "redirect:/";
 	}
+	
 }

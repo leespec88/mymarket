@@ -276,16 +276,16 @@
           <form id="loginSubmit" role="form" action="/user/login">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Email</label>
-              <input type="text" class="form-control" id="userid" name="email" placeholder="Email Address">            
+              <input type="text" class="form-control" id="usrname" name="email" placeholder="Email Address">            
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" id="password" name="password"placeholder="Password">
+              <input type="password" class="form-control" id="psw" name="password"placeholder="Password">
             </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
             </div>
-              <button type="button" class="btn btn-danger btn-block submitBtn"></span>Login</button>
+              <button type="button" class="btn btn-danger btn-block"></span>Login</button>
           </form>
         </div>
         <div class="modal-footer">
@@ -331,8 +331,7 @@
 	           		<li><a href="/user/modifyform">개인정보수정</a></li>
 	           		<li><a href="#">회원탈퇴</a></li>
 	           		<li><a href="#">알림</a></li>
-	           		<li><a href="#">찜상품</a></li>
-	           		<li><a href="/interest/form">관심지역</a></li>
+	           		 <li><a href="#">찜상품</a></li>
 	            </c:if>
 	            <li class="divider"></li>
 	            <li><a href="#">버전정보</a></li>
