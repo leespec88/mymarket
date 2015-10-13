@@ -97,7 +97,7 @@ img[Attributes Style] {
 									${userVo.phone}</a>
 							</p>
 							<p>
-								<a class="btn btn-danger" href="http://127.0.0.1:52273?name=${userVo.name }&no=${itemVo.no}">판매자와 채팅</a>
+								<a class="btn btn-danger" href="http://192.168.1.16:52273?${authUser.name }&no=${itemVo.no}">판매자와 채팅</a>
 							</p>
 						</div>
 					</div>
