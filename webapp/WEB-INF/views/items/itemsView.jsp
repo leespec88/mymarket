@@ -39,13 +39,14 @@ img[Attributes Style] {
 }
 
 </style>
+
 <title>Insert title here</title>
 </head>
 <body>
 
 	<div class="container" id="itemview">
 		<div class="row">
-			<div class="col-sm-5 largeImg">
+			<div class="col-sm-5 largeImg" id="locationView">
 				<img class="img-thumbnail" id="" src="${fileList[0].IMAGE}" alt="상품이미지가 없습니다." width="500" height="400">
 			</div>
 			<div class="col-sm-1" id="smallimage">
@@ -72,7 +73,7 @@ img[Attributes Style] {
 							<span id="price"></span>
 						</h1>
 						<h3>
-							<a href="#"><span class="glyphicon glyphicon-map-marker"></span></a>
+							<a href="javascript:locationView(${itemVo.location})"><span class="glyphicon glyphicon-map-marker"></span></a>
 							<span>판매처</span>
 						</h3>
 					</div>
@@ -106,7 +107,7 @@ img[Attributes Style] {
 					<h5>
 						<strong>상세설명</strong>
 					</h5>
-					<textarea readonly="readonly" class="form-control" rows="15" id="comment">${itemVo.content}</textarea>
+	                    <textarea readonly="readonly" class="form-control" rows="15" id="comment">${itemVo.content}</textarea>
 					<script>
 						function testOne(reply) {
 							$("#" + reply).toggle();
@@ -262,6 +263,208 @@ img[Attributes Style] {
 	function setImage(obj) {
 		$(".largeImg img").attr('src', obj);
 	}
+</script>
+
+<script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
+<style>
+.dotOverlay {position:relative;bottom:10px;border-radius:6px;border: 1px solid #ccc;border-bottom:2px solid #ddd;float:left;font-size:12px;padding:5px;background:#fff;}
+.number {font-weight:bold;color:#ee6152;}
+.distanceInfo {position:relative;top:5px;left:5px;list-style:none;margin:0;}
+.distanceInfo .label {display:inline-block;width:50px;color:black;}
+</style>
+<script>
+function locationView(viewlat, viewlon){
+	console.log(viewlat +","+ viewlon);
+	
+
+//현제 위치
+var viewPosition = new daum.maps.LatLng(viewlat, viewlon);
+var curLat=null;
+var curLon=null;
+var distanceOverlay;// 선의 거리정보를 표시할 커스텀오버레이 입니다
+//HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+if (navigator.geolocation) {
+    
+    // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+    navigator.geolocation.getCurrentPosition(function(position) {
+        
+        var lat = position.coords.latitude, // 위도
+            lon = position.coords.longitude; // 경도
+        curLat=lat;
+        curLon=lon;
+        console.log("now : " + curLat + "," + curLon);
+        
+        var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+        message = '<div style="padding:5px;">내위치!!!</div>'; // 인포윈도우에 표시될 내용입니다
+    	
+        console.log("now2: " + locPosition);
+        console.log("view: " + viewPosition);
+	    // 마커와 인포윈도우를 표시합니다
+	    displayMarker(locPosition, message);
+        
+      //선그리기
+        var polyline = new daum.maps.Polyline({
+            map: map,
+            path: [
+                new daum.maps.LatLng(curLat, curLon),
+                new daum.maps.LatLng(viewlat, viewlon) 
+            ],
+            strokeWeight: 3,
+            strokeColor: 'red',
+            strokeOpacity: 0.8,
+            strokeStyle: 'solid'
+        });
+      
+        var distance = Math.round(polyline.getLength()), // 선의 총 거리를 계산합니다
+        content = getTimeHTML(distance); // 커스텀오버레이에 추가될 내용입니다
+     
+        // 그려진 선의 총거리 정보와 거리에 대한 도보, 자전거 시간을 계산하여
+	     // HTML Content를 만들어 리턴하는 함수입니다
+	     function getTimeHTML(distance) {
+	
+	         // 도보의 시속은 평균 4km/h 이고 도보의 분속은 67m/min입니다
+	         var walkkTime = distance / 67 | 0;
+	         var walkHour = '', walkMin = '';
+	
+	         // 계산한 도보 시간이 60분 보다 크면 시간으로 표시합니다
+	         if (walkkTime > 60) {
+	             walkHour = '<span class="number">' + Math.floor(walkkTime / 60) + '</span>시간 '
+	         }
+	         walkMin = '<span class="number">' + walkkTime % 60 + '</span>분'
+	
+	         // 자전거의 평균 시속은 16km/h 이고 이것을 기준으로 자전거의 분속은 267m/min입니다
+	         var bycicleTime = distance / 227 | 0;
+	         var bycicleHour = '', bycicleMin = '';
+	
+	         // 계산한 자전거 시간이 60분 보다 크면 시간으로 표출합니다
+	         if (bycicleTime > 60) {
+	             bycicleHour = '<span class="number">' + Math.floor(bycicleTime / 60) + '</span>시간 '
+	         }
+	         bycicleMin = '<span class="number">' + bycicleTime % 60 + '</span>분'
+	
+	         // 거리와 도보 시간, 자전거 시간을 가지고 HTML Content를 만들어 리턴합니다
+	         var content = '<ul class="dotOverlay distanceInfo">';
+	         content += '    <li>';
+	         content += '        <span class="label">총거리</span><span class="number">' + distance + '</span>m';
+	         content += '    </li>';
+	         content += '    <li>';
+	         content += '        <span class="label">도보</span>' + walkHour + walkMin;
+	         content += '    </li>';
+	         content += '    <li>';
+	         content += '        <span class="label">자전거</span>' + bycicleHour + bycicleMin;
+	         content += '    </li>';
+	         content += '</ul>'
+	
+	         return content;
+	     }
+        
+	    // 그려진 선의 거리정보를 지도에 표시합니다
+	    showDistance(content, viewPosition);  
+	 // 마우스 오른쪽 클릭으로 선 그리가 종료됐을 때 선의 정보를 표시하는 커스텀 오버레이를 생성하고 지도에 표시하는 함수입니다
+	    function showDistance(content, position) {
+	        
+	        if (distanceOverlay) { // 커스텀오버레이가 생성된 상태이면
+	            
+	            // 커스텀 오버레이의 위치와 표시할 내용을 설정합니다
+	            distanceOverlay.setPosition(position);
+	            distanceOverlay.setContent(content);
+	            
+	        } else { // 커스텀 오버레이가 생성되지 않은 상태이면
+	            
+	            // 커스텀 오버레이를 생성하고 지도에 표시합니다
+	            distanceOverlay = new daum.maps.CustomOverlay({
+	                map: map, // 커스텀오버레이를 표시할 지도입니다
+	                content: content,  // 커스텀오버레이에 표시할 내용입니다
+	                position: position, // 커스텀오버레이를 표시할 위치입니다.
+	                xAnchor: 0,
+	                yAnchor: 0,
+	                zIndex: 3  
+	            });      
+	        }
+	    }
+      
+      
+      console.log(distance);
+      //선그리기 close
+        
+        
+
+            
+      });
+    
+} else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    
+    var locPosition = new daum.maps.LatLng(33.450701, 126.570667),    
+        message = 'geolocation을 사용할수 없어요..'
+        
+    displayMarker(locPosition, message);
+}
+
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+    // 마커를 생성합니다
+    var marker = new daum.maps.Marker({  
+        map: map, 
+        position: locPosition
+    }); 
+    
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new daum.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+    
+    // 인포윈도우를 마커위에 표시합니다 
+    infowindow.open(map, marker);
+    
+    map.setCenter(markerPosition);
+   
+}
+
+//alert(map.getCenter(markerPosition));
+	var mapContainer = document.getElementById('locationView'), // 지도를 표시할 div 
+    mapOption = { 
+        center: new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };
+
+var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+
+
+//상품위치
+// 마커가 표시될 위치입니다 
+var markerPosition  = new daum.maps.LatLng(viewlat, viewlon); 
+
+// 마커를 생성합니다
+var marker = new daum.maps.Marker({
+    position: markerPosition
+});
+
+// 마커가 지도 위에 표시되도록 설정합니다
+marker.setMap(map);
+
+// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
+// marker.setMap(null);
+	
+	
+console.log(map.getCenter(markerPosition)); //vb: 4655241.070416928, wb: 10.460297404189829	
+
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(markerPosition);   
+	//alert(location);
+	
+	
+	
+	//console.log(curLat + " " + curLon);
+	
+	
+
+}
+
 </script>
 
 </html>
