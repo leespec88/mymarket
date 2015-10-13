@@ -217,6 +217,27 @@
        $('#myItems').click(function(){
     	   $("#myModal").modal();
        });
+       
+       $('.submitBtn').click(function(){
+    	   var email = $('#userid').val();
+    	   var password = $('#password').val();
+    	   
+    	   $.ajax({
+    		  url:'/user/loginCheck',
+    		  type:'post',
+    		  data:{email:email, password:password},
+    		  success:function(result){
+    				if(result){
+    					$('#loginSubmit').submit();
+    				}else{
+    					alert('로그인 정보가 잘못되었습니다.');
+    					return false;
+    				}
+    		},error: function (xhr, txtStatus, errorThrown) {  
+                alert("error" + errorThrown);  
+            }  
+    	   });
+       }); 
    });
    
 </script>
@@ -252,19 +273,19 @@
        		</span>
        	  </div>
        	  <div class="modal-body">
-          <form role="form" action="/user/login">
+          <form id="loginSubmit" role="form" action="/user/login">
             <div class="form-group">
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> Email</label>
-              <input type="text" class="form-control" id="usrname" name="email" placeholder="Email Address">            
+              <input type="text" class="form-control" id="userid" name="email" placeholder="Email Address">            
             </div>
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Password</label>
-              <input type="password" class="form-control" id="psw" name="password"placeholder="Password">
+              <input type="password" class="form-control" id="password" name="password"placeholder="Password">
             </div>
             <div class="checkbox">
               <label><input type="checkbox" value="" checked>Remember me</label>
             </div>
-              <button type="submit" class="btn btn-danger btn-block"></span>Login</button>
+              <button type="button" class="btn btn-danger btn-block submitBtn"></span>Login</button>
           </form>
         </div>
         <div class="modal-footer">
