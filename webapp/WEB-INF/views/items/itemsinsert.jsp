@@ -23,16 +23,16 @@ float:right;
 }
 
 .itemsNext{
-	display: none;
+ 	display: none;
     background-color: #EB6868;
     color: white;
 }
-.itemsNext, .itemsNoNext, .toptitle{
+.itemsNext, .itemsNoNext, .toptitle, .itemsBack{
 margin-top: 50px;
 }
 
 .itemsNext, .itemsBack, .itemsNoNext{
-width: 100%;
+width: 49%;
 height: 40px;
 font-size: 16px;
 }
@@ -52,7 +52,7 @@ margin-top: 150px;
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap {position:relative;width:100%;height:40px;}
-#menu_wrap {position:absolute;top:5;left:5;bottom:0;width:250px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+#menu_wrap {position:absolute;top:5;left:5;bottom:0;width:250px;padding:5px;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
 /* #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
 #menu_wrap .option{text-align: center;}
 #menu_wrap .option p {margin:10px 0;}  
@@ -223,8 +223,8 @@ var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					//console.log(data);
 					console.log(data.fullName);
 					$("#address").val(data.fullName);
-					$(".itemsNext").css('display','block');
 					$(".itemsNoNext").css('display','none');
+					$(".itemsNext").css('display','inline');
 					//$("#lat").val(data.lat);
 					
 				},
@@ -391,9 +391,9 @@ function getListItem(index, places) {
 <input type="hidden" id="lat" name="lat" value="">
 <input type="hidden" id="lng" name="lng" value="">
 <input type="hidden" id="address" name="address" value="">
-<input class="itemsNext" type="submit"  value="다음">
-<input class="itemsNoNext" type="button" value="다음">
 <a href="/"><input class="itemsBack" type="button" value="취소"></a>
+<input class="itemsNoNext" type="button" value="다음">
+<input class="itemsNext" type="submit"  value="다음">
 </form>
 
 </aside>
