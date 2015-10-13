@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <!-- bootstrap -->
@@ -32,6 +33,11 @@ textarea {
 #itemviewTitle {
 	padding-left: 37px;
 }
+img[Attributes Style] {
+    width: 480px;
+    height: 480px;
+}
+
 </style>
 <title>Insert title here</title>
 </head>
@@ -40,15 +46,12 @@ textarea {
 	<div class="container" id="itemview">
 		<div class="row">
 			<div class="col-sm-5 largeImg">
-				<img class="img-thumbnail" id="" src="${fileList[0].IMAGE}"
-					alt="Chania" width="500" height="400">
+				<img class="img-thumbnail" id="" src="${fileList[0].IMAGE}" alt="상품이미지가 없습니다." width="500" height="400">
 			</div>
 			<div class="col-sm-1" id="smallimage">
 				<c:forEach var="file" items="${fileList}">
 					<div class=row>
-						<img class="img-thumbnail" id="${file.IMAGE}" src="${file.IMAGE}"
-							alt="Chania" width="52" height="40"
-							onmouseover="javascript:setImage('${file.IMAGE}');">
+						<img style="-webkit-user-select: none" class="img-thumbnail" id="${file.IMAGE}" src="${file.IMAGE}" alt="Chania" width="52" height="40" onmouseover="javascript:setImage('${file.IMAGE}');">
 					</div>
 				</c:forEach>
 			</div>
@@ -110,7 +113,7 @@ textarea {
 							$("#" + reply).toggle();
 						}
 					</script>
-					<c:if test="${replyList[1] != null}">
+					<c:if test="${replyList[0] != null}">
 						<label class="reply" for="comment">댓글</label>
 						<c:forEach var="reply" items="${replyList}">
 							<div class="tb-reply" id="addedFormDiv">
@@ -129,9 +132,9 @@ textarea {
 										</td>
 										<td><c:if
 												test="${not empty authUser && reply.userNo == authUser.no }">
-												<a
-													href="/items/deletereply/${reply.no}?itemNo=${reply.boardNo}"
-													title="삭제하기"> <span class="glyphicon glyphicon-trash"></span></a>
+												<a href="/items/deletereply/${reply.no}?itemNo=${reply.boardNo}" title="삭제하기"> 
+													<span class="glyphicon glyphicon-trash"></span>
+												</a>
 											</c:if></td>
 									</tr>
 								</table>
@@ -140,8 +143,7 @@ textarea {
 								</div>
 
 								<div class="rereply" id="${reply.no}" style="display: none">
-									<form class="answerArea" action="/items/subreply/"
-										method="post">
+									<form class="answerArea" action="/items/subreply/" method="post">
 										<input type="hidden" name="replyNo" value="${reply.no}">
 										<input type="hidden" name="parentGroupNo"
 											value="${reply.groupNo}">
@@ -215,7 +217,7 @@ textarea {
 							</form>
 						</div>
 						<p>
-							<a href="#"><button type="button" class="btn btn-primary">
+							<a href="#"><button type="button" class="btn btn-primary"> 
 									재등록</button></a> <a href="#"><button type="button"
 									class="btn btn-success">상단노출</button></a> <a
 								href="/items/updateItem/${itemVo.no}"><button type="button"

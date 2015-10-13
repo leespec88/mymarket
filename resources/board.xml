@@ -120,7 +120,6 @@
 				select max(no) from BOARD_COMMUNITY
 			]]>
 		</selectKey>
-
 		<![CDATA[
 			insert into BOARD_COMMUNITY_PIC 
 			(
@@ -128,7 +127,7 @@
 			) 
 			VALUES
 			(
-				seq_BOARD_COMMUNITY_PIC.nextval, #board_no#, #image#
+				seq_BOARD_COMMUNITY_PIC.nextval, #board_no#, #IMAGE#
 			) 
 		]]>
 	</insert>
@@ -140,7 +139,7 @@
 			) 
 			VALUES
 			(
-				seq_BOARD_COMMUNITY_PIC.nextval, #NO#, #IMAGE#
+				seq_BOARD_COMMUNITY_PIC.nextval, #BOARD_NO#, #IMAGE#
 			)
 		]]>
 	</insert>
@@ -155,11 +154,14 @@
             BOARD_COMMUNITY_PIC
         WHERE
             BOARD_NO = #no#
-           
     ]]>
 	</select>
 	
-	
+	<update id="deletefile" parameterClass="java.lang.Integer">
+	    <![CDATA[
+	    	delete from BOARD_COMMUNITY_pic where no=#NO#
+	    ]]>
+	</update>
 	
 <select id="getBoardByUserNo" parameterClass="java.lang.Long" resultMap="resultMapList">
 	<![CDATA[

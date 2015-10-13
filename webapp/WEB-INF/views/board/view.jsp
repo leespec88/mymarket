@@ -14,6 +14,12 @@
 .board_view {
 	margin-top: 60px;
 }
+.contentfile {
+	width:500px; 
+}
+pre {
+width: 723px;
+}
 </style>
 </head>
 <body>
@@ -47,7 +53,7 @@
 						<td colspan="4" scope="row" height="20%"><div>
 							<c:forEach var="file" items="${fileList }">
 								<p style="text-align: center;">
-									<img src="/product-images/${file.IMAGE}">
+									<a href="${file.IMAGE}"><img class="img-responsive contentfile" src="${file.IMAGE}"></a>
 								</p>
 							</c:forEach>
 						</div>${vo.content }</td>
@@ -55,9 +61,8 @@
 				<tr>
 					<th scope="row">첨부파일</th>
 					<td colspan="3"><c:forEach var="file" items="${fileList}">
-							<input type="hidden" id="no" value="${file.no }">
-							<img id="mini_img" src="/product-images/${file.IMAGE}"
-								class="img-thumbnail" width="15%" height="auto">
+							<input type="hidden" id="no" value="${file.NO }">
+							<a href="${file.IMAGE}"><img class="img-responsive img-thumbnail" src="${file.IMAGE}" class="img-thumbnail" width="15%" height="auto"></a>
 
 						</c:forEach></td>
 				</tr>
@@ -88,7 +93,7 @@
 					</tr>
 				</table>
 				<div id="junki" style="padding-left:${reply.depth*30}px">
-					<pre>${reply.content}</pre>
+					<pre class="">${reply.content}</pre>
 				</div>
 				<div style="display: none;">
 					<form action="/board/replyreply" method="post">

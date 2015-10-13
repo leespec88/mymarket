@@ -223,14 +223,6 @@ public class ItemsService {
 		
 	}
 
-	public void insertItem(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		itemsDao.insertItem(map);
-
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);
-		for (int i = 0, size = list.size(); i < size; i++) {
-			itemsDao.insertFile(list.get(i));
-		}
-	}
 	/*판매자의 아이템의 삭제   -by 이준기 0925*/
 	public void deleteItem(Long itemno) {
 		itemsDao.deleteItem(itemno);
@@ -241,8 +233,12 @@ public class ItemsService {
 		
 	}
 
-	public void updateItem(Map<String, Object> map, HttpServletRequest request) {
+	public void updateItem(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		itemsDao.update(map);
+		List<Map<String, Object>> list = fileUtils2.parseInsertFileInfo(map, request);
+		for (int i = 0, size = list.size(); i < size; i++) {
+			itemsDao.insertAppendFile(list.get(i));
+		}
 	}
 
 	public void addKwd(Map<String, Object> map) {
@@ -260,6 +256,16 @@ public class ItemsService {
 	public List<AnalysisKeywordVo> getRecentRegItemlist(){
 		return itemsDao.selectRecentRegItemlist();
 	}
+
+	public void deleteFile(Integer fileNo) {
+		itemsDao.deleteFile(fileNo);
+	}
+
+	public void updateViewCnt(Long no) {
+		itemsDao.updateViewCnt(no);
+	}
+
+	
 	
 	
 	

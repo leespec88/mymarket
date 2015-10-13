@@ -152,18 +152,11 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoard(Map<String, Object> map, HttpServletRequest request)
 			throws Exception {
 		boardDao.update(map);
-		
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
-				request);
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);
 		Map<String,Object> tempMap = null;
 		for (int i = 0, size = list.size(); i < size; i++) {
 			tempMap = list.get(i);
-		        if("Y".equals(tempMap.get("IS_NEW"))){
-		        	
-		        }
-		        else{
 		        	boardDao.appendFile(tempMap);
-		        }
 		    }
 	}
 

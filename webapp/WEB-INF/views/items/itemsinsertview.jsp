@@ -313,14 +313,14 @@
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="price">가격 :</label>
 			<div class="col-sm-8">
-		        <input type="text" name="price" placeholder="원">
+		        <input class="form-control" type="text" name="price" id="price" placeholder="원">
 		    </div>
 		</div>
 		
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="title">제목 :</label>
 			<div class="col-sm-8">
-		        <input type="text" name="title">
+		        <input class="form-control" type="text" name="title">
 		    </div>
 		</div>
 		
@@ -333,14 +333,14 @@
 		
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<label class="radio-inline"><input type="radio" name="tradeCategory" value="판매">판매</label>
+				<label class="radio-inline"><input type="radio" name="tradeCategory" value="판매" checked="checked">판매</label>
 				<label class="radio-inline"><input type="radio" name="tradeCategory" value="구매">구매</label>
     		</div>
     	</div>
     	
     	<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<label class="radio-inline"><input type="radio" name="itemCondition" value="중고">중고</label>
+				<label class="radio-inline"><input type="radio" name="itemCondition" value="중고" checked="checked">중고</label>
 				<label class="radio-inline"><input type="radio" name="itemCondition" value="신품">신품</label>
     		</div>
     	</div>
@@ -348,7 +348,7 @@
     	<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<label class="radio-inline"><input type="radio" name="shippingFee" value="포함">포함</label>
-				<label class="radio-inline"><input type="radio" name="shippingFee" value="미포함">미포함</label>
+				<label class="radio-inline"><input type="radio" name="shippingFee" value="미포함" checked="checked">미포함</label>
     		</div>
     	</div>
     	
@@ -359,13 +359,26 @@
 		<input type="hidden" name="userName" value="${authUser.name }">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="submit" value="완료">
-				<a href="/"><input type="button"  value="취소"></a><br/>
+				<input type="submit" value="완료" onclick="deletecomma()">
+				<a href="/"><input class="btn default-btn" type="button" value="취소"></a><br/>
 			</div>
 		</div>
 		</form>
 </div>		
-		
+<script>
+$('#price').blur(function() {
+	/* 콤마 천단위 세팅 */
+	var n = $('#price').val();
+	var input = Number(n).toLocaleString('en');
+	$('#price').val(input);
+});
+
+function deletecomma(){
+	var n =$('#price').val();
+	n = parseInt(n.replace(/,/g,""));
+	$('#price').val(n);
+}
+</script>		
 			
 </body>
 </html>

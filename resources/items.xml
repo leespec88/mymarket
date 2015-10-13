@@ -63,6 +63,13 @@
 		insert into items values(seq_items.nextval, #title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#, '판매중' )  
 	]]>
 	</insert>
+	
+	<insert id="insertItemByMap" parameterClass="java.util.Map">
+	<![CDATA[
+		insert into ITEMS (NO, TITLE, CONTENT, TRADE_CATEGORY, ITEM_CONDITION, PRICE, USER_NO, LOCATION, EMAIL, SHIPPING_FEE, VIEW_COUNT, REG_DATE, ADDRESS, USER_NAME, SELL_STATE) 
+		VALUES(seq_items.nextval, #title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#, '판매중')
+	]]>
+	</insert>
 
 	<!-- Items images insert -->
 	<insert id="insertPic" parameterClass="Map">
@@ -349,10 +356,10 @@
 			 WHERE NO=#itemNo#
 		]]>		
 	</update>
-	<delete id="deletefile" parameterClass="java.lang.Integer">
+	<delete id="deleteFile" parameterClass="java.lang.Integer">
 		<![CDATA[
 			DELETE FROM ITEM_PIC 
-			WHERE NO_ITEM_PIC =#fileNo#
+			WHERE NO_ITEM_PIC = #fileNo#
 		]]> 
 	</delete>
 	<delete id="deleteHashTag" parameterClass="java.lang.Long">
@@ -361,4 +368,28 @@
 			WHERE ITEM_NO = #fileNo#
 		]]> 
 	</delete>
+	<insert id="insertAppendFile" parameterClass="java.util.HashMap">
+		<![CDATA[
+			INSERT INTO ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
+			VALUES( seq_item_pic.nextval, #NO#, #IMAGE#)
+		]]> 
+	</insert>
+	
+	<update id="updateViewCnt" parameterClass="java.lang.Long">
+		<![CDATA[
+			update ITEMS SET VIEW_COUNT =+ 1 where no=#no#
+		]]> 
+	</update>
+	
+	<select id="selectListViewCnt" resultClass="Map">
+		<![CDATA[
+			select *
+			from (select title, no, view_count
+			from ITEMS i
+			order by i.VIEW_COUNT desc) a
+			where ROWNUM < 11;
+		]]> 
+	</select>
+	
+	
 </sqlMap>

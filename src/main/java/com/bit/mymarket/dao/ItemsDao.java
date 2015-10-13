@@ -155,6 +155,10 @@ public class ItemsDao {
 	public void insertFile(Map<String, Object> map) {
 		sqlMapClientTemplate.insert("items.insertFile", map);
 	}
+	public void insertAppendFile(Map<String, Object> map) {
+		sqlMapClientTemplate.insert("items.insertAppendFile", map);
+	}
+	
 	/*판매자의 아이템의 삭제   -by 이준기 0925*/
 	public void deleteItem(Long itemno) {
 		sqlMapClientTemplate.delete("items.deleteItem", itemno);
@@ -165,7 +169,6 @@ public class ItemsDao {
 		
 	}
 	public void update(Map<String, Object> map) {
-		System.err.println("update!!!"+map.toString());
 		sqlMapClientTemplate.update("items.updateItems", map);
 	}
 	public void insertKwd(Map<String, Object> map) {
@@ -176,7 +179,6 @@ public class ItemsDao {
 	public List<AnalysisKeywordVo> getKwdList() {
 		return sqlMapClientTemplate.queryForList("items.selectAllStoredKeyword");
 	}
-	
 	
 	@SuppressWarnings("unchecked")
 	public List<AnalysisKeywordVo> selectKeywordCntList() {
@@ -189,5 +191,12 @@ public class ItemsDao {
 	@SuppressWarnings("unchecked")
 	public List<AnalysisKeywordVo> selectRecentRegItemlist() {
 		return sqlMapClientTemplate.queryForList("items.selectRecentRegItemlist");
+	}
+	public void deleteFile(Integer fileNo) {
+		System.err.println("deleteFile!" +fileNo);
+		sqlMapClientTemplate.delete("items.deleteFile", fileNo);
+	}
+	public void updateViewCnt(Long no) {
+		sqlMapClientTemplate.update("items.updateViewCnt", no);
 	}
 }

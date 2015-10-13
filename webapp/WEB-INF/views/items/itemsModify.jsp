@@ -20,288 +20,18 @@
     background-repeat: /*@background-image-repeat=*/no-repeat/*@*/;
     background-position: /*@background-image-position*/center/*@*/;
 }
+textarea {
+	resize:none;
+}
 </style>
 </head>
 <body>
 
 	<!-- 이미지 미리보기 -->
 	<script type="text/javascript">
-		var InputImage1 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview1");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image1").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview1").src = document
-					.getElementById("image1").value;
-
-		})();
-		var InputImage2 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview2");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image2").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview2").src = document
-					.getElementById("image2").value;
-
-		})();
-		var InputImage3 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview3");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image3").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview3").src = document
-					.getElementById("image3").value;
-
-		})();
-		var InputImage4 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview4");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image4").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview4").src = document
-					.getElementById("image4").value;
-
-		})();
-		var InputImage5 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview5");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image5").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview5").src = document
-					.getElementById("image5").value;
-
-		})();
-		var InputImage6 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview6");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image6").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview6").src = document
-					.getElementById("image6").value;
-
-		})();
-		var InputImage7 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview7");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image7").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview7").src = document
-					.getElementById("image7").value;
-
-		})();
-		var InputImage8 = (function loadImageFile() {
-			if (window.FileReader) {
-				var ImagePre;
-				var ImgReader = new window.FileReader();
-				var fileType = /^(?:image\/bmp|image\/gif|image\/jpeg|image\/png|image\/x\-xwindowdump|image\/x\-portable\-bitmap)$/i;
-				ImgReader.onload = function(Event) {
-					if (!ImagePre) {
-						var newPreview = document
-								.getElementById("imagePreview8");
-						ImagePre = new Image();
-						ImagePre.style.width = "200px";
-						ImagePre.style.height = "140px";
-						newPreview.appendChild(ImagePre);
-					}
-					ImagePre.src = Event.target.result;
-				};
-				return function() {
-
-					var img = document.getElementById("image8").files;
-
-					if (!fileType.test(img[0].type)) {
-						alert("이미지 파일을 업로드 하세요");
-						return;
-					}
-
-					ImgReader.readAsDataURL(img[0]);
-				}
-			}
-			document.getElementById("imagePreview8").src = document
-					.getElementById("image8").value;
-
-		})();
-		function imgdel() {
-			//alert("aa;");
-			for (i = 1; i <= count; i++) {
-				//alert(i);
-				document.getElementById("imagePreview" + i).innerHTML = '';
-			}
-			count = 0;
-		}
-
-		function imgdelselect(i) {
-			document.getElementById("imagePreview" + i).innerHTML = '';
-			count--;
-		}
-		
-		
-		
 	</script>
 	<div class="container backgroundImg">
 		<h2>아이템 수정</h2>
-		<!-- <form class="form-horizontal" role="form" method="post" action="upload" enctype="multipart/form-data"> -->
 		<%@ include file="/WEB-INF/views/include/include-body.jspf"%>
 		<form id="frm" name="frm" class="form-horizontal" method="post" enctype="multipart/form-data">
 			<div class="form-group">
@@ -329,9 +59,9 @@
 			<div id="fileDiv">
 				<c:forEach var="file" items="${fileList }" varStatus="var">
 					<p>
-						<input type="hidden" class="fileNo" value="${file.NO }"> 
+						<input type="hidden" class="fileNo" value="${file.NO_ITEM_PIC }"> 
 						<img src="${file.IMAGE}" width="100px" height="100px"> 
-						<button class="delFile" name="delete_${var.index }" value="${file.NO}">삭제</button>
+						<button class="delFile" name="delete_${var.index }" value="${file.NO_ITEM_PIC}">삭제</button>
 					</p>
 				</c:forEach>
 			</div>
@@ -339,7 +69,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="title">제목 :</label>
 				<div class="col-sm-8">
-					<input type="text" name="title" value="${itemVo.title}" size="62">
+					<input type="text" class="form-control" name="title" value="${itemVo.title}" size="62">
 				</div>
 			</div>
 
@@ -352,7 +82,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="price">가격 :</label>
 				<div class="col-sm-8">
-					<input type="text" id="price" name="price" value="" onfocus="javascript:deletecomma('${itemVo.price}')"
+					<input type="text" id="price" class="form-control" name="price" value="" onfocus="javascript:deletecomma('${itemVo.price}')"
 						placeholder="원">
 				</div>
 			</div>
@@ -381,7 +111,8 @@
 					<label class="radio-inline"><input type="radio" name="shippingFee" value="미포함">미포함</label>
 				</div>
 			</div>
-			<input type="hidden" name="itemNo" value="${itemVo.no }"><br />
+			<input type="hidden" id="itemNo" name="itemNo" value="${itemVo.no }"><br />
+			<input type="hidden" name="no" value="${itemVo.no}"><br />
 			<input type="hidden" name="userNo" value="${authUser.no }"><br />
 			<!-- <input type="text" name="email" value="email 히든으로 가져갈꺼임"><br/> -->
 			<input type="hidden" name="location" value="${itemVo.location}"> 
@@ -389,8 +120,8 @@
 			<input type="hidden" name="userName" value="${userVo.name }">
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-					<a href="#this" class="btn" id="update">수정</a> 
-					<a href="/" class="btn">취소</a>
+					<a href="#this" class="btn btn-default" id="update">수정</a> 
+					<a href="/" class="btn btn-default">취소</a>
 					<br/>
 				</div>
 			</div>
@@ -405,7 +136,10 @@ $(document).ready(function() {
 	var input = Number(before).toLocaleString('en');
 	$('#price').val(input);
 	
-	
+	$(".delFile").on("click", function(e) {
+		e.preventDefault();
+		fn_deleteFile($(this));
+	});
 	$('input:radio[name=tradeCategory]:input[value='+"${itemVo.tradeCategory}"+']').attr("checked", true);
 	$('input:radio[name=itemCondition]:input[value='+"${itemVo.itemCondition}"+']').attr("checked", true);
 	$('input:radio[name=shippingFee]:input[value='+"${itemVo.shippingFee}"+']').attr("checked", true);
@@ -459,10 +193,11 @@ function fn_deleteFile(obj) {
 	var comSubmit = new ComSubmit();
 	comSubmit.setUrl("<c:url value='/items/deleteFile' />");
 	comSubmit.addParam("fileNo", obj.val());
-	comSubmit.addParam("no", $("#no").val());
+	comSubmit.addParam("no", $('#itemNo').val());
 	comSubmit.submit();
 }
 </script>
-
+<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </body>
 </html>

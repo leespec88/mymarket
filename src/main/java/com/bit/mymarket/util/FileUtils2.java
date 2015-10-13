@@ -37,8 +37,6 @@ public class FileUtils2 {
        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();//부분은 클라이언트에서 전송된 파일 정보를 담아서 반환을 해줄 List이다. 여태까지는 단 하나의 파일만 전송을 하였지만, 다중파일전송을 하도록 수정할 계획이기 때문에 미리 그에 맞도록 구성하였다.
        Map<String, Object> listMap = null; 
         
-       Long itemNo =(Long)map.get("itemNo");
-        
        File file = new File(filePath);
        if(file.exists() == false){ //해당 경로에 없으면 생성
            file.mkdirs();
@@ -57,10 +55,7 @@ public class FileUtils2 {
                multipartFile.transferTo(file);
               
                listMap = new HashMap<String,Object>();
-               listMap.put("NO", itemNo);
-               //listMap.put("ORIGINAL_FILE_NAME", originalFileName);
-               //listMap.put("STORED_FILE_NAME", storedFileName);
-               //listMap.put("FILE_SIZE", multipartFile.getSize());
+               listMap.put("NO", map.get("itemNo"));
                listMap.put("IMAGE", url);
                list.add(listMap);
            }

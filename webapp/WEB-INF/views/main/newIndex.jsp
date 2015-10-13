@@ -76,13 +76,6 @@
     text-align: center;
     }
   	</style>
-  	
-  	
-  	
-  	
-  	
-  	
-  	
 <style>	
 .imageText {
 	position: absolute;
@@ -454,7 +447,7 @@ body {
 				style="padding-top: 10px; padding-left: 30px">
 				<div>
 					<h2 class="imageText">
-						<span class="glyphicon glyphicon-flash"></span>${recentItem.PRICE}
+						<span class="glyphicon glyphicon-flash itemPrice">${recentItem.PRICE}</span>
 					</h2>
 					<a href="items/detailView/${recentItem.NO}"><img style="position: relative; z-index: 1;" class="img-responsive"
 						src="${recentItem.IMAGE}" alt="Chania" width="530" height="345">
@@ -482,6 +475,12 @@ body {
 		comSubmit.submit();
 	}
 </script>
+<script type="text/javascript">
+$(document).ready(
+		function() {
+				$('.itemPrice').number(true);
+			});
+</script>	
 <script>
 	$(document)
 			.ready(
@@ -567,4 +566,5 @@ body {
 						}
 					});
 </script>
+<script type="text/javascript" src="/assets/js/jquery-number-master/jquery.number.min.js"></script>
 </html>

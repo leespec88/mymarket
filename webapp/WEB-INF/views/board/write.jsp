@@ -9,6 +9,11 @@
 <script src="/assets/js/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
 <%@ include file="/WEB-INF/views/include/include-header.jspf"%>
 <c:import url="/WEB-INF/views/include/head.jsp"></c:import>
+<style type="text/css">
+#frm{
+	padding-top: 20px;
+}
+</style>
 </head>
 <body>
 	<form id="frm" name="frm" enctype="multipart/form-data">
@@ -24,23 +29,22 @@
 				<tr>
 					<th scope="row">제목</th>
 					
-					<td><input type="text" id="title" name="title" class="wdp_90"></input></td>
+					<td><input type="text" id="title" class="form-control" name="title" class="wdp_90"></input></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="view_text"><textarea rows="20"
-							cols="100" title="내용" id="content" name="content"></textarea></td>
+					<td colspan="2" class="view_text"><textarea rows="20" class="form-control" cols="100" title="내용" id="content" name="content"></textarea></td>
 				</tr>
 			</tbody>
 		</table>
 		<div id="fileDiv">
 			<p>
-				<input type="file" id="file" name="file_0"> <a href="#this"
-					class="btn" id="delete" name="delete">삭제</a>
+				<input type="file" id="file" name="file_0"> 
+					<a href="#this" class="btn btn-default" id="delete" name="delete">삭제</a>
 			</p>
 		</div>
-		<br /> <br /> <a href="#this" class="btn" id="addFile">파일 추가</a> <a
-			href="#this" class="btn" id="write">작성하기</a> <a href="#this"
-			class="btn" id="list">목록으로</a>
+		<br/> <br/> <a href="#this" class="btn btn-default" id="addFile">파일 추가</a> <a
+			href="#this" class="btn btn-default" id="write">작성하기</a> 
+			<a href="#this" class="btn btn-default" id="list">목록으로</a>
 	</form>
 
 	<%@ include file="/WEB-INF/views/include/include-body.jspf"%>

@@ -85,17 +85,17 @@ public class ItemsController {
 	@RequestMapping( "/upload" )
 	public String upload(@ModelAttribute ItemsVo itemsVo, CommandMap commandMap, HttpServletRequest request ) throws Exception {
 		System.out.println(itemsVo);
-		//System.out.println(commandMap.getMap());
+		System.out.println(commandMap.getMap());
 		itemsService.insert(itemsVo, commandMap.getMap(), request);
 		
-        return "redirect:/";
+        return "redirect:/items/detailView/"+commandMap.get("itemNo");
 	}
 	
 	/*아이템 상제정보 보기 컨드톨러 -by 이준기 0922*/
 	@RequestMapping("/detailView/{no}")
 	public String itemDetailInfo(@PathVariable Long no, Model model){
 		Map<String, Object> map  = itemsService.getItemInfoByNo(no);
-
+		itemsService.updateViewCnt(no);
 		model.addAttribute("regItemCnt", map.get("regItemCnt"));
 		model.addAttribute("replyCnt", map.get("replyCnt"));
 		model.addAttribute("userVo", map.get("userVo"));
@@ -175,7 +175,7 @@ public class ItemsController {
 	@RequestMapping("/itemDelete/{itemno}")
 	public String itemDelete(@PathVariable Long itemno){
 		itemsService.deleteItem(itemno);
-		return "redirect:/";
+		return "redirect:/main";
 	}
 	
 	@RequestMapping("/updateItem/{itemNo}")
@@ -189,12 +189,20 @@ public class ItemsController {
 	}
 	
 	@RequestMapping("/updateItems")
-	public ModelAndView updateItem(CommandMap commandMap, HttpServletRequest request){
+	public ModelAndView updateItem(CommandMap commandMap, HttpServletRequest request) throws Exception{
 		ModelAndView mv = new ModelAndView("redirect:/items/detailView/" + commandMap.get("itemNo"));
 		itemsService.updateItem(commandMap.getMap(), request);
 		mv.addObject("no", commandMap.get("no"));
 		return mv;
 	}
+	@RequestMapping("/deleteFile")
+	public ModelAndView deleteFile(CommandMap commandMap){
+		ModelAndView mv = new ModelAndView("redirect:/items/updateItem/" + commandMap.get("no"));
+		Integer fileNo = Integer.parseInt((String)commandMap.get("fileNo"));
+		itemsService.deleteFile(fileNo);
+		return mv;
+	}
+	
 	
 	
 }
