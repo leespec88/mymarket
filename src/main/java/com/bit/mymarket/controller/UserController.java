@@ -44,23 +44,31 @@ public class UserController {
 		return "redirect:/user/joinform";
 		
 	}
-	@RequestMapping("/joinsuccess")
-	public String joinsuccess(@ModelAttribute UserVo userVo) {
-		return "/user/joinsuccess";
-	}
 
 	@RequestMapping("/loginform")
 	public String loginform() {
 		return "/user/loginform";
 	}
 	
+	@RequestMapping("/loginCheck")
+	@ResponseBody
+	public Boolean loginCheck(@ModelAttribute UserVo vo){
+		System.out.println("!!! Vo "+vo);
+		UserVo userVo =  userService.getLoginInfo(vo);
+		System.out.println("!!! userVo "+userVo);
+		if(userVo==null){
+			return false;
+		}else{
+			return true;
+		}
+	}
 	@RequestMapping("/login")
 	public String login(HttpSession session, 
 						@ModelAttribute UserVo vo) {
 		UserVo userVo =  userService.getLoginInfo(vo);
 		
 		if(userVo==null){
-			return "redirect:/user/loginform";
+			return "redirect:/";
 		}
 		if("관리자".equals(userVo.getMemberType())){
 			session.setAttribute("authUser", userVo);
