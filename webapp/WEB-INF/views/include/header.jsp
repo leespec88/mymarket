@@ -331,7 +331,8 @@
 	           		<li><a href="/user/modifyform">개인정보수정</a></li>
 	           		<li><a href="#">회원탈퇴</a></li>
 	           		<li><a href="#">알림</a></li>
-	           		 <li><a href="#">찜상품</a></li>
+	           		<li><a href="#">찜상품</a></li>
+	           		<li><a href="/interest/form">관심지역</a></li>
 	            </c:if>
 	            <li class="divider"></li>
 	            <li><a href="#">버전정보</a></li>
