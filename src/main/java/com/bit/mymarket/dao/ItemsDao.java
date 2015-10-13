@@ -199,4 +199,11 @@ public class ItemsDao {
 	public void updateViewCnt(Long no) {
 		sqlMapClientTemplate.update("items.updateViewCnt", no);
 	}
+	public List<Map<String, Object>> selectListViewCnt(){
+		return sqlMapClientTemplate.queryForList("items.selectListViewCnt");
+	}
+	public List<Map<String, Object>> selectUserItemList(Long userNo) {
+		return sqlMapClientTemplate.queryForList("items.selectListUserItem", userNo);
+	}
+	
 }

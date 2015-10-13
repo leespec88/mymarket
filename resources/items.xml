@@ -377,19 +377,31 @@
 	
 	<update id="updateViewCnt" parameterClass="java.lang.Long">
 		<![CDATA[
-			update ITEMS SET VIEW_COUNT =+ 1 where no=#no#
+			update ITEMS SET VIEW_COUNT = VIEW_COUNT + 1 where no=#no#
 		]]> 
 	</update>
 	
-	<select id="selectListViewCnt" resultClass="Map">
+	<select id="selectListViewCnt" resultClass="java.util.HashMap">
 		<![CDATA[
-			select *
+			select TITLE , NO, VIEW_COUNT 
 			from (select title, no, view_count
-			from ITEMS i
-			order by i.VIEW_COUNT desc) a
-			where ROWNUM < 11;
+					from ITEMS i
+					order by i.VIEW_COUNT desc) a
+			where ROWNUM < 11
 		]]> 
 	</select>
 	
-	
+	<select id="selectListUserItem" resultClass="java.util.HashMap" parameterClass="java.lang.Long">
+		<![CDATA[
+		 	SELECT z1.IMAGE , i.NO, i.title, i.location, i.price, i.REG_DATE, i.SELL_STATE, i.VIEW_COUNT
+	  		  FROM 
+		  			(SELECT p1.image image, p1.ITEM_NO itemNo
+		  		   	   FROM item_pic p1,
+			       			  ( SELECT min (NO_ITEM_PIC) as NO_ITEM_PIC
+							      FROM item_pic
+							  GROUP BY item_no) p2
+			 WHERE p1.NO_ITEM_PIC = p2.NO_ITEM_PIC) z1 , items i
+			 WHERE i.no = z1.itemNo and i.USER_NO = #no#
+ 		]]>
+ 	</select>
 </sqlMap>

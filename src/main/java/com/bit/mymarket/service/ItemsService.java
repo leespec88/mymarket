@@ -230,7 +230,6 @@ public class ItemsService {
 	
 	public void updateSellState(Map<String, Object> map) {
 		itemsDao.updateSellState(map);
-		
 	}
 
 	public void updateItem(Map<String, Object> map, HttpServletRequest request) throws Exception {
@@ -263,6 +262,19 @@ public class ItemsService {
 
 	public void updateViewCnt(Long no) {
 		itemsDao.updateViewCnt(no);
+	}
+	
+	public  List<Map<String, Object>> selectListViewCnt(){
+		List<Map<String, Object>> list = itemsDao.selectListViewCnt();
+		return list;
+	}
+	
+	public Map<String, Object> userItemList(Long userNo){
+		
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap.put("userVo", userDao.getUserInfobyNo(userNo));
+		resultMap.put("selectUserItemList",itemsDao.selectUserItemList(userNo));
+		return  resultMap;
 	}
 
 	

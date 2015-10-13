@@ -32,6 +32,7 @@ public class MainController {
 		model.addAttribute("ageGrouplist", itemsService.kwdProcessing()); //selectAllStoredKeyword
 		model.addAttribute("KwdCntList",itemsService.getKwdCntList()); //selectKeywordCntList
 		model.addAttribute("RecentRegItemlist", itemsService.getRecentRegItemlist());
+		model.addAttribute("selectListViewCnt", itemsService.selectListViewCnt());
 		return "/main/newIndex";
 	}
 	

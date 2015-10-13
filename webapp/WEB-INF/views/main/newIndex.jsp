@@ -75,9 +75,7 @@
     line-height: 12px;
     text-align: center;
     }
-  	</style>
-<style>	
-.imageText {
+ .imageText {
 	position: absolute;
 	z-index: 2;
 	margin-top: 300px;
@@ -320,16 +318,7 @@ body {
 	text-decoration: underline;
 }
 </style>
-  	
-  	
-  	
-  	
-  	
-  	
-  	
-  	
 </head>
-
 <body>
 	
 	<div id="section1" class="container-fluid" style="background-image:url(images/t7.jpg)">
@@ -351,6 +340,7 @@ body {
 					<!-- <ul class="jq_tab tab_menu container"> -->
 					<ul class="jq_tab nav nav-tabs nav-justified">
 						<li><strong class="tit">검색어</strong></li>
+						<li><strong class="tit">인기상품</strong></li>
 						<li><strong class="tit">10대</strong></li>
 						<li><strong class="tit">20대</strong></li>
 						<li><strong class="tit">30대</strong></li>
@@ -372,12 +362,24 @@ body {
 						</div>
 						<div class="cont">
 							<form id="commonForm">
+								<c:forEach var="items" items="${selectListViewCnt}"  varStatus="count">
+										<div class="col-sm-12 keytem">
+											<p>
+												 <em class="num">${count.index+1}</em> <a href="#"><span
+													class="keywordlist" onclick="goKeyword('${items.TITLE}')">${items.TITLE}(${items.VIEW_COUNT})</span></a> 
+											</p>
+										</div>
+								</c:forEach>
+							</form>
+						</div>
+						<div class="cont">
+							<form id="commonForm">
 								<c:forEach var="item10" items="${ageGrouplist}">
 									<c:if test="${item10.ageGroup == 10}">
 										<div class="col-sm-12 keytem">
 											<p>
 												<em class="num"></em> <a href="#"><span
-													class="keywordlist" onclick="goKeyword('${item10.keyword}')">${item10.keyword}(${item10.count})</span></a>
+													class="keywordlist" onclick="goKeyword('${item10.keyword}')">${item10.keyword}(${item10.count})  - ${item10.gender}</span></a>
 											</p>
 										</div>
 									</c:if>
@@ -391,7 +393,7 @@ body {
 										<div class="col-sm-12 keytem">
 											<p>
 												<em class="num"></em> <a href="#"><span
-													class="keywordlist" onclick="goKeyword('${item20.keyword}')">${item20.keyword}(${item20.count})</span></a>
+													class="keywordlist" onclick="goKeyword('${item20.keyword}')">${item20.keyword}(${item20.count})  - ${item20.gender}</span></a>
 											</p>
 										</div>
 									</c:if>
@@ -406,28 +408,28 @@ body {
 										<div class="col-sm-12 keytem">
 											<p>
 												<em class="num"></em> <a href="#"><span
-													class="keywordlist" onclick="goKeyword('${item.keyword}')">${item.keyword}(${item.count})</span></a>
+													class="keywordlist" onclick="goKeyword('${item.keyword}')">${item.keyword}(${item.count})  - ${item.gender}</span></a>
 											</p>
 										</div>
 									</c:if>
 								</c:forEach>
 							</form>
 						</div>
-						<div class="cont">
-							<c:set var="count4" value="${fn:length(ageGrouplist)}" />
-							<form id="commonForm">
-								<c:forEach var="item" items="${ageGrouplist}">
-									<c:if test="${item.ageGroup == 40}">
-										<div class="col-sm-12 keytem">
-											<p>
-												<em class="num"></em> <a href="#"><span
-													class="keywordlist" onclick="goKeyword('${item.keyword}')">${item.keyword}(${item.count})</span></a>
-											</p>
-										</div>
-									</c:if>
-								</c:forEach>
-							</form>
-						</div>
+								<div class="cont">
+									<c:set var="count4" value="${fn:length(ageGrouplist)}" />
+									<form id="commonForm">
+										<c:forEach var="item" items="${ageGrouplist}">
+											<c:if test="${item.ageGroup == 40}">
+												<div class="col-sm-12 keytem">
+													<p>
+														<em class="num"></em> <a href="#"><span
+															class="keywordlist" onclick="goKeyword('${item.keyword}')">${item.keyword}(${item.count}) - ${item.gender}</span></a>
+													</p>
+												</div>
+											</c:if>
+										</c:forEach>
+									</form>
+								</div>
 					</div>
 				</div>
 				<div class="col-sm-8">

@@ -162,8 +162,9 @@ public class ItemsController {
 	
 	/*판매자의 아이템의 전체리스트   -by 이준기 0924*/
 	@RequestMapping("/userItemList/{userNo}")
-	public String userItemList(@PathVariable Long userNo){
-		return "/user/profile/"+userNo;
+	public String userItemList(@PathVariable Long userNo, Model model){
+		model.addAllAttributes(itemsService.userItemList(userNo));
+		return "/items/myItemList";
 	}
 	/*판매자의 아이템의 sellState 변경   -by 이준기 0924*/
 	@RequestMapping("/updateSellState/{itemNo}")
@@ -181,9 +182,10 @@ public class ItemsController {
 	@RequestMapping("/updateItem/{itemNo}")
 	public String updateItem(@PathVariable Long itemNo, Model model){
 		Map<String, Object> map = itemsService.getItemInfoByNo(itemNo);
-		model.addAttribute("userVo", map.get("userVo"));
+	/*	model.addAttribute("userVo", map.get("userVo"));
 		model.addAttribute("itemVo", map.get("itemVo"));
-		model.addAttribute("fileList", map.get("fileList"));
+		model.addAttribute("fileList", map.get("fileList"));*/
+		model.addAllAttributes(map);
 		
 		return "/items/itemsModify";
 	}
@@ -202,7 +204,6 @@ public class ItemsController {
 		itemsService.deleteFile(fileNo);
 		return mv;
 	}
-	
 	
 	
 }

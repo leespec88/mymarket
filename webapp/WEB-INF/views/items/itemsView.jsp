@@ -106,8 +106,7 @@ img[Attributes Style] {
 					<h5>
 						<strong>상세설명</strong>
 					</h5>
-					<textarea readonly="readonly" class="form-control" rows="5"
-						id="comment">${itemVo.content}</textarea>
+					<textarea readonly="readonly" class="form-control" rows="15" id="comment">${itemVo.content}</textarea>
 					<script>
 						function testOne(reply) {
 							$("#" + reply).toggle();
