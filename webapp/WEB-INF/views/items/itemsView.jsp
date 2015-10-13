@@ -96,6 +96,9 @@ img[Attributes Style] {
 								<a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
 									${userVo.phone}</a>
 							</p>
+							<p>
+								<a class="btn btn-danger" href="http://127.0.0.1:52273?name=${userVo.name }&no=${itemVo.no}">판매자와 채팅</a>
+							</p>
 						</div>
 					</div>
 				</div>
