@@ -1,0 +1,16 @@
+/* @font-face{
+font-family:'hunR';
+src:url(/assets/css/font/HOBOSTD.OTF) format('opentype');
+} */
+@font-face {
+    font-family: 'GODOM';
+    src: url(/assets/css/font/GODOM.TTF) format('truetype');
+}
+
+body, table, div, p {
+	font-family: GODOM;
+}
+/* 
+.testtest{
+	color:red;
+} */
