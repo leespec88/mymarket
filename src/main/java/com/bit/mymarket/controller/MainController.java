@@ -101,11 +101,13 @@ public class MainController {
 			
 			UserVo userVo = (UserVo) session.getAttribute("authUser");
 			
-			
 			Map<String, Object> map = new HashMap<String,Object>();
 			map.put("list",itemList);
-			map.put("tagList", tagList);
-			map.put("userNo", userVo.getNo());
+			map.put("tagList", tagList); 
+			
+			if(userVo != null){
+				map.put("userNo", userVo.getNo());
+			}
 			
 			return map;
 		}

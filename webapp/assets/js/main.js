@@ -161,27 +161,12 @@ $.get("/assets/json/chicken.json", function(data) {
 					console.log(tagList[0].itemNo);
 					console.log(itemList);
 					for(var i=0; i<itemList.length; i++){
-						/*
-					<div class="col-sm-12 col-md-6">
-			    		<div class="well">
-			    			<img class="img-thumbnail" src="/images/puppy.jpg" alt="Chania" width="530" height="345">
-			    			<p><span>강아지장난감</span><a href="#"><span class="glyphicon glyphicon-map-marker"></span></a></p>
-			    			<p><span>가격 : </span><span>10000원</span><span>10월 10일 10시</span></p>
-			    			<p><span>tag : </span><span>#원</span></p>
-			    		</div>
-		    		</div>
-*/
 						listData += "<div class='col-sm-12 col-md-3'><div class='well'> "
 						+"<a href='/items/detailView/"+itemList[i].no+"'>"
 						+"<img class='img-thumbnail' src='"+itemList[i].url+"'>" + "</a>"
 						+"<p><span class='itemTitle'>"+itemList[i].title+"<a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
 						+"<p><span>가격 : "+itemList[i].price+"원</span></p>"
-						//+"<a href='/jjim/insert/${itemVo.no}/${authUser.no}'><input"
-						//+"type='button' id='button1' value='찜하기'></a>"
-						//+"<p><span class='jjim'><a href='/jjim/insert/365/85}'>찜하기</a>"
-						//+"<p><span class='jjim'><a href='/jjim/insert/"+${itemVo.no}+${userVo.no}+"'>찜하기</a>"
 						+"<p><span class='jjim'><a href='/jjim/insert/"+itemList[i].no+"/"
-						//+${authUser.no}
 						+response.userNo
 						+"'>찜하기</a></p>"
 						+"<p><span>등록일 : "+itemList[i].regDate+"</span></p>"
