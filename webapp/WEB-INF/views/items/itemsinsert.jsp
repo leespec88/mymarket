@@ -53,10 +53,6 @@ margin-top: 110px;
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap {position:relative;width:100%;height:40px;}
 #menu_wrap {position:absolute;top:5;left:5;bottom:0;width:250px;padding:5px;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
-/* #menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F;margin:3px 0;}
-#menu_wrap .option{text-align: center;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;} */
 section {padding-top:52px}
 aside   {padding-top:52px}
 </style>
@@ -67,6 +63,7 @@ aside   {padding-top:52px}
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<link href="/assets/css/font/font.css" rel="stylesheet" type="text/css"/>
 	<title>MyMarket 지도</title>
 </head>
 <body>

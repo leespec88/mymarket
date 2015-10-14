@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link href="/assets/css/font/font.css" rel="stylesheet" type="text/css"/>
 	
 	
 	<style>
@@ -21,15 +22,11 @@
 	</style>
 	
 <style>
-@font-face{
-font-family:'hunR';
-src:url(/assets/css/font/HOBOSTD.OTF) format('opentype');
-}
 
-body, table, div, p {
-	font-family: hunR;
-}
- 
+.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
+.map_wrap {position:relative;width:100%;height:40px;}
+#menu_wrap {position:absolute;top:5;left:5;bottom:0;width:155px;padding:5px;background:rgba(255, 255, 255, 0.7);z-index: 1;font-size:12px;border-radius: 10px;}
+
 /* 
 @media (min-width:992px){
 .col-md-1,.col-md-10,.col-md-11,.col-md-12,.col-md-2,.col-md-3,.col-md-4,.col-md-5,.col-md-6,.col-md-7,.col-md-8,.col-md-9{float:left}
@@ -115,12 +112,13 @@ body, table, div, p {
 }
 
 .locDiv{
-	margin-top:10px;
+	padding:3px;
 	font-weight:bold;
 	
 }
 .locInput{
-	height:34px;
+	/* height:20px; */
+	width:100px;
 }
 
 
