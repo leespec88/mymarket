@@ -67,33 +67,14 @@ img[Attributes Style] {
 						<c:if test="${itemVo.shippingFee == '포함' }">
 							<img src="/assets/images/img_tag_option_01.png" />
 						</c:if>
-						<h2><a id="jjim" href="/jjim/insert/${itemVo.no}/${authUser.no}"><span class="glyphicon glyphicon-heart" style="margin-left:5px; margin-right:5px"></span></a>${itemVo.title }</h2>
+						
+						<h2><c:if test="${not empty authUser }"><a href="/jjim/insert/${itemVo.no}/${authUser.no}"><span class="glyphicon glyphicon-heart" style="margin-left:5px; margin-right:5px"></span></a></c:if>${itemVo.title }</h2>
 						<h1>
 							<span id="price"></span>
 						</h1>
-						<script type="text/javascript">
-							window.onload = function() {
-								var btn = document.getElementById('jjim');
-								btn.onclick = function() {
-									alert("너찜");
-								}
-
-							};
-						
-							function noEvent() {
-								if (event.keyCode == 116) {
-									event.keyCode = 2;
-									return false;
-								} else if (event.ctrlKey
-										&& (event.keyCode == 78 || event.keyCode == 82)) {
-									return false;
-								}
-							}
-							document.onkeydown = noEvent;
-						</script></a>
 						<h3>
 							<a href="javascript:locationView(${itemVo.location})"><span class="glyphicon glyphicon-map-marker"></span></a>
-							<span>판매처</span>
+							<span>${itemVo.address}</span>
 						</h3>
 					</div>
 				</div>
@@ -463,7 +444,7 @@ function displayMarker(locPosition, message) {
 	var mapContainer = document.getElementById('locationView'), // 지도를 표시할 div 
     mapOption = { 
         center: new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
+        level: 2 // 지도의 확대 레벨
     };
 
 var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다

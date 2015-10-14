@@ -42,18 +42,13 @@ public class JjimController {
 	
 	@RequestMapping("/insert/{itemNo}/{userNo}")
 	public String insert(@PathVariable Long itemNo, @PathVariable Long userNo){
-		System.out.println("x9insert" + itemNo + ", " + userNo);
-		
 		JjimVo jjimVo = new JjimVo();
 		jjimVo.setItemNo(itemNo);
 		jjimVo.setUserNo(userNo);
 		
-		System.out.println(jjimVo);
-		
 		jjimService.insert(jjimVo);
 		
-		//return "redirect:/items/detailView/"+itemNo;
-		return "redirect:/main";
+		return "redirect:/items/detailView/"+itemNo;
 	}
 	
 	
@@ -61,7 +56,7 @@ public class JjimController {
 	@RequestMapping("/delete/{itemNo}")
 	public String delete(@PathVariable Long itemNo, HttpSession session) {
 		UserVo userVo = (UserVo)session.getAttribute("authUser");
-		if (itemNo == null && session == null)
+		if (itemNo == null && userVo == null)
 			 return "redirect:/jjim/jjimlist/"+userVo.getNo();
 			//return "/items/jjim";
 		System.out.println("글의 no: " + itemNo + ", " + session);
