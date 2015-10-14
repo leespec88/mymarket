@@ -171,9 +171,10 @@ $.get("/assets/json/chicken.json", function(data) {
 			    		</div>
 		    		</div>
 */
-						listData += "<div class='col-sm-12 col-md-3'><div class='well'> " 
-						+"<img class='img-thumbnail' src='"+itemList[i].url+"'>"
-						+"<p><span class='itemTitle'><a href='/items/detailView/"+itemList[i].no+"'>"+itemList[i].title+"</a> <a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
+						listData += "<div class='col-sm-12 col-md-3'><div class='well'> "
+						+"<a href='/items/detailView/"+itemList[i].no+"'>"
+						+"<img class='img-thumbnail' src='"+itemList[i].url+"'>" + "</a>"
+						+"<p><span class='itemTitle'>"+itemList[i].title+"<a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
 						+"<p><span>가격 : "+itemList[i].price+"원</span></p>"
 						//+"<a href='/jjim/insert/${itemVo.no}/${authUser.no}'><input"
 						//+"type='button' id='button1' value='찜하기'></a>"

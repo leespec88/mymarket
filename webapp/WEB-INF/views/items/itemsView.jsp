@@ -65,17 +65,13 @@ img[Attributes Style] {
 						<c:if test="${itemVo.shippingFee == '포함' }">
 							<img src="/assets/images/img_tag_option_01.png" />
 						</c:if>
-						<h2>${itemVo.title }</h2>
+						<h2><a id="jjim" href="/jjim/insert/${itemVo.no}/${authUser.no}"><span class="glyphicon glyphicon-heart" style="margin-left:5px; margin-right:5px"></span></a>${itemVo.title }</h2>
 						<h1>
 							<span id="price"></span>
 						</h1>
-						<div id="price" class="itemPrice">${itemVo.price}원</div>
-						<a href="/jjim/insert/${itemVo.no}/${authUser.no}"><input
-							type="button" id="button1" value="찜하기">
-
 						<script type="text/javascript">
 							window.onload = function() {
-								var btn = document.getElementById('button1');
+								var btn = document.getElementById('jjim');
 								btn.onclick = function() {
 									alert("너찜");
 								}
@@ -263,10 +259,7 @@ img[Attributes Style] {
 <script type="text/javascript">
 	$(document).ready(
 			function() {
-				$(
-						'input:radio[name=sellState]:input[value='
-								+ "${itemVo.sellState}" + ']').attr("checked",
-						true);
+				$('input:radio[name=sellState]:input[value='+ "${itemVo.sellState}" + ']').attr("checked", true);
 				/* $('#price').val().replace(/,/g, ''); */
 
 				/* var splitCode = $("#splitCode").val().split(","); */

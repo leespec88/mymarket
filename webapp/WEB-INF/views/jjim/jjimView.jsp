@@ -23,7 +23,6 @@ height: 400px;
 	<title>Insert title here</title>
 </head>
 
-
 <body>
 	<div class="container" style="padding-top:100px">
 	<h1 class="text-center">찜 목록</h1>
@@ -32,10 +31,12 @@ height: 400px;
 		<c:forEach var="vo" items="${jlist }" varStatus="status">
 		<!-- 리스트부분 -->
 			<div class="col-sm-6">
+				<a href="/items/detailView/${vo.itemNo}">
 				<img class="jjimimg" src="${vo.image}" alt="사진이없어욤">
+				</a>
     			<p  style="padding-top:10px; padding-right:60px;">
-    				<span>${vo.title }</span>><span class="glyphicon glyphicon-map-marker" href=javascript:setPosition('"+itemList[i].location+"');></a></span>
-    				<a href="/jjim/delete/${vo.itemNo}" class="btn btn-info btn-sm pull-right"><span class="glyphicon glyphicon-trash"></span> 삭제 </a>
+    				<span style="font-weight: bold; font-size: 16px" >${vo.title }</span>
+    				<a href="/jjim/delete/${vo.itemNo}" class="btn btn-info btn-sm pull-right"><span style="padding-right:10px;" class="glyphicon glyphicon-trash"></span>삭제 </a>
     			</p>
     			<p><span>가격 : </span><span>${vo.price} 원</span></p>
 			</div>

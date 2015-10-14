@@ -58,6 +58,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     word-wrap: normal;
+   
     }
     .keywordlist:hover{
     text-decoration: underline;
@@ -449,22 +450,20 @@ body {
 				style="padding-top: 10px; padding-left: 30px">
 				<div>
 					<h2 class="imageText">
-						<span class="glyphicon glyphicon-flash itemPrice">${recentItem.PRICE}</span>
+						<c:if test="${authUser!=null}"><a id="jjim" href="/jjim/insert/${recentItem.NO}/${authUser.no}"><span class="glyphicon glyphicon-heart" style="margin-left:5px; margin-right:5px"></span></a></c:if><span class="itemPrice">${recentItem.PRICE}</span>
 					</h2>
 					<a href="items/detailView/${recentItem.NO}"><img style="position: relative; z-index: 1;" class="img-responsive"
 						src="${recentItem.IMAGE}" alt="Chania" width="530" height="345">
-						</a> <a href="/jjim/insert/${recentItem.NO}/${authUser.no}"><input
-							type="button" id="button1" value="찜하기"></a>
+						</a> 
 						<script type="text/javascript">
 							window.onload = function() {
-								var btn = document.getElementById('button1');
+								var btn = document.getElementById('#jjim');
 								btn.onclick = function() {
 									alert("너찜");
 								}
 
 							};
 						</script>
-					</a>
 				</div>
 			</div>
 		</c:forEach>
