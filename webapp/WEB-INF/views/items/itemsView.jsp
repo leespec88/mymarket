@@ -14,9 +14,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
 <style>
 #itemview {
 	padding-top: 100px;
@@ -225,10 +222,10 @@ img[Attributes Style] {
 							</form>
 						</div>
 						<p>
-                            <a href="/items/updateRegDate/${itemVo.no}">
+                             <a href="#" onclick="fn_checkEvent('재등록 하시겠습니까?');">
                             <button type="button" class="btn btn-primary">재등록</button></a>  
                             <a href="/items/updateItem/${itemVo.no}"><button type="button" class="btn btn-warning">아이템수정</button></a> 
-                            <a href="#" onclick="del_event();"> <button type="button" class="btn btn-danger" >아이템삭제</button></a>
+                            <a href="#" onclick="fn_checkEvent('정말 삭제하시겠습니까??');"> <button type="button" class="btn btn-danger" >아이템삭제</button></a>
 							
 						</p>
 					</c:if>
@@ -258,11 +255,15 @@ img[Attributes Style] {
 			});
 </script>
 
-
 <script>
-	function del_event() {
-		if (confirm("정말 삭제하시겠습니까??") == true) { //확인
-			location.href="/items/itemDelete/" + ${itemVo.no};
+	function fn_checkEvent(obj) {
+		if (confirm(obj) == true) { //확인
+			if(obj.match('삭제')=='삭제'){
+				location.href="/items/itemDelete/" + ${itemVo.no};
+			}
+			if(obj.match('재등록')=='재등록'){
+				location.href="/items/updateRegDate/"+${itemVo.no};
+			}
 		} else { 
 			return;
 		}
@@ -270,6 +271,7 @@ img[Attributes Style] {
 	function setImage(obj) {
 		$(".largeImg .img-thumbnail").attr('src', obj);
 		$(".largeImg div").css('display', 'none');
+		
 	}
 	function chatRoom(){
 		var name=$('#name').val();

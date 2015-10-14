@@ -84,8 +84,6 @@ public class ItemsController {
 	
 	@RequestMapping( "/upload" )
 	public String upload(@ModelAttribute ItemsVo itemsVo, CommandMap commandMap, HttpServletRequest request ) throws Exception {
-		System.out.println(itemsVo);
-		System.out.println(commandMap.getMap());
 		itemsService.insert(itemsVo, commandMap.getMap(), request);
 		
         return "redirect:/items/detailView/"+commandMap.get("itemNo");
@@ -96,19 +94,13 @@ public class ItemsController {
 	public String itemDetailInfo(@PathVariable Long no, Model model){
 		Map<String, Object> map  = itemsService.getItemInfoByNo(no);
 		itemsService.updateViewCnt(no);
-		model.addAttribute("regItemCnt", map.get("regItemCnt"));
-		model.addAttribute("replyCnt", map.get("replyCnt"));
-		model.addAttribute("userVo", map.get("userVo"));
-		model.addAttribute("itemVo", map.get("itemVo"));
-		model.addAttribute("fileList", map.get("fileList"));
-		model.addAttribute("replyList", map.get("replyList"));
+		model.addAllAttributes(map);
 		return "/items/itemsView";
 		
 	}
 	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
 	@RequestMapping("/deletereply/{no}")
 	public String deleteReply(@PathVariable Long no, @RequestParam Long itemNo) {
-//		System.out.println("zdeleteReply = "+no + " , "+itemNo);
 		itemsService.delreply(no);
 		return "redirect:/items/detailView/" + itemNo;
 	}
@@ -134,7 +126,6 @@ public class ItemsController {
 	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
 	@RequestMapping("/subreply")
 	public String subreply(@RequestParam Long replyNo, @RequestParam String replyContent, @RequestParam Long parentGroupNo, Model model, HttpSession session) {
-//		System.out.println(replyContent + ", subreply 시작" + replyNo );
 		
 		if (session == null)
 			return "redirect:/user/loginform";
@@ -151,11 +142,7 @@ public class ItemsController {
 		rereplyVo.setOrderNo(tatgetReplyVo.getOrderNo() +1);
 		rereplyVo.setDepth(tatgetReplyVo.getDepth() + 1);
 		rereplyVo.setUserNo(userVo.getNo());
-
-		System.out.println("rereplyVo : " + rereplyVo);
 		itemsService.addReReply(rereplyVo);
-
-		model.addAttribute("rereplyVo", rereplyVo);
 		itemsService.addReplyCnt(tatgetReplyVo.getBoardNo());// 리플카운트 올라감..*/	
 		return "redirect:/items/detailView/" + rereplyVo.getBoardNo();
 	}
@@ -170,7 +157,7 @@ public class ItemsController {
 	@RequestMapping("/updateSellState/{itemNo}")
 	public String updateSellState(CommandMap commandMap){
 		itemsService.updateSellState(commandMap.getMap());
-		return "redirect:/items/detailView/" + commandMap.get("itemNo");
+		return "redirect:/items/detailView/{itemNo}";
 	}
 	/*판매자의 아이템의 삭제   -by 이준기 0925*/
 	@RequestMapping("/itemDelete/{itemno}")
@@ -182,9 +169,6 @@ public class ItemsController {
 	@RequestMapping("/updateItem/{itemNo}")
 	public String updateItem(@PathVariable Long itemNo, Model model){
 		Map<String, Object> map = itemsService.getItemInfoByNo(itemNo);
-	/*	model.addAttribute("userVo", map.get("userVo"));
-		model.addAttribute("itemVo", map.get("itemVo"));
-		model.addAttribute("fileList", map.get("fileList"));*/
 		model.addAllAttributes(map);
 		
 		return "/items/itemsModify";

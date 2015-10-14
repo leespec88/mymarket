@@ -52,7 +52,6 @@ public class ItemsService {
 	
 	// item 등록
 	public void insert(ItemsVo itemsVo, Map<String, Object> map, HttpServletRequest request) throws Exception{
-		System.out.println(map);
 		itemsDao.insert(itemsVo);
 		
 		Long itemNo = itemsDao.getItemNo(itemsVo.getEmail(), itemsVo.getTitle());
@@ -186,7 +185,6 @@ public class ItemsService {
 		ItemsVo itemVo = itemsDao.getItemByNo(no);
 		
 		UserVo userVo = userDao.getUserInfobyNo(itemVo.getUserNo());
-//		System.err.println("getItemInfoByNo= " +userVo.getNo());
 		Long regItemCnt=itemsDao.getRegItem(userVo.getNo()); 	/*아이템 레그수-by 이준기 0923*/
 		List<ReplyVo> replyList = replyDao.getReplyList(no);
 		int replyCnt = replyDao.replyCnt(no);
@@ -234,6 +232,7 @@ public class ItemsService {
 
 	public void updateItem(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		itemsDao.update(map);
+		hashTagList(Long.parseLong(map.get("itemNo").toString()), map.get("title").toString(), map.get("content").toString());
 		List<Map<String, Object>> list = fileUtils2.parseInsertFileInfo(map, request);
 		for (int i = 0, size = list.size(); i < size; i++) {
 			itemsDao.insertAppendFile(list.get(i));
@@ -242,7 +241,6 @@ public class ItemsService {
 
 	public void addKwd(Map<String, Object> map) {
 		itemsDao.insertKwd(map);
-		
 	}
 	
 	public List<AnalysisKeywordVo> kwdProcessing(){

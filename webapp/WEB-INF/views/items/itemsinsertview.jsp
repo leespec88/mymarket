@@ -281,7 +281,7 @@
 <div class="container">
 	<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 	<h2 class="text-center" style="padding-top:60px">상품 등록</h2>
-	<form class="form-horizontal" role="form" method="post" action="upload" enctype="multipart/form-data">
+	<form id="frm" class="form-horizontal" role="form" method="post" action="upload" enctype="multipart/form-data">
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="email">Email :</label>
 			<div class="col-sm-8">
@@ -320,14 +320,14 @@
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="title">제목 :</label>
 			<div class="col-sm-8">
-		        <input class="form-control" type="text" name="title">
+		        <input class="form-control" type="text" id="title" name="title">
 		    </div>
 		</div>
 		
 		<div class="form-group">
 			<label class="control-label col-sm-2" for="content">내용 :</label>
 			<div class="col-sm-8">
-		        <textarea class="form-control" rows="5" id="comment" name="content"></textarea>
+		        <textarea class="form-control" rows="5" id="content" name="content"></textarea>
 		    </div>
 		</div>
 		
@@ -359,12 +359,48 @@
 		<input type="hidden" name="userName" value="${authUser.name }">
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
-				<input type="submit" value="완료" onclick="deletecomma()">
+				<input type="submit" value="완료" id="btn" class="btn default-btn" onclick="deletecomma()">
 				<a href="/"><input class="btn default-btn" type="button" value="취소"></a><br/>
 			</div>
 		</div>
 		</form>
-</div>		
+</div>
+<script type="text/javascript">
+$(function(){
+	$('#frm').submit(function(){
+		var $image1 = $('#image1');
+		var image1=$image1.val();
+		if(image1==""){
+			alert("최소 1개 파일이 있어야합니다..");
+			$image1.focus();
+			return false;
+		}
+		var $price = $('#price');
+		var price=$price.val();
+		if(price==""){
+			alert("가격 비어있습니다. 필수입력 사항입니다.");
+			$price.focus();
+			return false;
+		}
+		var $title = $('#title');
+		var title=$title.val();
+		if(title==""){
+			alert("제목 비어있습니다. 필수입력 사항입니다.");
+			$title.focus();
+			return false;
+		}
+		var $content = $('#content');
+		var content=$content.val();
+		if(content==""){
+			alert("내용 비어있습니다. 필수입력 사항입니다.");
+			$content.focus();
+			return false;
+		}
+	})
+	}
+);
+		
+</script>		
 <script>
 $('#price').blur(function() {
 	/* 콤마 천단위 세팅 */
