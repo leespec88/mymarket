@@ -121,6 +121,7 @@
 	    	var path="http://www.mymarket.com/user/loginBySns";
 	    	var name = response.name;
 	    	var idNo = response.id;
+	    	var imageURL = "http://graph.facebook.com/"+response.id+"/picture?type=large";
 	    	var method="post";
 	    	post_to_url(path,name,idNo,null,null,method);
 	    });   

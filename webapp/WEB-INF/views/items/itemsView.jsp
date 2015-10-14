@@ -96,9 +96,14 @@ img[Attributes Style] {
 								<a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
 									${userVo.phone}</a>
 							</p>
+							<c:if test="${not empty authUser }">
 							<p>
-								<a class="btn btn-danger" href="http://192.168.1.16:52273?${authUser.name }&no=${itemVo.no}">판매자와 채팅</a>
+								<%-- <a class="btn btn-danger" href="http://192.168.1.16:52273?${authUser.name }&no=${itemVo.no}">판매자와 채팅</a> --%>
+								<a class="btn btn-danger" href="#" onclick="chatRoom();">판매자와 채팅</a>
+								<input type="hidden" id="name" value="${authUser.name }">
+								<input type="hidden" id="no" value="${itemVo.no }">
 							</p>
+							</c:if>
 						</div>
 					</div>
 				</div>
@@ -266,6 +271,12 @@ img[Attributes Style] {
 		$(".largeImg .img-thumbnail").attr('src', obj);
 		$(".largeImg div").css('display', 'none');
 	}
+	function chatRoom(){
+		var name=$('#name').val();
+		var no = $('#no').val();
+		window.open("http://192.168.1.16:52273?"+name+"&no="+no, "판매자와 대화창", "width=800, height=700, toolbar=no, menubar=no");
+	}
+
 </script>
 
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
