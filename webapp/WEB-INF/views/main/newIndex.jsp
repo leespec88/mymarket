@@ -453,6 +453,17 @@ body {
 					</h2>
 					<a href="items/detailView/${recentItem.NO}"><img style="position: relative; z-index: 1;" class="img-responsive"
 						src="${recentItem.IMAGE}" alt="Chania" width="530" height="345">
+						</a> <a href="/jjim/insert/${recentItem.NO}/${authUser.no}"><input
+							type="button" id="button1" value="찜하기"></a>
+						<script type="text/javascript">
+							window.onload = function() {
+								var btn = document.getElementById('button1');
+								btn.onclick = function() {
+									alert("너찜");
+								}
+
+							};
+						</script>
 					</a>
 				</div>
 			</div>

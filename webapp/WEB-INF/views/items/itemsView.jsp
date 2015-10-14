@@ -72,6 +72,30 @@ img[Attributes Style] {
 						<h1>
 							<span id="price"></span>
 						</h1>
+						<div id="price" class="itemPrice">${itemVo.price}원</div>
+						<a href="/jjim/insert/${itemVo.no}/${authUser.no}"><input
+							type="button" id="button1" value="찜하기">
+
+						<script type="text/javascript">
+							window.onload = function() {
+								var btn = document.getElementById('button1');
+								btn.onclick = function() {
+									alert("너찜");
+								}
+
+							};
+						
+							function noEvent() {
+								if (event.keyCode == 116) {
+									event.keyCode = 2;
+									return false;
+								} else if (event.ctrlKey
+										&& (event.keyCode == 78 || event.keyCode == 82)) {
+									return false;
+								}
+							}
+							document.onkeydown = noEvent;
+						</script></a>
 						<h3>
 							<a href="javascript:locationView(${itemVo.location})"><span class="glyphicon glyphicon-map-marker"></span></a>
 							<span>판매처</span>
