@@ -92,17 +92,22 @@ public class MainController {
 	}
 
 	//20150923 지도상 위치만 상품 올라오게 하려함. -정민
-	@RequestMapping( "/OnePicList/{mapBounds}/{no}" )
-	@ResponseBody
-	public Map<String, Object> mapBounds(Model model, @PathVariable String mapBounds) {
-		
-		List<ItemListVo> itemList = itemsService.getItemList(mapBounds); // 이미지한장에 없으면 null 리스트
-		List<HashTagVo> tagList = itemsService.getTagList();
-		Map<String, Object> map = new HashMap<String,Object>();
-		map.put("list",itemList);
-		map.put("tagList", tagList);
-		
-		return map;
-	}
+		@RequestMapping( "/OnePicList/{mapBounds}/{no}" )
+		@ResponseBody
+		public Map<String, Object> mapBounds(Model model, @PathVariable String mapBounds,HttpSession session) {
+			
+			List<ItemListVo> itemList = itemsService.getItemList(mapBounds); // 이미지한장에 없으면 null 리스트
+			List<HashTagVo> tagList = itemsService.getTagList();
+			
+			UserVo userVo = (UserVo) session.getAttribute("authUser");
+			
+			
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("list",itemList);
+			map.put("tagList", tagList);
+			map.put("userNo", userVo.getNo());
+			
+			return map;
+		}
 
-}
+	}

@@ -175,6 +175,14 @@ $.get("/assets/json/chicken.json", function(data) {
 						+"<img class='img-thumbnail' src='"+itemList[i].url+"'>"
 						+"<p><span class='itemTitle'><a href='/items/detailView/"+itemList[i].no+"'>"+itemList[i].title+"</a> <a class='glyphicon glyphicon-map-marker' href=javascript:setPosition('"+itemList[i].location+"');></a></span></p>"
 						+"<p><span>가격 : "+itemList[i].price+"원</span></p>"
+						//+"<a href='/jjim/insert/${itemVo.no}/${authUser.no}'><input"
+						//+"type='button' id='button1' value='찜하기'></a>"
+						//+"<p><span class='jjim'><a href='/jjim/insert/365/85}'>찜하기</a>"
+						//+"<p><span class='jjim'><a href='/jjim/insert/"+${itemVo.no}+${userVo.no}+"'>찜하기</a>"
+						+"<p><span class='jjim'><a href='/jjim/insert/"+itemList[i].no+"/"
+						//+${authUser.no}
+						+response.userNo
+						+"'>찜하기</a></p>"
 						+"<p><span>등록일 : "+itemList[i].regDate+"</span></p>"
 						+"<p><span class='tag'>#태그 : ";
 						for(var j=0; j<tagList.length; j++){

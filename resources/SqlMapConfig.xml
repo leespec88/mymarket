@@ -10,4 +10,5 @@
 	<sqlMap resource="items.xml"/>
 	<sqlMap resource="itemreply.xml"/>
 	<sqlMap resource="interest.xml"/>
+	<sqlMap resource="jjim.xml"/>
 </sqlMapConfig>
