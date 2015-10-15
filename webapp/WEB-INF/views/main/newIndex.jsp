@@ -84,6 +84,7 @@
 	margin-top: 300px;
 	background: #051235;
 	color: #fff
+	
 }
 
 @media ( max-width :1200px) {
@@ -459,6 +460,105 @@ body {
 	</div>
 </div>
 
+	<div class="container text-center" style="padding-top: 10px">
+		<h1>지역별 상품</h1>
+		<div class="row">
+			<div class="col-sm-8">
+				<h1 class="imageText">서울</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/seoul3.jpg" width="800" height="345">
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<h1 class="imageText">부산</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/busan.jpg" width="530" height="345">
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<h1 class="imageText">제주도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/jeju.jpg" width="530" height="345">
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<h1 class="imageText">인천</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/incheon.jpg" width="530" height="345">
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<h1 class="imageText">광주</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/guwangju.jpg" width="530" height="345">
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<h1 class="imageText">울산</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/ulsan.jpg" width="530" height="345">
+				</a>
+			</div>
+			<div class="col-sm-8">
+				<h1 class="imageText">경기도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/gyeonggi.jpg" width="800" height="345">
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<h1 class="imageText">강원도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/gangwon.jpg" width="530" height="345">
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<h1 class="imageText">충청북도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/choongbuk.jpg" width="530" height="345">
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<h1 class="imageText">충청남도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/choongnam.jpg" width="530" height="345">
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-4">
+				<h1 class="imageText">경상북도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/gyungbuk.jpg" width="530" height="345">
+				</a>
+			</div>
+			<div class="col-sm-8">
+				<h1 class="imageText">경상남도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/gyungnam.jpg" width="800" height="345">
+				</a>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<h1 class="imageText">전라북도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/junbuk.jpg" width="800" height="345">
+				</a>
+			</div>
+			<div class="col-sm-4">
+				<h1 class="imageText">전라남도</h1>
+				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+					src="/images/junnam.jpg" width="530" height="345">
+				</a>
+			</div>
+		</div>
+	</div>
 	<div class="container text-center" style="padding-top: 10px">
 		<h1>최근 올라온 상품</h1>
 		<div class="row">
