@@ -26,7 +26,8 @@
 
 <insert id="join" parameterClass="UserVo">
 <![CDATA[
-	insert into member values(seq_member.nextval,#idNo#, #name#, #email#, #password#, #birth#, #gender#, #phone#,'일반', '', sysdate)  
+	insert into member (NO, ID_NO, NAME, EMAIL, PASSWORD, BIRTH, GENDER, PHONE, MEMBER_TYPE, WISH_ITEM, REG_DATE)
+	values(seq_member.nextval,#idNo#, #name#, #email#, #password#, #birth#, #gender#, #phone#,'일반', '', sysdate)
 ]]>
 </insert>
 
