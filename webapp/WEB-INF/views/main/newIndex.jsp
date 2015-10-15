@@ -320,6 +320,13 @@ body {
 .keywordlist:hover {
 	text-decoration: underline;
 }
+.glyphicon {
+	color: darkorange;
+}
+
+#cursor {
+	cursor: pointer;
+}
 </style>
 </head>
 <body>
@@ -561,28 +568,36 @@ body {
 	<div class="container text-center" style="padding-top: 10px">
 		<h1>최근 올라온 상품</h1>
 		<div class="row">
-		<c:forEach var="recentItem" items="${RecentRegItemlist}">
-			<div class="col-sm-12 col-md-6"
-				style="padding-top: 10px; padding-left: 30px">
-				<div>
-					<h2 class="imageText">
-						<c:if test="${authUser!=null}"><a id="jjim" href="/jjim/insert/${recentItem.NO}/${authUser.no}"><span class="glyphicon glyphicon-heart" style="margin-left:5px; margin-right:5px"></span></a></c:if><span class="itemPrice">${recentItem.PRICE}</span>
-					</h2>
-					<a href="items/detailView/${recentItem.NO}"><img style="position: relative; z-index: 1;" class="img-responsive"
-						src="${recentItem.IMAGE}" alt="Chania" width="530" height="345">
-						</a> 
-						<script type="text/javascript">
-							window.onload = function() {
-								var btn = document.getElementById('#jjim');
-								btn.onclick = function() {
-									alert("너찜");
-								}
+		<!-- 고유번호 설정을 위한 c:set 설정 -->
+		<c:set var="status" value="${fn:length(RecentRegItemlist) }"></c:set>
+		
+			<c:forEach var="recentItem" items="${RecentRegItemlist}" varStatus="status" begin="0">
+				<div class="col-sm-12 col-md-6"
+					style="padding-top: 10px; padding-left: 30px">
+					<div>
+						<h2 class="imageText">
+							<%-- <a class="jjim" href="/jjim/insert/${recentItem.NO}/${authUser.no}"> --%>
+							<c:if test="${authUser!=null}">
+								<a id="cursor" class="jjim"	<%-- onclick="jjimClick(${recentItem.NO})" --%>>
+									<span
+									class="glyphicon glyphicon-heart" id="glyphicon-heart${status.index+1}"
+									style="margin-left: 5px; margin-right: 5px" onclick="javascript:heartbit(${status.index+1});">
+									<input type="hidden" id="jjimNo${status.index+1}" value="${recentItem.NO }">
+									<input type="hidden" id="itemNo" value="${status.index+1}">
+									<input type="hidden" id="authNo" value="${authUser.no }">
+									</span>
+									</a>
+							</c:if>
+							<span class="itemPrice">${recentItem.PRICE}</span> 
+						</h2>
+						<a href="items/detailView/${recentItem.NO}"><img
+							style="position: relative; z-index: 1;" class="img-responsive"
+							src="${recentItem.IMAGE}" alt="Chania" width="530" height="345">
+						</a>
 
-							};
-						</script>
+					</div>
 				</div>
-			</div>
-		</c:forEach>
+			</c:forEach>
 		</div>
 	</div>
 	<div class="container-fluid"
@@ -693,6 +708,33 @@ $(document).ready(
 						$(obj).val(input);
 						}
 					});
+	//찜 눌렀을때 ajax 발동 - 디비 등록 - 찜 하트 이미지 변경( 빨간색 )	
+	function heartbit(number){
+		//alert("aa");
+				var jjimNo = document.getElementById("jjimNo"+number).value;
+				var itemNo = $('#itemNo').val();
+				var authNo = $('#authNo').val();
+				var info = confirm("찜하실래요?");
+				console.log(jjimNo);
+				console.log(authNo); //85
+				console.log(itemNo); //1
+				
+				if(info==true){
+					$('#glyphicon-heart'+number).css('color', 'red');
+					$.ajax({
+						url:'/jjim/insert/'+jjimNo+'/'+authNo,
+						type:'get',
+						dataType:'json',
+						success:function(response){
+							console.log(response);
+									
+						}
+					});	
+				} else 
+					return false;
+		}			
+		
+	
 </script>
 <script type="text/javascript" src="/assets/js/jquery-number-master/jquery.number.min.js"></script>
 </html>
