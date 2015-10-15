@@ -16,6 +16,7 @@
 		<result column="member_type" property="member_type" />
 		<result column="wish_item" property="wishItem" />
 		<result column="reg_date" property="regDate" />
+		<result column="imageURL" property="imageURL" />
 </resultMap>
 
 <select id="getByIdNo" parameterClass="java.lang.String" resultClass="UserVo">
@@ -26,8 +27,7 @@
 
 <insert id="join" parameterClass="UserVo">
 <![CDATA[
-	insert into member (NO, ID_NO, NAME, EMAIL, PASSWORD, BIRTH, GENDER, PHONE, MEMBER_TYPE, WISH_ITEM, REG_DATE)
-	values(seq_member.nextval,#idNo#, #name#, #email#, #password#, #birth#, #gender#, #phone#,'일반', '', sysdate)
+	insert into member values(seq_member.nextval,#idNo#, #name#, #email#, #password#, #birth#, #gender#, #phone#,'일반', '', sysdate, #imageURL#)  
 ]]>
 </insert>
 
@@ -45,12 +45,7 @@
 
 <update id="basicInfo" parameterClass="UserVo">
 <![CDATA[
-	update member set phone=#phone#, gender=#gender#, birth=#birth# where no=#no#
-]]>
-</update>
-<update id="password" parameterClass="java.lang.String">
-<![CDATA[
-	update member set password=#password#
+	update member set phone=#phone#, name=#name#, gender=#gender#, birth=#birth#, password=#password#  where no=#no#
 ]]>
 </update>
 
@@ -69,14 +64,14 @@
 <select id="getMemberList" parameterClass="java.lang.Integer" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,id_no,name,email,password,birth, gender,phone,member_type,wish_item,reg_date from member)A) 
+				 from (select * from member)A) 
 				 where page=#currentPageNo#
 	]]>
 </select>
 <select id="getSearchMember" parameterClass="java.util.Map" resultMap="resultMapList">
 	<![CDATA[
 		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no,id_no,name,email,password,birth, gender,phone,member_type,wish_item,reg_date from member where name like '%'||#kwd#||'%')A) 
+				 from (select * from member where name like '%'||#kwd#||'%')A) 
 				 where page=#currentPageNo#
 	]]>
 </select>

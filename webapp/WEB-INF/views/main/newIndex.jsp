@@ -13,7 +13,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<link href="/assets/js/bootstrap-3.3.5-dist/css/bootstrap.css" rel="stylesheet">
-	<script src="/assets/js/bootstrap-3.3.5-dist/js/bootstrap.js"></script>
 		<link href="/assets/css/font/font.css" rel="stylesheet" type="text/css"/>
 	
 	<script>

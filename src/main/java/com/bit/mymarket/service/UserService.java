@@ -38,7 +38,4 @@ public class UserService {
 		userDao.updateBasicInfo(vo);
 	}
 	
-	public void pwModify(String password){
-		userDao.updatePassword(password);
-	}
 }

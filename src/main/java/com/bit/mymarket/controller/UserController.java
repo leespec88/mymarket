@@ -145,17 +145,10 @@ public class UserController {
 		authUser.setPhone(vo.getPhone());
 		authUser.setGender(vo.getGender());
 		authUser.setBirth(vo.getBirth());
+		authUser.setPassword(vo.getPassword());
 		session.setAttribute("authUser", authUser);
 		return "redirect:/";
 	}
 	
-	@RequestMapping("/pwModify")
-	public String pwModify(@RequestParam String password, HttpSession session){
-		userService.pwModify(password);
-		UserVo authUser=(UserVo)session.getAttribute("authUser");
-		authUser.setPassword(password);
-		session.setAttribute("authUser", authUser);
-		return "redirect:/";
-	}
 	
 }

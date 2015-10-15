@@ -12,6 +12,7 @@ public class UserVo {
 	private String member_type;
 	private String wishItem;
 	private String regDate;
+	private String imageURL;
 	
 	public Long getNo() {
 		return no;
@@ -79,13 +80,21 @@ public class UserVo {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	
+	
+	public String getImageURL() {
+		return imageURL;
+	}
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
 	@Override
 	public String toString() {
 		return "TestVo [no=" + no + ", idNo=" + idNo + ", name=" + name
 				+ ", email=" + email + ", password=" + password + ", birth="
 				+ birth + ", gender=" + gender + ", phone=" + phone
 				+ ", memberType=" + member_type + ", wishItem=" + wishItem
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", imageURL=" + imageURL +"]";
 	}
 	
 	

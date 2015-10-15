@@ -123,7 +123,7 @@
 	    	var idNo = response.id;
 	    	var imageURL = "http://graph.facebook.com/"+response.id+"/picture?type=large";
 	    	var method="post";
-	    	post_to_url(path,name,idNo,null,null,method);
+	    	post_to_url(path,name,idNo,null,null,method,imageURL);
 	    });   
 	  });  
 	}  
@@ -169,9 +169,9 @@
 	  	var gender = obj.gender;
 	  	var email = obj.email;
 	  	var method="post";
-	  	post_to_url(path, name, idNo, email, gender, method);
+	  	post_to_url(path, name, idNo, email, gender, method, null);
 	  }  
-   function post_to_url(path, name,idNo,email,gender,method) {
+   function post_to_url(path, name,idNo,email,gender,method,imageURL) {
 	    method = method || "post";
 	    var form = document.createElement("form");
 	    form.setAttribute("method", method);
@@ -197,10 +197,16 @@
 		hiddenField4.setAttribute("name", "gender");
 		hiddenField4.setAttribute("value", gender);
 		
+		var hiddenField5 = document.createElement("input");
+		hiddenField4.setAttribute("type", "hidden");
+		hiddenField4.setAttribute("name", "imageURL");
+		hiddenField4.setAttribute("value", imageURL);
+		
 		form.appendChild(hiddenField1);
 		form.appendChild(hiddenField2);
 		form.appendChild(hiddenField3);
 		form.appendChild(hiddenField4);
+		form.appendChild(hiddenField5);
 		
 		document.body.appendChild(form);
 	   
@@ -312,17 +318,38 @@
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
 	      <c:choose>
-	      <c:when test="${empty authUser }">
-	      	<li><a type="button" class="btn" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-	      	<li><a href="/user/joinform"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-	      </c:when>
-	      <c:otherwise>
-	        <li><a href="/user/logout" onclick="logout();" id="revokeSession"><span class="glyphicon glyphicon-log-out"></span>
-	        	Logout
-	       		<iframe id="logoutframe" src="https://accounts.google.com/logout"></iframe>
-	         <span class="sr-only">(current)</span></a></li>
-	      </c:otherwise>
-	       </c:choose>
+		      <c:when test="${empty authUser }">
+		      	<li><a type="button" class="btn" id="myBtn"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+		      	<li><a href="/user/joinform"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+		      </c:when>
+		      <c:otherwise>
+		        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+					<c:choose>
+							<c:when test="${not empty authUser.imageURL }">
+								<img src="${authUser.imageURL }" class="img-circle" alt="Cinque Terre" width="25" height="25">
+							</c:when>
+							<c:otherwise>
+								<img src="/assets/images/person.png" class="img-circle" alt="Cinque Terre" width="25" height="25">
+							</c:otherwise>
+					</c:choose>
+								
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="divider"></li>
+						<li><a href="#">알림</a></li>
+						<li><a href="/jjim/jjimlist/${authUser.no}">내 찜상품</a></li>
+						<li class="divider"></li>
+						<li><a href="/user/modifyform">개인정보수정</a></li>
+						<li><a href="#">회원탈퇴</a></li>
+						<li class="divider"></li>
+						<li><a href="/user/logout" onclick="logout();" id="revokeSession"><span class="glyphicon glyphicon-log-out"></span>
+						로그아웃 <iframe id="logoutframe" src="https://accounts.google.com/logout" style="display: none"></iframe>
+						<span class="sr-only">(current)</span></a></li>
+					</ul>
+				</li>
+	      	</c:otherwise>
+	       	</c:choose>
+	       
 	        <c:choose>
 	        	<c:when test="${not empty authUser }">
 	        		<li><a href="/items/itemsinsert">상품등록</a></li>
