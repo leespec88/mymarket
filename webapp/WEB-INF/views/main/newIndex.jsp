@@ -320,7 +320,7 @@ body {
 .keywordlist:hover {
 	text-decoration: underline;
 }
-.glyphicon {
+.glyphicon-heart {
 	color: darkorange;
 }
 

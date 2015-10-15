@@ -274,7 +274,6 @@ function joinCheck(){
 				</div>
 				<!-- pannel body 끝 -->
 			</div>
-			<c:if test="${authUser.idNo eq '' }">
 			<div class="panel row-space-4">
 				<div class="panel-header" >
 				비 밀 번 호 <span class="glyphicon glyphicon-lock"></span>
@@ -296,47 +295,10 @@ function joinCheck(){
 				</div>
 				<!-- pannel body 끝 -->
 			</div>
-			</c:if>
 			<button type="submit" class="btn btn-danger btn-large modifyBtn">저장하기</button>
 		</form>
 	</div>
 </div>
-		<%--
-		<div class="form-group" >
-	      <div class="col-lg-8 col-lg-offset-2">
-	        <a href="/"  class="btn btn-default modifyA">취소</a>
-	        <input type="submit" class="btn btn-danger btn-submit" value="저장하기">
-	      </div>
-	    </div>
-	</form>
-	<br><br><br><br><br><br><br><br>
-	
-	<c:if test="${empty authUser.idNo }">
-	<div><h2 class="text-center" style="margin-bottom: 30px;">패스워드수정</h2></div>
-	<form class="form-horizontal" id="passwordModify" action="/user/pwModify" method="post">
-	    <div class="form-group">
-	      <label for="inputPassword" class="col-lg-2 control-label">새 패스워드</label>
-	      <div class="col-lg-8">
-	        <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="confirmPassword" class="col-lg-2 control-label">패스워드확인</label>
-	      <div class="col-lg-8">
-	        <input type="password" class="form-control" id="pwCheck" name="pwCheck" placeholder="Password">
-	      </div>
-	    </div>
-	    
-	    <div class="form-group">
-	      <div class="col-lg-8 col-lg-offset-2">
-	        <a href="/"  class="btn btn-default modifyA">취소</a>
-	        <input type="submit" class="btn btn-danger btn-submit" value="수정하기">
-	      </div>
-	    </div>
-	</form>
-	</c:if>
-</div> --%>
-
 
 <c:import url="/WEB-INF/views/include/header.jsp"></c:import>
 <!-- Latest compiled JavaScript -->

@@ -130,6 +130,7 @@ public class UserController {
 		model.addAttribute("year",year);
 		model.addAttribute("month",month);
 		model.addAttribute("day",day);
+		session.setAttribute("authUser", userVo);
 			
 		
 		return "/user/modifyform";
