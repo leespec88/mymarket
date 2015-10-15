@@ -59,13 +59,13 @@ img[Attributes Style] {
 				<div class="well" id="itemviewTitle">
 					<div class="row">
 						<c:if test="${itemVo.itemCondition == '중고' }">
-							<span class="label label-primary">중고</span>
+							<span style="font-size:128%" class="label label-primary">중고</span>
 						</c:if>
 						<c:if test="${itemVo.itemCondition == '신품' }">
-							<span class="label label-success">신품</span>
+							<span style="font-size:128%" class="label label-success">신품</span>
 						</c:if>
 						<c:if test="${itemVo.shippingFee == '포함' }">
-							<img src="/assets/images/img_tag_option_01.png" />
+							<span style="font-size:128%" class="label label-info">택배비 포함</span>
 						</c:if>
 						
 						<h2><c:if test="${not empty authUser }"><a href="/jjim/insert/${itemVo.no}/${authUser.no}"><span class="glyphicon glyphicon-heart" style="margin-left:5px; margin-right:5px"></span></a></c:if>${itemVo.title }</h2>
