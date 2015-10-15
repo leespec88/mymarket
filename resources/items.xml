@@ -46,7 +46,7 @@
 		<result column="tag_name" property="tagName" />
 		<result column="item_no" property="itemNo" />
 	</resultMap>
-	
+
 	<typeAlias alias="analysiskeyword" type="com.bit.mymarket.vo.AnalysisKeywordVo" />
 	<resultMap class="analysiskeyword" id="resultMapAnalysisKeywordList">
 		<result column="KEYWORD" property="keyword" />
@@ -63,7 +63,7 @@
 		insert into items values(seq_items.nextval, #title#, #content#, #tradeCategory#, #itemCondition#, #price#, #userNo#, #location#, #email#, #shippingFee#, 0, sysdate, #address#, #userName#, '판매중' )  
 	]]>
 	</insert>
-	
+
 	<insert id="insertItemByMap" parameterClass="java.util.Map">
 	<![CDATA[
 		insert into ITEMS (NO, TITLE, CONTENT, TRADE_CATEGORY, ITEM_CONDITION, PRICE, USER_NO, LOCATION, EMAIL, SHIPPING_FEE, VIEW_COUNT, REG_DATE, ADDRESS, USER_NAME, SELL_STATE) 
@@ -240,7 +240,8 @@
 	</insert>
 
 	<!-- 아이템 상제정보 보기 컨드톨러 -by 이준기 0922* -->
-	<select id="selectFileList" parameterClass="java.lang.Long" resultClass="java.util.HashMap">
+	<select id="selectFileList" parameterClass="java.lang.Long"
+		resultClass="java.util.HashMap">
     <![CDATA[
         SELECT
         	NO_ITEM_PIC,
@@ -314,8 +315,8 @@
 			ORDER BY COUNT DESC
 		]]>
 	</select>
-	<!-- 키워드 나이별 -by 이준기 1006 미사용-->
-	<update  id="mergeAnalysisKeywod" parameterClass="java.util.Map">
+	<!-- 키워드 나이별 -by 이준기 1006 미사용 -->
+	<update id="mergeAnalysisKeywod" parameterClass="java.util.Map">
 		<![CDATA[
 		       MERGE INTO ANALYSIS_KEYWORD a
 			     USING DUAL
@@ -348,39 +349,39 @@
 				 WHERE no = #itemNo#
 		]]>
 	</update>
-	
+
 	<update id="updateItems" parameterClass="java.util.HashMap">
 		<![CDATA[
 			UPDATE ITEMS 
 			   SET TITLE=#title#, CONTENT=#content#, TRADE_CATEGORY=#tradeCategory#, ITEM_CONDITION=#itemCondition#, PRICE=#price#, LOCATION=#location#, EMAIL=#email#, SHIPPING_FEE=#shippingFee#, ADDRESS=#address#
 			 WHERE NO=#itemNo#
-		]]>		
+		]]>
 	</update>
 	<delete id="deleteFile" parameterClass="java.lang.Integer">
 		<![CDATA[
 			DELETE FROM ITEM_PIC 
 			WHERE NO_ITEM_PIC = #fileNo#
-		]]> 
+		]]>
 	</delete>
 	<delete id="deleteHashTag" parameterClass="java.lang.Long">
 		<![CDATA[
 			DELETE FROM HASH_TAG 
 			WHERE ITEM_NO = #fileNo#
-		]]> 
+		]]>
 	</delete>
 	<insert id="insertAppendFile" parameterClass="java.util.HashMap">
 		<![CDATA[
 			INSERT INTO ITEM_PIC (NO_ITEM_PIC, ITEM_NO, IMAGE) 
 			VALUES( seq_item_pic.nextval, #NO#, #IMAGE#)
-		]]> 
+		]]>
 	</insert>
-	
+
 	<update id="updateViewCnt" parameterClass="java.lang.Long">
 		<![CDATA[
 			update ITEMS SET VIEW_COUNT = VIEW_COUNT + 1 where no=#no#
-		]]> 
+		]]>
 	</update>
-	
+
 	<select id="selectListViewCnt" resultClass="java.util.HashMap">
 		<![CDATA[
 			select TITLE , NO, VIEW_COUNT 
@@ -388,10 +389,11 @@
 					from ITEMS i
 					order by i.VIEW_COUNT desc) a
 			where ROWNUM < 11
-		]]> 
+		]]>
 	</select>
-	
-	<select id="selectListUserItem" resultClass="java.util.HashMap" parameterClass="java.lang.Long">
+
+	<select id="selectListUserItem" resultClass="java.util.HashMap"
+		parameterClass="java.lang.Long">
 		<![CDATA[
 		 	SELECT z1.IMAGE , i.NO, i.title, i.location, i.price, i.REG_DATE, i.SELL_STATE, i.VIEW_COUNT
 	  		  FROM 
@@ -403,13 +405,78 @@
 			 WHERE p1.NO_ITEM_PIC = p2.NO_ITEM_PIC) z1 , items i
 			 WHERE i.no = z1.itemNo and i.USER_NO = #no#
  		]]>
- 	</select>
- 	
- 	<update id="updateRegDate" parameterClass="java.lang.Long">
+	</select>
+
+	<update id="updateRegDate" parameterClass="java.lang.Long">
 	 	<![CDATA[
 	 		update ITEMS SET reg_date = sysdate where no=#no#
 	 	]]>
- 	</update>
- 	
- 	
+	</update>
+
+	<select id="selectViewKeyword1f" resultMap="resultMapAnalysisKeywordList">
+ 	<![CDATA[
+		select  KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		from VIEWKEYWORD
+		where VIEWKEYWORD.AGE_GROUP = 10 and VIEWKEYWORD.GENDER = 'female' and ROWNUM < 11
+		order by VIEWKEYWORD.COUNT desc
+		]]>
+	</select>
+	<select id="selectViewKeyword1m" resultMap="resultMapAnalysisKeywordList">
+ 	<![CDATA[
+		select  KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		from VIEWKEYWORD
+		where VIEWKEYWORD.AGE_GROUP = 10 and VIEWKEYWORD.GENDER = 'male' and ROWNUM < 11
+		order by VIEWKEYWORD.COUNT desc
+	]]>
+	</select>
+	<select id="selectViewKeyword2f" resultMap="resultMapAnalysisKeywordList">
+ 	<![CDATA[	
+		select KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		from VIEWKEYWORD
+		where VIEWKEYWORD.AGE_GROUP = 20 and VIEWKEYWORD.GENDER = 'female' and ROWNUM < 11
+		order by VIEWKEYWORD.COUNT desc
+			]]>
+	</select>
+	<select id="selectViewKeyword2m" resultMap="resultMapAnalysisKeywordList">
+ 	<![CDATA[
+		SELECT KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		from VIEWKEYWORD
+		where VIEWKEYWORD.AGE_GROUP = 20 and VIEWKEYWORD.GENDER = 'male' and ROWNUM < 11
+		order by VIEWKEYWORD.COUNT desc
+			]]>
+	</select>
+	<select id="selectViewKeyword3f" resultMap="resultMapAnalysisKeywordList">
+ 		<![CDATA[
+		select  KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		from VIEWKEYWORD
+		where VIEWKEYWORD.AGE_GROUP = 30 and VIEWKEYWORD.GENDER = 'female' and ROWNUM < 11
+		order by VIEWKEYWORD.COUNT desc
+			]]>
+	</select>
+	<select id="selectViewKeyword3m" resultMap="resultMapAnalysisKeywordList">
+ 		<![CDATA[
+		select  KEYWORD,
+		         GENDER,
+		         AGE_GROUP,
+		         COUNT
+		from VIEWKEYWORD
+		where VIEWKEYWORD.AGE_GROUP = 30 and VIEWKEYWORD.GENDER = 'male' and ROWNUM < 11
+		order by VIEWKEYWORD.COUNT desc
+ 		]]>
+ 	</select>
 </sqlMap>

@@ -208,5 +208,18 @@ public class ItemsDao {
 	public void updateRegDate(Long itemNo) {
 		sqlMapClientTemplate.update("items.updateRegDate", itemNo);		
 	}
+	@SuppressWarnings("unchecked")
+	public Map<String, Object> allSelectKeywordCntList() {
+		Map map = new HashMap<Object, Object>();
+		map.put("f1", sqlMapClientTemplate.queryForList("items.selectViewKeyword1f"));
+		map.put("m1", sqlMapClientTemplate.queryForList("items.selectViewKeyword1m"));
+		map.put("f2", sqlMapClientTemplate.queryForList("items.selectViewKeyword2f"));
+		map.put("m2", sqlMapClientTemplate.queryForList("items.selectViewKeyword2m"));
+		map.put("f3", sqlMapClientTemplate.queryForList("items.selectViewKeyword3f"));
+		map.put("m3", sqlMapClientTemplate.queryForList("items.selectViewKeyword3m"));
+		return  map; 
+	}
+	
+	
 	
 }

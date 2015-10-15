@@ -279,7 +279,9 @@ public class ItemsService {
 		itemsDao.updateRegDate(itemNo);
 	}
 
-	
+	public Map<String, Object> allSelectKeywordCntList(){
+		return itemsDao.allSelectKeywordCntList();
+	}
 	
 	
 	

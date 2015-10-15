@@ -13,7 +13,8 @@ public class UserDao {
 	private SqlMapClientTemplate sqlMapClientTemplate;
 
 	public UserVo getByIdNo(String idNo){
-		UserVo userVo = (UserVo)sqlMapClientTemplate.queryForObject("user.getByIdNo", idNo);
+		/*UserVo userVo = (UserVo)sqlMapClientTemplate.queryForObject("user.getByIdNo", idNo);*/
+		UserVo userVo = null;
 		return userVo;
 	}
 	
