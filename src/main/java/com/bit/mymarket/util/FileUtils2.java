@@ -2,6 +2,7 @@ package com.bit.mymarket.util;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.w3c.dom.events.Event;
+
+import sun.net.ProgressEvent;
 
 
 
@@ -25,10 +29,10 @@ public class FileUtils2 {
    			private static final String filePath = "//192.168.1.6//temp//"; // 파일이 저장될 위치
     
    public List<Map<String,Object>> parseInsertFileInfo(Map<String,Object> map, HttpServletRequest request) throws Exception{
-       MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
+	   Enumeration<String> aa = request.getParameterNames();
+	   MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest)request;
        Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
-        
-       MultipartFile multipartFile = null;
+       List<MultipartFile> multipartFile = null;
        String originalFileName = null;
        String originalFileExtension = null;
        String storedFileName = null;
@@ -41,24 +45,37 @@ public class FileUtils2 {
        if(file.exists() == false){ //해당 경로에 없으면 생성
            file.mkdirs();
        }
-        
+       
        while(iterator.hasNext()){
-           multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+           multipartFile = multipartHttpServletRequest.getFiles(iterator.next()); //getFiles 이놈이 멀티로 받을수 있게 해줌.  기존 : getFile 
+           
            if(multipartFile.isEmpty() == false){
+        	   for(int i=0; i<multipartFile.size(); i++){
+	               /*String a = multipartFile.get(0).getOriginalFilename();
+	               String b = multipartFile.get(1).getOriginalFilename();
+	               int c = multipartFile.size();
+	               System.out.println(a);
+	               System.out.println(b);
+	               System.out.println(c);
+	               System.out.println("multipartFile : " + multipartFile);*/
+        	   
         	   String url = "";
-               originalFileName = multipartFile.getOriginalFilename();
+        	   
+               originalFileName = multipartFile.get(i).getOriginalFilename();
                originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
                storedFileName = CommonUtils.getRandomString() + originalFileExtension;
-               
                file = new File(filePath + storedFileName);
                url = "/product-images/" + storedFileName;
-               multipartFile.transferTo(file);
-              
+               multipartFile.get(i).transferTo(file);
                listMap = new HashMap<String,Object>();
                listMap.put("NO", map.get("itemNo"));
                listMap.put("IMAGE", url);
                list.add(listMap);
+           
+        	   }
+          
            }
+           
        }
        return list;
    }
