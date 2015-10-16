@@ -1,10 +1,13 @@
 package com.bit.mymarket.service;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.mymarket.dao.UserDao;
+import com.bit.mymarket.vo.NotifyVo;
 import com.bit.mymarket.vo.UserVo;
 
 
@@ -36,6 +39,25 @@ public class UserService {
 	
 	public void modify(UserVo vo){
 		userDao.updateBasicInfo(vo);
+	}
+	
+	public Long getNoByitemNo(Long itemNo){
+		Long userNo = userDao.getNoByitemNo(itemNo);
+		return userNo;
+	}
+	
+	public void messageInsert(NotifyVo notifyVo){
+		userDao.messageInsert(notifyVo);
+	}
+	
+	public List<NotifyVo> getMessage(Long userNo){
+		List<NotifyVo> list = userDao.getMessage(userNo);
+		return list;
+	}
+	
+	public Integer getCount(Long userNo){
+		Integer count = userDao.getCount(userNo);
+		return count;
 	}
 	
 }

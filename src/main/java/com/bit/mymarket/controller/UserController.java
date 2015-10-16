@@ -1,5 +1,10 @@
 package com.bit.mymarket.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.bit.mymarket.service.EmailService;
 import com.bit.mymarket.service.UserService;
+import com.bit.mymarket.vo.NotifyVo;
 import com.bit.mymarket.vo.UserVo;
 
 @Controller
@@ -149,6 +155,27 @@ public class UserController {
 		authUser.setPassword(vo.getPassword());
 		session.setAttribute("authUser", authUser);
 		return "redirect:/";
+	}
+	
+	@RequestMapping("/notify")
+	public void notify(@RequestParam Long itemNo,@RequestParam String msg, @RequestParam String name, @RequestParam String date){
+		Long userNo = userService.getNoByitemNo(itemNo);
+		String message = name+" : "+msg+"    - "+date;
+		NotifyVo notifyVo = new NotifyVo();
+		notifyVo.setUserNo(userNo);
+		notifyVo.setMessage(message);
+		notifyVo.setItemNo(itemNo);
+		
+		userService.messageInsert(notifyVo);
+	}
+	
+	@RequestMapping("/getMessage")
+	@ResponseBody
+	public Map<String, Object> getMessage(@RequestParam Long userNo){
+		List<NotifyVo> msgList = userService.getMessage(userNo);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("msgList", msgList);
+		return map;
 	}
 	
 	

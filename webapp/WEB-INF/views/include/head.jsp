@@ -95,6 +95,10 @@
 	  }
   }  
   
+  .glyphicon-envelope{
+  	font-size:20px;
+  	color:yellow;
+  }
   
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -245,7 +249,35 @@
             }  
     	   });
        }); 
+   
+   
+	   $('.msg-noti-a').click(function(){
+			var userNo = $('#userNo').val();
+			var userName = $('#userName').val();
+			var output = "<li style='background-color:#edefed; text-align:center; font-size:15px;'>메 세 지</li><li class='divider'></li>";
+			$.ajax({
+				url:'/user/getMessage',
+				type:'post',
+				dataType:'json',
+				data:{'userNo':userNo},
+				success:function(response){
+					var msgList = response.msgList;
+					for(var i=0; i<msgList.length; i++){
+						output+="<li style='text-align:center;'><a href='javascript:chatRoom("+msgList[i].itemNo+")'>판매 중인 아이템(No."+msgList[i].itemNo+") 메세지가 도착했습니다.</a></li>";
+						output+="<li class='divider'></li>";
+					}
+					$('#msg-noti-b').html(output);
+				}
+			});
+	   });
+   
+   
    });
+   
+	function chatRoom(itemNo){
+		var name=$('#userName').val();
+		window.open("http://192.168.1.16:52273?"+name+"&"+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
+	}
    
 </script>
 
@@ -347,9 +379,21 @@
 						<span class="sr-only">(current)</span></a></li>
 					</ul>
 				</li>
+				<input type="hidden" id="userNo" value="${authUser.no }"/>
+				<input type="hidden" id="userName" value="${authUser.name }"/>
+				
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle msg-noti-a" data-toggle="dropdown" role="button" aria-expanded="false">
+					<span class="glyphicon glyphicon-envelope"></span>1</a>
+					<ul id="msg-noti-b" class="dropdown-menu" role="menu" style="width:320px;">
+						
+						
+						
+					</ul>
+				</li>
 	      	</c:otherwise>
 	       	</c:choose>
-	       
+	       		
 	        <c:choose>
 	        	<c:when test="${not empty authUser }">
 	        		<li><a href="/items/itemsinsert">상품등록</a></li>
