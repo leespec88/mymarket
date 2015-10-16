@@ -271,6 +271,7 @@ body {
 }
 
 .row {
+	height: 400px;
 	padding: 15px 0 0 30px;
 }
 
@@ -292,10 +293,11 @@ body {
 	.nav-tabs .on .tit {color:#fff;background-color:#d9534f}
 	.tab_cont {padding:2px;margin-top:5px;}
 	.piece {
-	    min-width: 300px;
-	    max-width: 500px;
-	    padding: 10px;
-	    margin: 10px;
+        min-width: 300px;
+        min-width: 400px;
+        max-width: 500px;
+        padding: 10px;
+        margin: 10px;
 	} 
 	.keytem {
 	padding-left:5px;
@@ -457,7 +459,7 @@ body {
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-8">
+				<div class="col-sm-6">
 					<div class="embed-responsive embed-responsive-16by9">
 						<iframe class="embed-responsive-item"
 							src="http://www.youtube.com/embed/XGSy3_Czz8k"></iframe>

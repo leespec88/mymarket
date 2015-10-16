@@ -18,10 +18,20 @@
 	<style>
 		#textlist {padding-top:50px;color:#A6A6A7;}
 		.img-thumbnail{width:200px; height:200px;}
-		.well{max-height: 360px;}
+		.well{height: 27em;}
 	</style>
 	
 <style>
+.well p{
+	text-align: center;
+	width: 200px; 
+	overflow: hidden;
+	white-space: nowrap; 
+	text-overflow: ellipsis; 
+}
+.itemTitle{
+	font-size: 18px;
+}
 
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap {position:relative;width:100%;height:40px;}
