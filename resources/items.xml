@@ -479,4 +479,10 @@
 		order by VIEWKEYWORD.COUNT desc
  		]]>
  	</select>
+ 	
+ 	<select id="getNoByitemNo" parameterClass="java.lang.Long" resultClass="java.lang.Long">
+ 		<![CDATA[
+ 			select user_no from items where no=#itemNo#
+ 		]]>
+ 		</select>
 </sqlMap>

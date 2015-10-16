@@ -1,10 +1,13 @@
 package com.bit.mymarket.dao;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.bit.mymarket.vo.NotifyVo;
 import com.bit.mymarket.vo.UserVo;
 
 @Repository
@@ -44,5 +47,30 @@ public class UserDao {
 	public UserVo getUserInfobyNo(Long no) {
 		System.out.println("유저 서비스의 파라미터 NO = " + no);
 		return (UserVo) sqlMapClientTemplate.queryForObject("user.getUserInfobyNo", no);
+	}
+	
+	/*아이템 넘버로 유저 넘버 가져오기*/
+	public Long getNoByitemNo(Long itemNo){
+		Long userNo = (Long)sqlMapClientTemplate.queryForObject("items.getNoByitemNo", itemNo);
+		return userNo;
+	}
+	
+	public void messageInsert(NotifyVo notifyVo){
+		sqlMapClientTemplate.insert("user.messageInsert", notifyVo);
+	}
+	
+	public List<NotifyVo> getMessage(Long userNo){
+		System.out.println("머리세웠어"+userNo);
+		List<NotifyVo> list = sqlMapClientTemplate.queryForList("user.getMessage", userNo);
+		for(NotifyVo vo : list){
+			System.out.println("머리잘랐다."+list);
+		}
+		return list;
+	}
+	
+	public Integer getCount(Long userNo){
+		
+		Integer count = (Integer)sqlMapClientTemplate.queryForObject("user.getCount", userNo);
+		return count;
 	}
 }

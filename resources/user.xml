@@ -4,6 +4,8 @@
 <sqlMap namespace="user">
 <typeAlias alias="UserVo" type="com.bit.mymarket.vo.UserVo" />
 
+<typeAlias alias="NotifyVo" type="com.bit.mymarket.vo.NotifyVo" />
+
 <resultMap class="UserVo" id="resultMapList">
 		<result column="no" property="no" />
 		<result column="id_no" property="idNo" />
@@ -90,6 +92,25 @@
 	]]>
 </select>
 
+
+<!-- 알림 메세지 등록 -->
+<insert id="messageInsert" parameterClass="NotifyVo">
+	<![CDATA[
+		insert into notify values(seq_notify.nextval, #userNo#, #itemNo#, #message#, sysdate)
+	]]>
+</insert>
+
+<select id="getMessage" parameterClass="java.lang.Long" resultClass="NotifyVo">
+	<![CDATA[
+		select no, user_no as userNo, item_no as itemNo, message, to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate from notify where user_no=#userNo#
+	]]>
+</select>
+
+<select id="getCount" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
+	<![CDATA[
+		select count(*) from notify where user_no=#userNo#
+	]]>
+</select>
 
 
 </sqlMap>

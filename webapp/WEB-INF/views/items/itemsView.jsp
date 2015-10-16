@@ -101,7 +101,8 @@ img[Attributes Style] {
 								<%-- <a class="btn btn-danger" href="http://192.168.1.16:52273?${authUser.name }&no=${itemVo.no}">판매자와 채팅</a> --%>
 								<a class="btn btn-danger" href="#" onclick="chatRoom();">판매자와 채팅</a>
 								<input type="hidden" id="name" value="${authUser.name }">
-								<input type="hidden" id="no" value="${itemVo.no }">
+								<input type="hidden" id="itemNo" value="${itemVo.no }">
+								<input type="hidden" id="authNo" value="${authUser.no }">
 							</p>
 							</c:if>
 						</div>
@@ -275,8 +276,9 @@ img[Attributes Style] {
 	}
 	function chatRoom(){
 		var name=$('#name').val();
-		var no = $('#no').val();
-		window.open("http://192.168.1.16:52273?"+name+"&no="+no, "판매자와 대화창", "width=800, height=700, toolbar=no, menubar=no");
+		var itemNo = $('#itemNo').val();
+		var authNo = $('#authNo').val();
+		window.open("http://192.168.1.16:52273?"+name+"&"+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
 	}
 
 </script>
