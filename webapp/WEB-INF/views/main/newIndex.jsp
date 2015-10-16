@@ -66,7 +66,8 @@
     }
     
     .num {
-        display: block;
+    
+    display: block;
     float: left;
     min-width: 13px;
     _width: 13px;
@@ -481,13 +482,13 @@ body {
 		<div class="row">
 			<div class="col-sm-8">
 				<h1 class="imageText">서울</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=서울"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/seoul3.jpg" width="800" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">부산</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=부산"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/busan.jpg" width="530" height="345">
 				</a>
 			</div>
@@ -495,19 +496,19 @@ body {
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 class="imageText">제주도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=제주도"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/jeju.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">인천</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=인천"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/incheon.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">광주</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=광주"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/guwangju.jpg" width="530" height="345">
 				</a>
 			</div>
@@ -515,13 +516,13 @@ body {
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 class="imageText">울산</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=울산시청""><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/ulsan.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-8">
 				<h1 class="imageText">경기도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=경기도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/gyeonggi.jpg" width="800" height="345">
 				</a>
 			</div>
@@ -529,19 +530,19 @@ body {
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 class="imageText">강원도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=강원도청""><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/gangwon.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">충청북도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=충청북도청""><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/choongbuk.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">충청남도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=충청남도청""><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/choongnam.jpg" width="530" height="345">
 				</a>
 			</div>
@@ -549,13 +550,13 @@ body {
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 class="imageText">경상북도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=경상북도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/gyungbuk.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-8">
 				<h1 class="imageText">경상남도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=경상남도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/gyungnam.jpg" width="800" height="345">
 				</a>
 			</div>
@@ -563,13 +564,13 @@ body {
 		<div class="row">
 			<div class="col-sm-8">
 				<h1 class="imageText">전라북도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=전라북도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/junbuk.jpg" width="800" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">전라남도</h1>
-				<a href="#"><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=전라남도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/junnam.jpg" width="530" height="345">
 				</a>
 			</div>
@@ -609,6 +610,34 @@ body {
 				</div>
 			</c:forEach>
 		</div>
+		<h1>최근 본 상품</h1>
+		<c:forEach var="recentVItem" items="${recentViewList}" varStatus="status" begin="0">
+				<div class="col-sm-12 col-md-6"
+					style="padding-top: 10px; padding-left: 30px">
+					<div>
+						<h2 class="imageText">
+							<%-- <a class="jjim" href="/jjim/insert/${recentItem.NO}/${authUser.no}"> --%>
+							<c:if test="${authUser!=null}">
+								<a id="cursor" class="jjim"	<%-- onclick="jjimClick(${recentItem.NO})" --%>>
+									<span
+									class="glyphicon glyphicon-heart" id="glyphicon-heart${status.index+1}"
+									style="margin-left: 5px; margin-right: 5px" onclick="javascript:heartbit(${status.index+1});">
+									<input type="hidden" id="jjimNo${status.index+1}" value="${recentVItem.ITEMNO }">
+									<input type="hidden" id="itemNo" value="${status.index+1}">
+									<input type="hidden" id="authNo" value="${authUser.no }">
+									</span>
+									</a>
+							</c:if>
+							<span class="itemPrice">${recentVItem.PRICE}</span> 
+						</h2>
+						<a href="items/detailView/${recentVItem.ITEMNO}"><img
+							style="position: relative; z-index: 1;" class="img-responsive"
+							src="${recentVItem.IMAGE}" alt="Chania" width="530" height="345">
+						</a>
+
+					</div>
+				</div>
+		</c:forEach>
 	</div>
 	<div class="container-fluid"
 		style="background: #4C7080; margin-top: 30px">

@@ -338,7 +338,7 @@
 	<select id="selectRecentRegItemlist" resultClass="java.util.HashMap">
 		<![CDATA[
 			select * from recent_reg_ItemList
-			where ROWNUM <11
+			where ROWNUM <5
 			order by recent_reg_ItemList.REG_DATE desc
 		]]>
 	</select>

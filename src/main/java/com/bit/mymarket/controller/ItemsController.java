@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +28,7 @@ import com.bit.mymarket.vo.UserVo;
 @RequestMapping( "/items" )
 @Controller
 public class ItemsController {
+	private static final Log LOG = LogFactory.getLog(ItemsController.class);
 	
 	@Autowired
 	private ItemsService itemsService;
@@ -91,9 +95,23 @@ public class ItemsController {
 	
 	/*아이템 상제정보 보기 컨드톨러 -by 이준기 0922*/
 	@RequestMapping("/detailView/{no}")
-	public String itemDetailInfo(@PathVariable Long no, Model model){
-		Map<String, Object> map  = itemsService.getItemInfoByNo(no);
+	public String itemDetailInfo(@PathVariable Long no, Model model, HttpServletResponse response, HttpSession session){
+		Map<String, Object> map =null;
+		if(session.getAttribute("authUser")!=null){
+			UserVo userVo=(UserVo)session.getAttribute("authUser");
+			map  = itemsService.getItemInfoByNo(no, userVo.getNo());
+			
+		}else {
+			map  = itemsService.getItemInfoByNo(no);
+		}
+		
+		
 		itemsService.updateViewCnt(no);
+		
+		session.setAttribute("jkjk", map.get("itemNo"));
+		
+		
+		
 		model.addAllAttributes(map);
 		return "/items/itemsView";
 		

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +28,28 @@ public class MainController {
 	private ItemsService itemsService;
 	
 	@RequestMapping("/")
-	public String index(Model model){
-		List<ItemListVo> list=itemsService.getList();
+	public String index(Model model, HttpServletResponse response, HttpSession session){
 		model.addAllAttributes(itemsService.allSelectKeywordCntList());
 		model.addAttribute("ageGrouplist", itemsService.kwdProcessing()); //selectAllStoredKeyword
 		model.addAttribute("KwdCntList",itemsService.getKwdCntList()); //selectKeywordCntList
 		model.addAttribute("RecentRegItemlist", itemsService.getRecentRegItemlist());
 		model.addAttribute("selectListViewCnt", itemsService.selectListViewCnt());
+		UserVo userVo = (UserVo) session.getAttribute("authUser");
+		if(userVo !=null){
+			model.addAttribute("recentViewList", itemsService.recentViewList(userVo.getNo()));
+			
+		}
 		return "/main/newIndex";
 	}
 	
 	@RequestMapping("/main")
-	public String main(Model model){
+	public String main(Model model, @RequestParam(required=false) String place){
 		List<ItemListVo> list=itemsService.getList();
 		//List<HashTagVo> hashList = itemsService.getTagList();
-
+		if(place!=null){ 
+			System.err.println("place !!! = " + place);
+			model.addAttribute("place", place);
+		}
 		model.addAttribute("list", list);
 		//model.addAttribute("tagName",hashList);
 		return "/main/main";

@@ -6,8 +6,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -67,13 +65,6 @@ public class BoardController {
 			}
 		}
 
-		/*
-		 * System.out.println("시작페이지는 " + s_page);
-		 * System.out.println("현재 페이지는(c_page) " + c_page);
-		 * System.out.println("현재 표시할 맥스 페이지는  (c_m_page)" + c_m_page);
-		 * System.err.println("t_page : " + t_page);
-		 */
-		
 		model.addAttribute("c_page", c_page);
 		model.addAttribute("s_page", s_page);
 		model.addAttribute("c_m_page", c_m_page);
@@ -120,8 +111,6 @@ public class BoardController {
 	@RequestMapping(value = "/write")
 	public ModelAndView insertBoard(CommandMap commandMap,
 			HttpServletRequest request) throws Exception {
-		// System.out.println("!!!!!!write");
-		// System.out.println("commandMap : " + commandMap.isEmpty());
 		ModelAndView mv = new ModelAndView("redirect:/board/1");
 		boardService.insertBoard(commandMap.getMap(), request);
 

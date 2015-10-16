@@ -222,7 +222,7 @@ var markerImage = new daum.maps.MarkerImage(imageSrc, imageSize, imageOption);
 					$("#address").val(data.fullName);
 					$(".itemsNoNext").css('display','none');
 					$(".itemsNext").css('display','inline');
-					$("#address").html("위치 : " + data.fullName);
+					$("#address1").html("위치 : " + data.fullName);
 					//$("#lat").val(data.lat);
 					
 				},
@@ -384,7 +384,7 @@ function getListItem(index, places) {
 <h3 class="subtitle">판매할 위치를</h3> 
 <h3 class="subtitle">지정하고</h3>
 <h3 class="subtitle">다음 버튼을 눌러주세요.</h3>
-<h3 class="subtitle" id="address"></h3>
+<h3 class="subtitle" id="address1"></h3>
 
 <form action="/items/itemsinsertview" method="post" >
 <input type="hidden" id="lat" name="lat" value="">

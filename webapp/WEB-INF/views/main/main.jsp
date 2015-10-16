@@ -193,7 +193,8 @@
         <div class="option">
 			<form onsubmit="searchPlaces(); return false;">
 				<div class="form-group locDiv"> 
-					<input class="col-lg-3 locInput" type="text" id="keyword" size="10" placeholder="지역검색"> 
+					<input class="col-lg-3 locInput" type="text" id="keyword" value=""size="10" placeholder="지역검색">
+					
 					<button class="btn btn-default"type="submit">검색</button>
 				</div>
 			</form>
@@ -203,7 +204,7 @@
         <div id="pagination"></div>
     </div>
 </div>
-
+<input type="hidden" id="keyword1" value="${place}"size="10" placeholder="지역검색"> 
 <script type="text/javascript" src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript" src="//apis.daum.net/maps/maps3.js?apikey=9a98e6a57e71d0677b9b9649676f151b&libraries=services"></script>
 <script type="text/javascript" src="/assets/js/main.js"></script>

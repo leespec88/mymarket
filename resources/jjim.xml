@@ -3,26 +3,26 @@
 "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="jjim">
 
-<typeAlias alias="JjimVo" type="com.bit.mymarket.vo.JjimVo" />
-	<resultMap class="JjimVo" id="resultMapJjim" >
-		<!--  <result column="user_no" property="userNo" /> -->  
+	<typeAlias alias="JjimVo" type="com.bit.mymarket.vo.JjimVo" />
+	<resultMap class="JjimVo" id="resultMapJjim">
+		<!-- <result column="user_no" property="userNo" /> -->
 		<result column="item_no" property="itemNo" />
-		<!-- <result column="jjim_no" property="jjimNo"/> --> 
-		   <result column="image" property="image"/> 
-		 <result column="title" property="title"/>
-		<result column="price" property="price"/>
+		<!-- <result column="jjim_no" property="jjimNo"/> -->
+		<result column="image" property="image" />
+		<result column="title" property="title" />
+		<result column="price" property="price" />
 	</resultMap>
 
-<insert id="insert" parameterClass="JjimVo">
+	<insert id="insert" parameterClass="JjimVo">
 	<![CDATA[
 		insert into JJIM (jjim_no, user_no, item_no)
 		values(seq_jjim.nextval, #userNo#, #itemNo#)  
 	]]>
-</insert>
+	</insert>
 
 
-<!-- <select id="list"  parameterClass="java.lang.Long" resultClass="JjimVo"> -->
-<select id="list" resultMap="resultMapJjim"  > 
+	<!-- <select id="list" parameterClass="java.lang.Long" resultClass="JjimVo"> -->
+	<select id="list" resultMap="resultMapJjim"> 
 	<![CDATA[
 	   SELECT  DISTINCT j1.ITEM_NO AS item_no,
 	   	   j.IMAGE AS image,
@@ -31,32 +31,48 @@
 	       FROM JJIMLIST j, JJIM j1
 	 WHERE j.NO = j1.ITEM_NO AND j1.user_no = #userNo#
 	]]>
-</select>
-<!-- <select id="jlist"  parameterClass="java.lang.Long" resultMap="resultMapJjim"> 
-<![CDATA[
-	select * from jjim 
-	]]>
-</select> -->
+	</select>
+	<!-- <select id="jlist" parameterClass="java.lang.Long" resultMap="resultMapJjim"> 
+		<![CDATA[ select * from jjim ]]> </select> -->
 
-<delete id="delete" parameterClass="java.lang.Long"> 
+	<delete id="delete" parameterClass="java.lang.Long"> 
 		<![CDATA[ 
 			delete from jjim where item_no=#itemNo#
 		]]>
 	</delete>
 
-<!-- <select id="kwdList" parameterClass="java.lang.String" resultClass="ItemListVo">
-<![CDATA[
-	select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate
-  		from items where title like '%'||#kwd#||'%' or content like '%'||#kwd#||'%'
- 		order by no desc
-]]>
-</select> -->
+	<select id="recentViewList" resultClass="java.util.HashMap" parameterClass="java.lang.Long">
+		<![CDATA[
+			  SELECT 
+			         r.ITEM_NO AS itemNo,
+			         i.TITLE AS title,
+			         i.PRICE AS price,
+			         j.IMAGE AS image
+			    FROM RECENTVIEWITEM r, ITEMS i, JJIMLIST j
+			   WHERE     r.ITEM_NO = i.NO
+			         AND r.USER_NO = #no#
+			         AND j.NO = r.ITEM_NO
+			         AND ROWNUM < 5
+			ORDER BY i.REG_DATE DESC
+		]]>
+	</select>
+	
+	<insert id="recentViewInsert" parameterClass="Map">
+		<![CDATA[
+			MERGE INTO RECENTVIEWITEM c
+			USING dual
+				 ON (c.USER_NO = #userNo# and c.ITEM_NO=#itemNo# )            
+			WHEN NOT MATCHED THEN             
+					INSERT (USER_NO, ITEM_NO, REG_DATE) VALUES (#userNo#, #itemNo#, sysdate)
+		]]>
+	</insert>
+	
+	<!-- <select id="kwdList" parameterClass="java.lang.String" resultClass="ItemListVo"> 
+		<![CDATA[ select no,title, to_char(price,'9,999,999,999,999') as price, location,to_char(reg_date,'MM"월 
+		"DD"일 "HH24"시"') as regDate from items where title like '%'||#kwd#||'%' or 
+		content like '%'||#kwd#||'%' order by no desc ]]> </select> -->
 
 
-<!-- <select id="list" resultMap="resultMapList">
-<![CDATA[
-	select user_no, item_no from jjim
-]]>
-</select> 
- -->
+	<!-- <select id="list" resultMap="resultMapList"> <![CDATA[ select user_no, 
+		item_no from jjim ]]> </select> -->
 </sqlMap>

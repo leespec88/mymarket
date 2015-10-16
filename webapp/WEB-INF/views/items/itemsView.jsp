@@ -81,8 +81,14 @@ img[Attributes Style] {
 				<div class="well">
 					<div class="row">
 						<div class="col-sm-4">
+							<c:if test="${userVo.imageURL == null}">
 							<a href=""><img width="94" height="94"
 								src="/assets/css/images/img_itemdetail_profile_noimage.png"></a>
+							</c:if>
+							<c:if test="${userVo.imageURL != null}">
+							<a href=""><img width="94" height="94"
+								src="${userVo.image}"></a>
+							</c:if>
 						</div>
 						<div class="col-sm-8">
 							<p>

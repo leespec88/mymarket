@@ -44,16 +44,7 @@ textarea {
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="image">이미지 :</label>
 				<div class="col-sm-8">
-					<input id="image1" type="file" name="file1"
-						onchange="InputImage1();"> <input id="image2" type="file"
-						name="file2" onchange="InputImage2();"> <input id="image3"
-						type="file" name="file3" onchange="InputImage3();"> <input
-						id="image4" type="file" name="file4" onchange="InputImage4();">
-					<input id="image5" type="file" name="file5"
-						onchange="InputImage5();"> <input id="image6" type="file"
-						name="file6" onchange="InputImage6();"> <input id="image7"
-						type="file" name="file7" onchange="InputImage7();"> <input
-						id="image8" type="file" name="file8" onchange="InputImage8();">
+					<input id="image1" type="file" name="file1" onchange="InputImage1();" multiple="multiple"> 
 				</div>
 			</div>
 			<div id="fileDiv">

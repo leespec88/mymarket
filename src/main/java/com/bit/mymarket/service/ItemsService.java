@@ -11,6 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
@@ -34,7 +35,8 @@ import com.bit.mymarket.vo.UserVo;
 
 @Service
 public class ItemsService {
-
+	
+	/*private List<HashMap<String, Object>> cookieList;*/
 	@Autowired
 	private ItemsDao itemsDao;
 	
@@ -50,6 +52,9 @@ public class ItemsService {
 	@Resource(name = "fileUtils2")
 	private FileUtils2 fileUtils2;
 	
+	/*public List<HashMap<String, Object>> getCookieList(){
+		return cookieList;
+	}*/
 	// item 등록
 	public void insert(ItemsVo itemsVo, Map<String, Object> map, HttpServletRequest request) throws Exception{
 		itemsDao.insert(itemsVo);
@@ -178,16 +183,20 @@ public class ItemsService {
 	}
 	
 	/*아이템 상제정보 보기 서비스 -by 이준기 0922*/
-	public Map<String, Object> getItemInfoByNo(Long no) {
+	public Map<String, Object> getItemInfoByNo(Long no, Long userNo) {
 		
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		List<Map<String, Object>> list = (List<Map<String, Object>>) itemsDao.selectFileList(no);
 		ItemsVo itemVo = itemsDao.getItemByNo(no);
 		
 		UserVo userVo = userDao.getUserInfobyNo(itemVo.getUserNo());
-		Long regItemCnt=itemsDao.getRegItem(userVo.getNo()); 	/*아이템 레그수-by 이준기 0923*/
+		Long regItemCnt = itemsDao.getRegItem(userVo.getNo()); 	/*아이템 레그수-by 이준기 0923*/
 		List<ReplyVo> replyList = replyDao.getReplyList(no);
 		int replyCnt = replyDao.replyCnt(no);
+		Map<String, Object> parameterMap = new HashMap<String, Object>();
+		parameterMap.put("userNo", userNo);
+		parameterMap.put("itemNo", no);
+		itemsDao.recentViewInsert(parameterMap);
 		
 		resultMap.put("regItemCnt", regItemCnt);
 		resultMap.put("replyCnt", replyCnt);
@@ -282,7 +291,31 @@ public class ItemsService {
 	public Map<String, Object> allSelectKeywordCntList(){
 		return itemsDao.allSelectKeywordCntList();
 	}
-	
+
+	public List<Map<String, Object>> recentViewList(Long no) {
+		return itemsDao.recentViewList(no);
+		
+	}
+
+	public Map<String, Object> getItemInfoByNo(Long no) {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		List<Map<String, Object>> list = (List<Map<String, Object>>) itemsDao.selectFileList(no);
+		ItemsVo itemVo = itemsDao.getItemByNo(no);
+		
+		UserVo userVo = userDao.getUserInfobyNo(itemVo.getUserNo());
+		Long regItemCnt = itemsDao.getRegItem(userVo.getNo()); 	/*아이템 레그수-by 이준기 0923*/
+		List<ReplyVo> replyList = replyDao.getReplyList(no);
+		int replyCnt = replyDao.replyCnt(no);
+		
+		resultMap.put("regItemCnt", regItemCnt);
+		resultMap.put("replyCnt", replyCnt);
+		resultMap.put("userVo", userVo);
+		resultMap.put("itemVo", itemVo);
+		resultMap.put("fileList", list);
+		resultMap.put("replyList", replyList);
+		
+		return resultMap;
+	}
 	
 	
 	

@@ -134,7 +134,6 @@ public class ItemsDao {
 
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectFileList(Long no) {
-		
 		return (List<Map<String, Object>>)sqlMapClientTemplate.queryForList("items.selectFileList", no);
 	}
 
@@ -218,6 +217,14 @@ public class ItemsDao {
 		map.put("f3", sqlMapClientTemplate.queryForList("items.selectViewKeyword3f"));
 		map.put("m3", sqlMapClientTemplate.queryForList("items.selectViewKeyword3m"));
 		return  map; 
+	}
+	
+	public List<Map<String, Object>> recentViewList(Long no){
+		return sqlMapClientTemplate.queryForList("jjim.recentViewList", no);
+	}
+	public Object recentViewInsert(Map<String, Object> parameterMap) {
+		// TODO Auto-generated method stub
+		return sqlMapClientTemplate.insert("jjim.recentViewInsert", parameterMap);
 	}
 	
 	
