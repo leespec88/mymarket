@@ -18,7 +18,7 @@
 		<result column="member_type" property="member_type" />
 		<result column="wish_item" property="wishItem" />
 		<result column="reg_date" property="regDate" />
-		<result column="imageURL" property="imageURL" />
+		<result column="imageurl" property="imageURL" />
 </resultMap>
 
 <select id="getByIdNo" parameterClass="java.lang.String" resultClass="UserVo">
@@ -47,7 +47,7 @@
 
 <update id="basicInfo" parameterClass="UserVo">
 <![CDATA[
-	update member set phone=#phone#, name=#name#, gender=#gender#, birth=#birth#, password=#password#  where no=#no#
+	update member set phone=#phone#, name=#name#, gender=#gender#, birth=#birth#, password=#password#, imageurl=#imageURL#  where no=#no#
 ]]>
 </update>
 

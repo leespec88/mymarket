@@ -97,7 +97,7 @@
   
   .glyphicon-envelope{
   	font-size:20px;
-  	color:yellow;
+  	color:#3399FF;
   }
   
 </style>
@@ -384,6 +384,7 @@
 					<ul class="dropdown-menu" role="menu">
 						<li class="divider"></li>
 						<li><a href="#">알림</a></li>
+						<li><a href="/board/1">자유게시판</a></li>
 						<li><a href="/jjim/jjimlist/${authUser.no}">내 찜상품</a></li>
 						<li class="divider"></li>
 						<li><a href="/user/modifyform">개인정보수정</a></li>
@@ -399,7 +400,7 @@
 				
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle msg-noti-a" data-toggle="dropdown" role="button" aria-expanded="false">
-					<span class="glyphicon glyphicon-envelope"></span>1</a>
+					<span class="glyphicon glyphicon-envelope"></span></a>
 					<ul id="msg-noti-b" class="dropdown-menu" role="menu" style="width:350px;">
 						
 						

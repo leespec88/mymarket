@@ -40,6 +40,7 @@ public class UserDao {
 	}
 	
 	public void updateBasicInfo(UserVo vo){
+		System.out.println("!!!!!!!!"+vo.getImageURL());
 		sqlMapClientTemplate.update("user.basicInfo", vo);
 	}
 	

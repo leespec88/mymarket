@@ -27,8 +27,9 @@ if (keyword1 == '') {
 			var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를
 																// geolocation으로
 																// 얻어온 좌표로 생성합니다
-			message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될
+			message = '<div class="mainlocation" style="padding:5px; width:150px; text-align:center; background-color: red; color: #fff; font-size: 13px; font-weight: bold;">현재 위치</div>'; // 인포윈도우에 표시될
 																// 내용입니다
+			
 			// 마커와 인포윈도우를 표시합니다
 			displayMarker(locPosition, message);
 			// 지도 중심좌표를 접속위치로 변경합니다
@@ -56,13 +57,15 @@ if (keyword1 == '') {
 
 		// 인포윈도우를 생성합니다
 		var infowindow = new daum.maps.InfoWindow({
-			content : iwContent,
-			removable : iwRemoveable
+			content : iwContent/*,
+			removable : iwRemoveable*/
 		});
 
 		// 인포윈도우를 마커위에 표시합니다
 		infowindow.open(map, marker);
 
+		$('div.mainlocation').parents('div#map div div div div').css('z-index', 3); // 현재위치 맨앞으로 나오게 하기 위해 추가함
+		
 		getList(); // 마커 위치로 가기 대문에 지도 중심좌표를 접속위치로 변경을 나중에 해줘야함.
 
 		// 지도 중심좌표를 접속위치로 변경합니다
