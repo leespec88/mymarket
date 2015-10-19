@@ -17,6 +17,13 @@
     border: 1px solid #000;
     margin: 10px 5px 0 0;
   }
+
+body{
+	color: #A6A6A7;
+	height: 850px;
+}
+
+
 </style>
   
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
