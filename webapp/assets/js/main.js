@@ -72,8 +72,7 @@ if (keyword1 == '') {
 } else {
 	console.log("null"+keyword1)
 	var loc;
-	var x = new Map([['서울', '37.5659236280802 126.940439842434'], ['부산', '35.193479108594055 129.08894470626737'], ['경기도청', '37.14423742106153 126.91085424474572']]);
-	
+	var x = new Map([['서울', '37.5659236280802 126.940439842434'], ['부산', '35.193479108594055 129.08894470626737'], ['경기도청', '37.2731671 127.0048968'], ['제주도', '33.482294 126.5279724'],['인천', '37.4576112 126.7000163'], ['광주', '35.1767651 126.8087806'],['울산시청', '35.5621694 129.2814603'],['강원도청', '37.8731105 127.7470302'],['충청북도청', '36.6431959 127.4689955'], ['충청남도청', '36.6526485 126.6761057' ], ['경상북도청', '35.892508 128.5954395'], ['경상남도청', '35.2332834 128.6627844'], ['전라북도청', '35.8175587 127.1149819'], ['전라남도청', '34.7972523 126.4316496']]);
 	x.forEach(function(value, key, map) {
 		if(key == keyword1){
 			console.log(value)
@@ -84,8 +83,6 @@ if (keyword1 == '') {
 	curLat=loc[0];
 	curLon=loc[1];
 	
-	
-	
 	navigator.geolocation.getCurrentPosition(function(position) {
 
 		var lat = loc[0]
@@ -94,13 +91,11 @@ if (keyword1 == '') {
 		curLat = lat;
 		curLon = lon;
 		
-		var locPosition = new daum.maps.LatLng(lat, lon), // 마커가 표시될 위치를
+		var locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를
 															// geolocation으로
 															// 얻어온 좌표로 생성합니다
-		message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될
-															// 내용입니다
 		// 마커와 인포윈도우를 표시합니다
-		displayMarker(locPosition, message);
+		getList();
 		// 지도 중심좌표를 접속위치로 변경합니다
 		map.setCenter(locPosition);
 	});
@@ -111,7 +106,7 @@ var mm = 0;
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 mapOption = {
 	center : new daum.maps.LatLng(curLat, curLon), // 지도의 중심좌표
-	level : 5, // 지도의 확대 레벨
+	level : 7, // 지도의 확대 레벨
 	mapTypeId : daum.maps.MapTypeId.ROADMAP
 // 지도종류
 };
@@ -268,12 +263,11 @@ function displayPlaces(places) {
 
 		// 마커를 생성하고 지도에 표시합니다
 		var placePosition = new daum.maps.LatLng(places[i].latitude,
-				places[i].longitude), itemEl = getListItem(0, places[0]); // 검색
+				places[i].longitude), itemEl = getListItem(0, places[0]);   // 검색
 																			// 결과
 																			// 항목
 																			// Element를
 																			// 생성합니다
-
 		// 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
 		// LatLngBounds 객체에 좌표를 추가합니다
 		bounds.extend(placePosition);

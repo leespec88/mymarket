@@ -471,7 +471,7 @@ body {
 				<div class="col-sm-6">
 					<div class="embed-responsive embed-responsive-16by9">
 						<iframe class="embed-responsive-item"
-							src="http://www.youtube.com/embed/XGSy3_Czz8k"></iframe>
+							src="https://youtu.be/glO3rx5yjFk"></iframe>
 					</div>
 				</div> 
 	</div>
@@ -516,7 +516,7 @@ body {
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 class="imageText">울산</h1>
-				<a href="/main?place=울산시청""><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=울산시청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/ulsan.jpg" width="530" height="345">
 				</a>
 			</div>
@@ -530,19 +530,19 @@ body {
 		<div class="row">
 			<div class="col-sm-4">
 				<h1 class="imageText">강원도</h1>
-				<a href="/main?place=강원도청""><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=강원도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/gangwon.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">충청북도</h1>
-				<a href="/main?place=충청북도청""><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=충청북도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/choongbuk.jpg" width="530" height="345">
 				</a>
 			</div>
 			<div class="col-sm-4">
 				<h1 class="imageText">충청남도</h1>
-				<a href="/main?place=충청남도청""><img style="position: relative; z-index: 1;" class="img-responsive"
+				<a href="/main?place=충청남도청"><img style="position: relative; z-index: 1;" class="img-responsive"
 					src="/images/choongnam.jpg" width="530" height="345">
 				</a>
 			</div>
@@ -754,7 +754,7 @@ $(document).ready(
 				var itemNo = $('#itemNo').val();
 				var authNo = $('#authNo').val();
 				var info = confirm("찜하실래요?");
-				console.log(jjimNo);
+				console.log("aa"+jjimNo);
 				console.log(authNo); //85
 				console.log(itemNo); //1
 				
