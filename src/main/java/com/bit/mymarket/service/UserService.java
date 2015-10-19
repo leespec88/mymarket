@@ -2,11 +2,16 @@ package com.bit.mymarket.service;
 
 
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bit.mymarket.dao.UserDao;
+import com.bit.mymarket.util.FileUtils3;
 import com.bit.mymarket.vo.NotifyVo;
 import com.bit.mymarket.vo.UserVo;
 
@@ -16,6 +21,9 @@ public class UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Resource(name = "fileUtils3")
+	private FileUtils3 fileUtils3;
 
 	
 	public UserVo getByIdNo(String idNo){
@@ -37,7 +45,12 @@ public class UserService {
 		return result;
 	}
 	
-	public void modify(UserVo vo){
+	public void modify(UserVo vo, HttpServletRequest request )throws Exception{
+		System.out.println("@modify" + vo.getImageURL());
+		Map<String,Object> mapList = fileUtils3.parseInsertFileInfo(vo, request);
+		String imageURL=(String) mapList.get("imageURL");
+		System.out.println("@@#@!!!!"+imageURL);
+		vo.setImageURL(imageURL);
 		userDao.updateBasicInfo(vo);
 	}
 	

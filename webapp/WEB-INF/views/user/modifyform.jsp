@@ -87,6 +87,14 @@ button.modifyBtn{
 .text-muted {
 	margin-top:5px;
 }
+
+  .thumb {
+    height: 150px;
+    width: 150px;
+    border: 1px solid #000;
+    margin: 0 5px;
+  }
+
 </style>
 </head>
 <script src="/assets/js/jquery/jquery-1.9.0.js"></script>
@@ -96,6 +104,10 @@ $(function(){
 		var password = $('#password').val();
 		var pwCheck = $('#pwCheck').val();
 		
+		if(password ==''){
+			alert('패스워드를 입력해주세요.');
+			return false;
+		}
 		if(password != pwCheck){
 			alert('패스워드가 일치하지 않습니다.');
 			return false;
@@ -117,6 +129,7 @@ $(function(){
 		}
 		$('#day').html(days);
 	});
+	
 });
 
 function joinCheck(){
@@ -134,28 +147,79 @@ function joinCheck(){
 		}
 	});
 };
+
 </script>
 <body class="modifyform" >
 	
 <div class="col-md-9">
 	<div id="dashboard-content">
-	<form class="form-horizontal" id="modifyform" action="/user/modify" method="post">
-			<!-- <div class="panel row-space-4">
+	<form class="form-horizontal" id="modifyform" action="/user/modify" method="post" enctype="multipart/form-data">
+			<div class="panel row-space-4">
 				<div class="panel-header" >
 				프로필사진 수정 
 				</div>
-				
-				<div class="panel-body">
-					<div class="row row-condensed space-4">
-						<img src="/assets/images/person.png" class="img-responsive" alt="Cinque Terre">
-						<div class="col-sm-9">
-							<button type="button" class="btn btn-default">파일 업로드하기</button>
-							<input type="hidden" class="form-control" id="imageURL" name="imageURL" >
+				<div class="panel-body" >
+					<div class="row row-condensed space-4" style="display:-webkit-box;">
+						<output id="list">
+						<span>
+							<c:choose>
+								<c:when test="${not empty authUser.imageURL }">
+									<img src="${authUser.imageURL }" class="img-responsive" alt="Cinque Terre" style="width:150px; height:150px; margin:0 10px;">
+								</c:when>
+								<c:otherwise>
+									<img src="/assets/images/person.png" class="img-responsive" alt="Cinque Terre" style="width:150px; height:150px; margin:0 10px;">
+								</c:otherwise>
+							</c:choose>
+						</span>
+						</output>
+						<div class="profile-p"  >
+							<p>잘 나온 얼굴 정면 사진은</p>
+							<p> 호스트와 게스트가 서로를 알아가는 데 중요합니다.</p>
+							<p> 풍경사진은 좋지 않습니다!</p>
+							<p> 반드시 얼굴이 잘 나온 정면사진으로 올리시길 바랍니다.</p>
+							<button type="button" onclick="document.getElementById('files').click();"class="btn btn-default" style="margin-top:40px;">사진 업로드</button>
+							<input type="file" id="files" name="files[]" style="display:none;"/>
+						<script>
+
+						function handleFileSelect(evt) {
+							$('span').remove();
+							  //$('.thumb').remove();
+						  var files = evt.target.files; // FileList object
+						  // Loop through the FileList and render image files as thumbnails.
+						  var count = 0;
+						  for (var i = 0, f; f = files[i]; i++) {
+								
+						    // Only process image files.
+						    if (!f.type.match('image.*')) {
+						      continue;
+						    }
+
+						    var reader = new FileReader();
+
+						    // Closure to capture the file information.
+						    reader.onload = (function(theFile) {
+						      return function(e) {
+						        // Render thumbnail.
+						        var span = document.createElement('span');
+						        count++;
+						        span.innerHTML = ['<img class="thumb" id="image' + count + '" src="', e.target.result,
+						                          '" title="', escape(theFile.name), '"/>'].join('');
+						        document.getElementById('list').insertBefore(span, null);
+						      };
+						    })(f);
+
+						    // Read in the image file as a data URL.
+						    reader.readAsDataURL(f);
+						  }
+						}
+						document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+
+						</script>
 						</div>
 					</div>
 				</div>
-				pannel body 끝
-			</div> -->
+			</div>
 			
 			<div class="panel row-space-4">
 				<div class="panel-header">

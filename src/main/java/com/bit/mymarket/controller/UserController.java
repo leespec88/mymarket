@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,16 +143,18 @@ public class UserController {
 	}
 	
 	@RequestMapping("/modify")
-	public String modify(@ModelAttribute UserVo vo, HttpSession session, String year, String month, String day){
+	public String modify(@ModelAttribute UserVo vo, HttpSession session, String year, String month, String day, HttpServletRequest request)throws Exception {
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		vo.setNo(authUser.getNo());
 		vo.setBirth(year+"-"+month+"-"+day);
-		userService.modify(vo);
+		vo.setImageURL(authUser.getImageURL());
+		userService.modify(vo, request);
 		authUser.setEmail(vo.getEmail());
 		authUser.setPhone(vo.getPhone());
 		authUser.setGender(vo.getGender());
 		authUser.setBirth(vo.getBirth());
 		authUser.setPassword(vo.getPassword());
+		authUser.setImageURL(vo.getImageURL());
 		session.setAttribute("authUser", authUser);
 		return "redirect:/";
 	}

@@ -10,205 +10,198 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-.modal-header, h4, .close {
-	background-color: #f9f9f9;
-	color: black !important;
-	text-align: center;
-	font-size: 30px;
-}
-
-.modal-footer {
-	background-color: #f9f9f9;
-}
-
-/* Google 계정으로 로그인 */
-.google {
-	background-color: #DD4B39;
-	border-color: #A42E2E;
-	color: #fff;
-	width: 49%;
-	height: 46px;
-}
-
-.google:hover {
-	color: #fff;
-	background-color: #c9302c;
-	border-color: #c9302c;
-}
-
-.google:focus {
-	color: #fff;
-	background-color: #c9302c;
-	border-color: #c9302c;
-}
-
-.google:active:focus {
-	color: #fff;
-	background-color: #c9302c;
-	border-color: #c9302c;
-}
-
-/* Facebook 계정으로 로그인 */
-.facebook {
-	background-color: #3a5795;
-	width: 49%;
-	height: 46px;
-}
-
-.modal-header {
-	padding: 35px 50px;
-}
-
-.modal-body {
-	padding: 40px 74px;
-}
-
-#logoutframe {
-	display: none;
-}
-
-@media ( max-width :767px) {
-	#myModal {
-		padding right: 0;
-	}
-	.modal-content {
-		max-width: none;
-		height: 100%;
-	}
-	.modal-dialog {
-		max-width: none;
-		height: 100%;
-		border-radius: 0;
-		overflow: auto;
-		margin: 0;
-	}
-	.modal {
-		right: -16px;
-	}
-}
-
-@media ( max-width :600px) {
-	.google {
-		width: 100%;
-		margin-top: 5px;
-	}
-	.facebook {
-		width: 100%;
-	}
-	.modal-body {
-		align: center;
-	}
-}
+  .modal-header, h4, .close {
+      background-color: #f9f9f9;
+      color:black !important;
+      text-align: center;
+      font-size: 30px;
+  }
+  .modal-footer {
+      background-color: #f9f9f9;
+  }
+  
+  /* Google 계정으로 로그인 */
+  .google{
+  		background-color: #DD4B39;
+  		border-color: #A42E2E;
+  		color: #fff; 
+  		width:49%;
+  		height:46px;
+  }
+  .google:hover{
+  		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  .google:focus{
+ 		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  .google:active:focus{
+  		color : #fff;
+  		background-color: #c9302c;
+  		border-color: #c9302c;
+  }
+  
+  /* Facebook 계정으로 로그인 */
+  .facebook{
+  		background-color: #3a5795;
+	    width:49%; 
+	    height:46px;
+  }
+  
+  .modal-header{
+  	padding:35px 50px;
+  }
+  
+  .modal-body{
+  	padding:40px 74px;
+  }
+  
+  #logoutframe{
+  	display: none;
+  }
+					
+  @media(max-width:767px){
+  	#myModal{
+  	padding right:0;
+  	}
+  	.modal-content{
+  	max-width: none;
+    height: 100%;
+  	}
+  	.modal-dialog{
+  	max-width: none;
+    height: 100%;
+    border-radius: 0;
+    overflow: auto;
+  	margin:0;
+  	}
+  	.modal{
+  	right: -16px;
+  	}
+  }
+  
+  @media(max-width:600px){
+	  .google{
+	  		width:100%;
+	  		margin-top: 5px;
+	  }
+	  .facebook{
+		    width:100%; 
+	  }
+	  .modal-body{
+	  	align: center;
+	  }
+  }  
+  
+  .glyphicon-envelope{
+  	font-size:20px;
+  	color:#3399FF;
+  }
+  
 </style>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : "986739934701573",
-			status : true,
-			cookie : true,
-			xfbml : true
-		});
-	};
+  window.fbAsyncInit = function() {  
+	    FB.init({appId: "986739934701573", status: true, cookie: true, xfbml: true});      
+	};  
 
-	(function(d) {
-		var js, id = "facebook-jssdk", ref = d.getElementsByTagName("script")[0];
-		if (d.getElementById(id)) {
-			return;
-		}
-		js = d.createElement("script");
-		js.id = id;
-		js.async = true;
-		js.src = "//connect.facebook.net/en_US/all.js";
-		ref.parentNode.insertBefore(js, ref);
-	}(document));
+	(function(d){  
+	   var js, id = "facebook-jssdk", ref = d.getElementsByTagName("script")[0];  
+	   if (d.getElementById(id)) {return;}  
+	   js = d.createElement("script"); js.id = id; js.async = true;  
+	   js.src = "//connect.facebook.net/en_US/all.js";  
+	   ref.parentNode.insertBefore(js, ref);  
+	 }(document));     
 
-	function facebooklogin() {
-
-		//페이스북 로그인 버튼을 눌렀을 때의 루틴.  
-		FB.login(function(response) {
-			var fbname;
-			var accessToken = response.authResponse.accessToken;
-			FB.api('/me', function(response) {
-				var path = "http://www.mymarket.com/user/loginBySns";
-				var name = response.name;
-				var idNo = response.id;
-				var imageURL = "http://graph.facebook.com/" + response.id+ "/picture?type=large";
-				var method = "post";
-				post_to_url(path, name, idNo, null, null, method, imageURL);
-			});
-		});
-	}
-
-	//구글 연동
-
-	(function() {
-		var po = document.createElement('script');
-		po.type = 'text/javascript';
-		po.async = true;
-		po.src = 'https://apis.google.com/js/client:plusone.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(po, s);
-	})();
-	function signinCallback(authResult) {
-		if (authResult['access_token']) {
-			// 승인 성공
-			// 사용자가 승인되었으므로 로그인 버튼 숨김. 예:
-			console.log("error");
-			getEmail();
-
-		} else if (authResult['error']) {
-			// 오류가 발생했습니다.
-			// 가능한 오류 코드:
-			//   "access_denied" - 사용자가 앱에 대한 액세스 거부
-			//   "immediate_failed" - 사용자가 자동으로 로그인할 수 없음
-			console.log('오류 발생: ' + authResult['error']);
-		}
-	}
-	function getEmail() {
-		// userinfo 메소드를 사용할 수 있도록 oauth2 라이브러리를 로드합니다.
-		gapi.client.load('oauth2', 'v2', function() {
-			var request = gapi.client.oauth2.userinfo.get();
-			request.execute(getEmailCallback);
-		});
-	}
-	function getEmailCallback(obj) {
+	function facebooklogin() {  
+		 
+	    //페이스북 로그인 버튼을 눌렀을 때의 루틴.  
+	  FB.login(function(response) {  
+	    var fbname;  
+	    var accessToken = response.authResponse.accessToken;  
+	    FB.api('/me', function(response) {
+	    	var path="http://www.mymarket.com/user/loginBySns";
+	    	var name = response.name;
+	    	var idNo = response.id;
+	    	var imageURL = "http://graph.facebook.com/"+response.id+"/picture?type=large";
+	    	var method="post";
+	    	post_to_url(path,name,idNo,null,null,method,imageURL);
+	    });   
+	  });  
+	}  
+  
+  
+  //구글 연동
+  
+  (function() {
+	    var po = document.createElement('script'); 
+	    po.type = 'text/javascript'; 
+	    po.async = true;
+	    po.src = 'https://apis.google.com/js/client:plusone.js';
+	    var s = document.getElementsByTagName('script')[0]; 
+	    s.parentNode.insertBefore(po, s);
+  	})();
+   function signinCallback(authResult) {
+	   if (authResult['access_token']) {
+	     // 승인 성공
+	     // 사용자가 승인되었으므로 로그인 버튼 숨김. 예:
+	    	 console.log("error");
+	    	 getEmail();
+	    	 
+	   } else if (authResult['error']) {
+	     // 오류가 발생했습니다.
+	     // 가능한 오류 코드:
+	     //   "access_denied" - 사용자가 앱에 대한 액세스 거부
+	     //   "immediate_failed" - 사용자가 자동으로 로그인할 수 없음
+	     console.log('오류 발생: ' + authResult['error']);
+	   }
+	 } 
+   function getEmail(){
+	    // userinfo 메소드를 사용할 수 있도록 oauth2 라이브러리를 로드합니다.
+	    gapi.client.load('oauth2', 'v2', function() {
+	          var request = gapi.client.oauth2.userinfo.get();
+	          request.execute(getEmailCallback);
+	        });
+	  }
+   function getEmailCallback(obj){
 		console.log(obj);
-		var path = "http://www.mymarket.com/user/loginBySns";
-		var name = obj.name;
-		var idNo = obj.id;
-		var gender = obj.gender;
-		var email = obj.email;
-		var method = "post";
-		post_to_url(path, name, idNo, email, gender, method, null);
-	}
-	function post_to_url(path, name, idNo, email, gender, method, imageURL) {
-		method = method || "post";
-		var form = document.createElement("form");
-		form.setAttribute("method", method);
-		form.setAttribute("action", path);
-
-		var hiddenField1 = document.createElement("input");
+		var path="http://www.mymarket.com/user/loginBySns";
+	  	var name = obj.name;
+	  	var idNo = obj.id;
+	  	var gender = obj.gender;
+	  	var email = obj.email;
+	  	var method="post";
+	  	post_to_url(path, name, idNo, email, gender, method, null);
+	  }  
+   function post_to_url(path, name,idNo,email,gender,method,imageURL) {
+	    method = method || "post";
+	    var form = document.createElement("form");
+	    form.setAttribute("method", method);
+	    form.setAttribute("action", path);
+		
+	    var hiddenField1 = document.createElement("input");
 		hiddenField1.setAttribute("type", "hidden");
 		hiddenField1.setAttribute("name", "name");
 		hiddenField1.setAttribute("value", name);
-
-		var hiddenField2 = document.createElement("input");
+		
+	    var hiddenField2 = document.createElement("input");
 		hiddenField2.setAttribute("type", "hidden");
 		hiddenField2.setAttribute("name", "idNo");
 		hiddenField2.setAttribute("value", idNo);
-
-		var hiddenField3 = document.createElement("input");
+		
+	    var hiddenField3 = document.createElement("input");
 		hiddenField3.setAttribute("type", "hidden");
 		hiddenField3.setAttribute("name", "email");
 		hiddenField3.setAttribute("value", email);
-
-		var hiddenField4 = document.createElement("input");
+		
+	    var hiddenField4 = document.createElement("input");
 		hiddenField4.setAttribute("type", "hidden");
 		hiddenField4.setAttribute("name", "gender");
 		hiddenField4.setAttribute("value", gender);
-
+		
 		var hiddenField5 = document.createElement("input");
 		hiddenField4.setAttribute("type", "hidden");
 		hiddenField4.setAttribute("name", "imageURL");
@@ -219,50 +212,89 @@
 		form.appendChild(hiddenField3);
 		form.appendChild(hiddenField4);
 		form.appendChild(hiddenField5);
-
-		form.submit();
+		
+		document.body.appendChild(form);
+	   
+	    form.submit();
 	}
-	function logout() {
-		FB.logout(function(response) {
-		});
-	}
-
-	$(document).ready(function() {
-		$("#myBtn").click(function() {
-			$("#myModal").modal();
-		});
-
-		$('#myItems').click(function() {
-			$("#myModal").modal();
-		});
-
-		$('.submitBtn').click(function() {
-			var email = $('#userid').val();
-			var password = $('#password').val();
-
+   function logout(){
+		  FB.logout(function(response){});
+   }
+   
+   $(document).ready(function(){
+       $("#myBtn").click(function(){
+    	   $("#myModal").modal();
+       });
+       
+       $('#myItems').click(function(){
+    	   $("#myModal").modal();
+       });
+       
+       $('.submitBtn').click(function(){
+    	   var email = $('#userid').val();
+    	   var password = $('#password').val();
+    	   
+    	   $.ajax({
+    		  url:'/user/loginCheck',
+    		  type:'post',
+    		  data:{email:email, password:password},
+    		  success:function(result){
+    				if(result){
+    					$('#loginSubmit').submit();
+    				}else{
+    					alert('로그인 정보가 잘못되었습니다.');
+    					return false;
+    				}
+    		},error: function (xhr, txtStatus, errorThrown) {  
+                alert("error" + errorThrown);  
+            }  
+    	   });
+       }); 
+   
+   	
+	   $('.msg-noti-a').click(function(){
+			var userNo = $('#userNo').val();
+			var userName = $('#userName').val();
+			var output = "<li style='background-color:#edefed; text-align:center; font-size:15px;'>메 세 지</li><li class='divider'></li>";
 			$.ajax({
-				url : '/user/loginCheck',
-				type : 'post',
-				data : {
-					email : email,
-					password : password
-				},
-				success : function(result) {
-					if (result) {
-						$('#loginSubmit').submit();
-					} else {
-						alert('로그인 정보가 잘못되었습니다.');
-						return false;
+				url:'/user/getMessage',
+				type:'post',
+				dataType:'json',
+				data:{'userNo':userNo},
+				success:function(response){
+					var msgList = response.msgList;
+					for(var i=0; i<msgList.length; i++){
+						output+="<li style='text-align:center;'><a href='#'style='width:290px; display:inline-block;' onclick='chatRoom("+msgList[i].itemNo+");'>판매 중인 아이템(No."+msgList[i].itemNo+") 새 메세지가 도착   </a><span style='cursor:pointer;'onclick='delMessage("+msgList[i].no+");' class='glyphicon glyphicon-remove'></span></li>";
+						output+="<li class='divider'></li>";
 					}
-				},
-				error : function(xhr, txtStatus, errorThrown) {
-					alert("error" + errorThrown);
+					$('#msg-noti-b').html(output);
 				}
 			});
-		});
+	   });
+	   
+   
+   
+   });
+   
+	function chatRoom(itemNo){
+		window.open("/user/getMessageList?itemNo="+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
+	}
 	
-	
-	});
+	function delMessage(msgNo){
+		if(confirm('삭제하시겠습니까?')){
+			$.ajax({
+				url:'/user/msgDelete',
+				type:'post',
+				dataType:'json',
+				data:{'msgNo':msgNo},
+				success:function(){
+					console.log('삭제완료');
+				}
+				
+			});
+		}
+	}
+   
 </script>
 
 </head>
@@ -346,7 +378,6 @@
 							<li class="divider"></li>
 							<li><a href="#">공지사항</a></li>
 							<li><a href="#">이벤트</a></li>
-							<li><a href="/board/1">자유게시판</a></li>
 							<li><a href="#">문의 제안 신고</a></li>
 							<li class="divider"></li>
 							<li><a href="#">버전정보</a></li>
@@ -373,30 +404,43 @@
 							</c:choose>
 							
 							</a>
-								<ul class="dropdown-menu" role="menu">
-									<li class="divider"></li>
-									<li><a href="#">알림</a></li>
-									<li><a href="/jjim/jjimlist/${authUser.no}">내 찜상품</a></li>
-									<li class="divider"></li>
-									<li><a href="/user/modifyform">개인정보수정</a></li>
-									<li><a href="#">회원탈퇴</a></li>
-									<li class="divider"></li>
-									<li><a href="/user/logout" onclick="logout();" id="revokeSession"><span class="glyphicon glyphicon-log-out"></span>
-									로그아웃 <iframe id="logoutframe" src="https://accounts.google.com/logout" style="display: none"></iframe>
-									<span class="sr-only">(current)</span></a></li>
-								</ul>
-							</li>
-						</c:otherwise>
-					</c:choose>
-					
-					<c:choose>
-						<c:when test="${not empty authUser }">
-							<li><a href="/items/itemsinsert">상품등록</a></li>
-						</c:when>
-						<c:otherwise>
-							<li><a type="button" class="btn" id="myItems">상품등록</a></li>
-						</c:otherwise>
-					</c:choose>
+							<ul class="dropdown-menu" role="menu">
+						<li class="divider"></li>
+						<li><a href="#">알림</a></li>
+						<li><a href="/board/1">자유게시판</a></li>
+						<li><a href="/jjim/jjimlist/${authUser.no}">내 찜상품</a></li>
+						<li class="divider"></li>
+						<li><a href="/user/modifyform">개인정보수정</a></li>
+						<li><a href="#">회원탈퇴</a></li>
+						<li class="divider"></li>
+						<li><a href="/user/logout" onclick="logout();" id="revokeSession"><span class="glyphicon glyphicon-log-out"></span>
+						로그아웃 <iframe id="logoutframe" src="https://accounts.google.com/logout" style="display: none"></iframe>
+						<span class="sr-only">(current)</span></a></li>
+					</ul>
+				</li>
+				<input type="hidden" id="userNo" value="${authUser.no }"/>
+				<input type="hidden" id="userName" value="${authUser.name }"/>
+				
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle msg-noti-a" data-toggle="dropdown" role="button" aria-expanded="false">
+					<span class="glyphicon glyphicon-envelope"></span></a>
+					<ul id="msg-noti-b" class="dropdown-menu" role="menu" style="width:350px;">
+						
+						
+						
+					</ul>
+				</li>
+	      	</c:otherwise>
+	       	</c:choose>
+	       		
+	        <c:choose>
+	        	<c:when test="${not empty authUser }">
+	        		<li><a href="/items/itemsinsert">상품등록</a></li>
+	        	</c:when>
+	        	<c:otherwise>
+	        		<li><a type="button" class="btn" id="myItems">상품등록</a></li>
+	        	</c:otherwise>
+	        </c:choose>
 
 
 				</ul>
