@@ -60,4 +60,13 @@ public class UserService {
 		return count;
 	}
 	
+	public List<NotifyVo> getMessageByitemNo(Long itemNo){
+		List<NotifyVo> list = userDao.getMessageByitemNo(itemNo);
+		return list;
+	}
+	
+	public void msgDelete(Long msgNo){
+		userDao.msgDelete(msgNo);
+	}
+	
 }

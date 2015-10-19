@@ -1,6 +1,5 @@
 package com.bit.mymarket.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,6 +175,20 @@ public class UserController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("msgList", msgList);
 		return map;
+	}
+	
+	@RequestMapping("/getMessageList")
+	public String getMessageList(@RequestParam Long itemNo, Model model){
+		System.out.println("이런샹샹바");
+		List<NotifyVo> msgList = userService.getMessageByitemNo(itemNo);
+		model.addAttribute("msgList", msgList);
+		return "/user/msgList";
+	}
+	
+	@RequestMapping("/msgDelete")
+	public void msgDelete(@RequestParam Long msgNo){
+		System.out.println("삭제할 넘버"+msgNo);
+		userService.msgDelete(msgNo);
 	}
 	
 	
