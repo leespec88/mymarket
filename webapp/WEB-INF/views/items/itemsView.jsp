@@ -87,7 +87,7 @@ img[Attributes Style] {
 							</c:if>
 							<c:if test="${userVo.imageURL != null}">
 							<a href=""><img width="94" height="94"
-								src="${userVo.image}"></a>
+								src="${userVo.imageURL}"></a> 
 							</c:if>
 						</div>
 						<div class="col-sm-8">

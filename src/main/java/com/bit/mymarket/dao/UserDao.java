@@ -68,9 +68,21 @@ public class UserDao {
 		return list;
 	}
 	
+	//메세지 총 갯수 ( 유저에 해당하는 )
 	public Integer getCount(Long userNo){
 		
 		Integer count = (Integer)sqlMapClientTemplate.queryForObject("user.getCount", userNo);
 		return count;
+	}
+	
+	//메세지리스트 아이템넘버로 가져오기 
+	public  List<NotifyVo> getMessageByitemNo(Long itemNo){
+		 List<NotifyVo> list = sqlMapClientTemplate.queryForList("user.getMessageByitemNo", itemNo);
+		 return list;
+	}
+	
+	//메세지 삭제
+	public void msgDelete(Long msgNo){
+		sqlMapClientTemplate.delete("user.msgDelete", msgNo);
 	}
 }

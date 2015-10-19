@@ -250,7 +250,7 @@
     	   });
        }); 
    
-   
+   	
 	   $('.msg-noti-a').click(function(){
 			var userNo = $('#userNo').val();
 			var userName = $('#userName').val();
@@ -263,20 +263,35 @@
 				success:function(response){
 					var msgList = response.msgList;
 					for(var i=0; i<msgList.length; i++){
-						output+="<li style='text-align:center;'><a href='javascript:chatRoom("+msgList[i].itemNo+")'>판매 중인 아이템(No."+msgList[i].itemNo+") 메세지가 도착했습니다.</a></li>";
+						output+="<li style='text-align:center;'><a href='#'style='width:290px; display:inline-block;' onclick='chatRoom("+msgList[i].itemNo+");'>판매 중인 아이템(No."+msgList[i].itemNo+") 새 메세지가 도착   </a><span style='cursor:pointer;'onclick='delMessage("+msgList[i].no+");' class='glyphicon glyphicon-remove'></span></li>";
 						output+="<li class='divider'></li>";
 					}
 					$('#msg-noti-b').html(output);
 				}
 			});
 	   });
+	   
    
    
    });
    
 	function chatRoom(itemNo){
-		var name=$('#userName').val();
-		window.open("http://192.168.1.16:52273?"+name+"&"+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
+		window.open("/user/getMessageList?itemNo="+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
+	}
+	
+	function delMessage(msgNo){
+		if(confirm('삭제하시겠습니까?')){
+			$.ajax({
+				url:'/user/msgDelete',
+				type:'post',
+				dataType:'json',
+				data:{'msgNo':msgNo},
+				success:function(){
+					console.log('삭제완료');
+				}
+				
+			});
+		}
 	}
    
 </script>
@@ -385,7 +400,7 @@
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle msg-noti-a" data-toggle="dropdown" role="button" aria-expanded="false">
 					<span class="glyphicon glyphicon-envelope"></span>1</a>
-					<ul id="msg-noti-b" class="dropdown-menu" role="menu" style="width:320px;">
+					<ul id="msg-noti-b" class="dropdown-menu" role="menu" style="width:350px;">
 						
 						
 						

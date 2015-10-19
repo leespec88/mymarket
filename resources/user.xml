@@ -112,5 +112,19 @@
 	]]>
 </select>
 
+<select id="getMessageByitemNo" parameterClass="java.lang.Long" resultClass="NotifyVo">
+	<![CDATA[
+		select no, user_no as userNo, item_no as itemNo, message, to_char(reg_date,'MM"월 "DD"일 "HH24"시"') as regDate 
+			from notify where item_no = #itemNo#
+		    order by reg_date asc
+	]]>
+</select>
+
+<delete id="msgDelete" parameterClass="java.lang.Long">
+	<![CDATA[
+		delete from notify where no=#msgNo#
+	]]>
+</delete>
+
 
 </sqlMap>

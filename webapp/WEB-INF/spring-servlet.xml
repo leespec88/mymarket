@@ -33,7 +33,7 @@
     <bean id="LoginCheck" class="com.bit.mymarket.aop.LoginCheck" />
 	
 	<!-- the mvc resources tag does the magic 파일업로드처리3-->
- 	<mvc:resources mapping="/product-images/**" location="file://192.168.1.6/temp/" />
+ 	<mvc:resources mapping="/product-images/**" location="file://192.168.1.6/Temp/" />
  	<!-- ex) http://localhost/fileupload//product-images/20157211414515.png -->
 	<!-- 멀티파트 리졸버 파일업로드처리2 -->
 	<bean id="multipartResolver"
