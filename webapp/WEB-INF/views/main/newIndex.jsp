@@ -575,7 +575,7 @@ body {
 			</div>
 		</div>
 	</div>
-	<div class="container text-center" style="padding-top: 10px">
+	<div class="container text-center" style="padding-top: 30px;">
 		<h1>최근 올라온 상품</h1>
 		<div class="row">
 		<!-- 고유번호 설정을 위한 c:set 설정 -->
@@ -609,6 +609,9 @@ body {
 				</div>
 			</c:forEach>
 		</div>
+	</div>
+	<div class="container text-center" style="padding-top: 30px;">
+		<c:if test="${not empty authUser }">
 		<h1>최근 본 상품</h1>
 		<c:forEach var="recentVItem" items="${recentViewList}" varStatus="status" begin="0">
 				<div class="col-sm-12 col-md-6"
@@ -618,11 +621,10 @@ body {
 							<%-- <a class="jjim" href="/jjim/insert/${recentItem.NO}/${authUser.no}"> --%>
 							<c:if test="${authUser!=null}">
 								<a id="cursor" class="jjim"	<%-- onclick="jjimClick(${recentItem.NO})" --%>>
-									<span
-									class="glyphicon glyphicon-heart" id="glyphicon-heart${status.index+1}"
-									style="margin-left: 5px; margin-right: 5px" onclick="javascript:heartbit(${status.index+1});">
-									<input type="hidden" id="jjimNo${status.index+1}" value="${recentVItem.ITEMNO }">
-									<input type="hidden" id="itemNo" value="${status.index+1}">
+									<span class="glyphicon glyphicon-heart" id="glyphicon-heart${status.index+11}"
+											style="margin-left: 5px; margin-right: 5px;" onclick="heartbit(${status.index+11});">
+									<input type="hidden" id="jjimNo${status.index+11}" value="${recentVItem.ITEMNO }">
+									<input type="hidden" id="itemNo" value="${status.index+11}">
 									<input type="hidden" id="authNo" value="${authUser.no }">
 									</span>
 									</a>
@@ -637,6 +639,7 @@ body {
 					</div>
 				</div>
 		</c:forEach>
+		</c:if>
 	</div>
 	<div class="container-fluid"
 		style="background: #4C7080; margin-top: 30px">
