@@ -105,16 +105,10 @@ public class ItemsController {
 			map  = itemsService.getItemInfoByNo(no);
 		}
 		
-		
 		itemsService.updateViewCnt(no);
-		
 		session.setAttribute("jkjk", map.get("itemNo"));
-		
-		
-		
 		model.addAllAttributes(map);
 		return "/items/itemsView";
-		
 	}
 	/*아이템 상제정보 리플 메소드  -by 이준기 0923*/
 	@RequestMapping("/deletereply/{no}")

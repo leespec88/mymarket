@@ -2,8 +2,6 @@ package com.bit.mymarket.service;
 
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,14 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.dao.ItemsDao;
 import com.bit.mymarket.dao.ReplyDao;
 import com.bit.mymarket.dao.UserDao;

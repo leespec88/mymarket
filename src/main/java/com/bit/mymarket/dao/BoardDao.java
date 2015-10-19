@@ -102,13 +102,6 @@ public class BoardDao {
 		sqlMapClientTemplate.update("board.viewcount", no);
 	}
 
-	public void addReplyCnt(Long no) {
-		sqlMapClientTemplate.update("board.replycount", no);
-	}
-	public int replyCnt(Long no){
-		return (int) sqlMapClientTemplate.queryForObject("reply.replyCount", no);
-	}
-
 	public List<Map<String, Object>> selectBoardList(Map<String, Object> map) {
 		// TODO Auto-generated method stub
 		return null;
@@ -143,7 +136,6 @@ public class BoardDao {
 	}
 
 	public void update(Map<String, Object> map) {
-//		System.out.println("update!!!");
 		map.toString();
 		sqlMapClientTemplate.update("board.updateboard", map);
 		

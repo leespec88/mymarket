@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.bit.mymarket.CommandMap;
 import com.bit.mymarket.vo.AnalysisKeywordVo;
 import com.bit.mymarket.vo.HashTagVo;
 import com.bit.mymarket.vo.ItemListVo;

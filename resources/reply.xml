@@ -58,13 +58,4 @@
 		select * from reply where no=#no#
 	]]>
 	</select>
-
-
-	<select id="replyCount" parameterClass="java.lang.Long" resultClass="java.lang.Integer">
-		<![CDATA[
-			select count(*) from REPLY where BOARD_NO = #boardNo#
-		]]>
-	</select>
-
-
 </sqlMap>

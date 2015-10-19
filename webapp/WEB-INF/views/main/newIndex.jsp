@@ -38,7 +38,7 @@
 		});
 			
 	</script>
-	<title>Insert title here</title>
+	<title>MyMarket</title>
 	<style>
 	.img-responsive{
 	height: 400px;
@@ -470,8 +470,7 @@ body {
 				</div>
 				<div class="col-sm-6">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe class="embed-responsive-item"
-							src="https://youtu.be/glO3rx5yjFk"></iframe>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/glO3rx5yjFk" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div> 
 	</div>

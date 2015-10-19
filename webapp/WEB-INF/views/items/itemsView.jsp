@@ -156,7 +156,6 @@ img[Attributes Style] {
 								<div id="junki" style="padding-left:${reply.depth*30}px">
 									<pre class="commentTextDesc">${reply.content}</pre>
 								</div>
-
 								<div class="rereply" id="${reply.no}" style="display: none">
 									<form class="answerArea" action="/items/subreply/" method="post">
 										<input type="hidden" name="replyNo" value="${reply.no}">
@@ -232,7 +231,7 @@ img[Attributes Style] {
 							</form>
 						</div>
 						<p>
-                             <a href="#" onclick="fn_checkEvent('재등록 하시겠습니까?');">
+                            <a href="#" onclick="fn_checkEvent('재등록 하시겠습니까?');">
                             <button type="button" class="btn btn-primary">재등록</button></a>  
                             <a href="/items/updateItem/${itemVo.no}"><button type="button" class="btn btn-warning">아이템수정</button></a> 
                             <a href="#" onclick="fn_checkEvent('정말 삭제하시겠습니까??');"> <button type="button" class="btn btn-danger" >아이템삭제</button></a>
@@ -251,7 +250,6 @@ img[Attributes Style] {
 			function() {
 				$('input:radio[name=sellState]:input[value='+ "${itemVo.sellState}" + ']').attr("checked", true);
 				/* $('#price').val().replace(/,/g, ''); */
-
 				/* var splitCode = $("#splitCode").val().split(","); */
 				/* var price = $("#price").val(); */
 				var price = ${itemVo.price};
@@ -484,9 +482,6 @@ console.log(map.getCenter(markerPosition)); //vb: 4655241.070416928, wb: 10.4602
 	
 	
 	//console.log(curLat + " " + curLon);
-	
-	
-
 }
 
 </script>

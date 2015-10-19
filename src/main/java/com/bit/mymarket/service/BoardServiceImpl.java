@@ -1,7 +1,6 @@
 package com.bit.mymarket.service;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -13,8 +12,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.bit.mymarket.dao.BoardDao;
 import com.bit.mymarket.util.FileUtils;
@@ -23,6 +20,14 @@ import com.bit.mymarket.vo.ReplyVo;
 
 @Service
 public class BoardServiceImpl implements BoardService {
+	int s_page;
+	int c_m_page;
+	final int pagePerboardCNT = 10;
+	
+	public BoardServiceImpl() {
+		s_page = 1;
+		c_m_page = 10;
+	}
 	@Autowired
 	private BoardDao boardDao;
 
@@ -56,9 +61,32 @@ public class BoardServiceImpl implements BoardService {
 		return list;
 	}
 
-	public List<BoardVo> list(int _skip, int _max, String kwd) {
+	public Map<String, Object> list(int _skip, int _max, String kwd, Integer c_page) {
 		List<BoardVo> list = boardDao.getList(_skip, _max, kwd);
-		return list;
+		int t_page = (int) Math.ceil((countrow() / (double) pagePerboardCNT));
+		if (c_page < 11) {
+			c_m_page = 10;
+			s_page = 1;
+		}
+
+		if (c_page % 10 == 1 && c_page > 10) {
+			System.out.println("c_page % 10 == 1 !!!");
+			s_page = c_page;
+			c_m_page = s_page + 9;
+
+			if (c_m_page > t_page) {
+				System.out.println("c_m_page>t_page !! ");
+				c_m_page = t_page;
+			}
+		}
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
+		resultMap.put("c_page", c_page);
+		resultMap.put("s_page", s_page);
+		resultMap.put("c_m_page", c_m_page);
+		resultMap.put("t_page", t_page);
+		resultMap.put("list", list);
+		return resultMap;
 	}
 
 	public BoardVo get(long no) {
@@ -72,12 +100,10 @@ public class BoardServiceImpl implements BoardService {
 	public void update(BoardVo vo) {
 		boardDao.update(vo);
 	}
+
 	public void delreply(Long no) {
 		boardDao.delreply(no);
 
-	}
-	public int replyCnt(Long no){
-		return boardDao.replyCnt(no);
 	}
 
 	public List<ReplyVo> getReplyList(Long no) {
@@ -104,11 +130,6 @@ public class BoardServiceImpl implements BoardService {
 		boardDao.viewCnt(no);
 	}
 
-	public void addReplyCnt(Long no) {
-		boardDao.addReplyCnt(no);
-
-	}
-
 	public void insertBoard(CommandMap defaultCommandMap) {
 		// TODO Auto-generated method stub
 
@@ -125,13 +146,11 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public void insertBoard(Map<String, Object> map, HttpServletRequest request)
-			throws Exception {
-		boardDao.insertBoard(map);
 
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
-				request);
+	@Override
+	public void insertBoard(Map<String, Object> map, HttpServletRequest request) throws Exception {
+		boardDao.insertBoard(map);
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);
 		for (int i = 0, size = list.size(); i < size; i++) {
 			boardDao.insertFile(list.get(i));
 		}
@@ -152,12 +171,13 @@ public class BoardServiceImpl implements BoardService {
 	public void updateBoard(Map<String, Object> map, HttpServletRequest request)
 			throws Exception {
 		boardDao.update(map);
-		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map, request);
-		Map<String,Object> tempMap = null;
+		List<Map<String, Object>> list = fileUtils.parseInsertFileInfo(map,
+				request);
+		Map<String, Object> tempMap = null;
 		for (int i = 0, size = list.size(); i < size; i++) {
 			tempMap = list.get(i);
-		        	boardDao.appendFile(tempMap);
-		    }
+			boardDao.appendFile(tempMap);
+		}
 	}
 
 	public void deleteFile(Integer integer) {

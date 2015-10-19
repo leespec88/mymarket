@@ -1,6 +1,5 @@
 package com.bit.mymarket.controller;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,53 +22,19 @@ import com.bit.mymarket.vo.UserVo;
 @Controller
 @RequestMapping("/board")
 public class BoardController {
-	int s_page;
-	int c_m_page;
-
-	public BoardController() {
-		s_page = 1;
-		c_m_page = 10;
-	}
-
-	class page {
-		final static int pagePerboardCNT = 10;
-	}
+	final static int pagePerboardCNT = 10;
+	
 
 	@Autowired
 	private BoardServiceImpl boardService;
 
 	@RequestMapping("/{no}")
-	public String list(@PathVariable("no") Integer c_page,
-			@RequestParam(required = false) String kwd, Model model) {
-		int skip = (c_page - 1) * page.pagePerboardCNT;
-		List<BoardVo> list = kwd == null ? boardService.list(skip,
-				page.pagePerboardCNT) : boardService.list(skip, 10, kwd);
+	public String list(@PathVariable("no") Integer c_page, @RequestParam(required = false) String kwd, Model model) {
+		int skip = (c_page - 1) * pagePerboardCNT;
+		Map<String, Object> map = kwd == null ?  boardService.list(skip, 10, null, c_page) : boardService.list(skip, 10, kwd, c_page);
 		System.out.println("kwd " + kwd);
-		// List<BoardVo> list = boardService.list(skip, 6);
-		int t_page = (int) Math
-				.ceil((boardService.countrow() / (double) page.pagePerboardCNT));
-
-		if (c_page < 11) {
-			c_m_page = 10;
-			s_page = 1;
-		}
-
-		if (c_page % 10 == 1 && c_page > 10) {
-			System.out.println("c_page % 10 == 1 !!!");
-			s_page = c_page;
-			c_m_page = s_page + 9;
-
-			if (c_m_page > t_page) {
-				System.out.println("c_m_page>t_page !! ");
-				c_m_page = t_page;
-			}
-		}
-
-		model.addAttribute("c_page", c_page);
-		model.addAttribute("s_page", s_page);
-		model.addAttribute("c_m_page", c_m_page);
-		model.addAttribute("t_page", t_page);
-		model.addAttribute("list", list);
+		model.addAllAttributes(map);
+		
 		return "/board/list";
 	}
 
@@ -143,8 +108,6 @@ public class BoardController {
 
 		Map<String, Object> map = boardService.fileList(no);
 		boardService.viewcnt(no);
-		int replyCnt = boardService.replyCnt(no);
-		model.addAttribute("replyCnt", replyCnt);
 		model.addAttribute("fileList", map.get("fileList"));
 		model.addAttribute("vo", boardService.view(no));
 		model.addAttribute("replyList", boardService.getReplyList(no));
@@ -170,7 +133,6 @@ public class BoardController {
 		// System.out.println("저장할 vo의 값 : " + vo);
 
 		boardService.addreply(vo);
-		boardService.addReplyCnt(no);
 
 		return "redirect:/board/view/" + no;
 	}
@@ -213,7 +175,6 @@ public class BoardController {
 		boardService.addReReply(rereplyVo);
 
 		model.addAttribute("rereplyVo", rereplyVo);
-		boardService.addReplyCnt(tatgetReplyVo.getBoardNo());// 리플카운트 올라감..
 		return "redirect:/board/view/" + rereplyVo.getBoardNo();
 	}
 

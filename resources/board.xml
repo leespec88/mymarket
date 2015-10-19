@@ -21,26 +21,37 @@
 		HH12:MI') as reg_date from board where title LIKE '%' ||#kwd# || '%' or content 
 		LIKE '%' ||#kwd# || '%' order by no desc ]]> </select> -->
 	<select id="listkwd" resultMap="resultMapList" parameterClass="java.lang.String"> 
-		<![CDATA[ 
-			SELECT no,
-		         title,
-		         content,
-		         TO_CHAR (reg_date, 'YY-MM-DD HH12:MI') AS reg_date,
-		         VIEW_COUNT,
-		         user_no,
-		         user_name,
-		         reply_count
-		     FROM BOARD_COMMUNITY
-		     where title LIKE '%' ||#kwd# || '%' or content LIKE '%' ||#kwd# || '%' 
-		     ORDER BY no DESC 
+		<![CDATA[
+		  SELECT b.no,
+  	          b.title,
+	        b.content,
+	         TO_CHAR (b.reg_date, 'YY-MM-DD HH12:MI') AS reg_date,
+	         b.VIEW_COUNT,
+	         b.user_no,
+	         b.user_name,
+	         (SELECT COUNT (*) AS CNT
+	            FROM reply
+	           WHERE B.NO = reply.BOARD_NO)
+	            reply_count
+	    FROM BOARD_COMMUNITY B
+	   		WHERE b.title LIKE '%' || #kwd# || '%' OR content LIKE '%' || #kwd# || '%'
+			ORDER BY no DESC
 		]]>
 	</select>
-
 	<select id="list" resultMap="resultMapList">
 		<![CDATA[
-			SELECT NO, TITLE,content, TO_CHAR(reg_date, 'HH12:MI') as reg_date, VIEW_COUNT, User_no, USER_NAME, reply_count 
-			FROM BOARD_COMMUNITY
-			order by no desc
+			SELECT B.NO,
+		       B.TITLE,
+		       B.REG_DATE,
+		       B.USER_NO,
+		       B.USER_NAME,
+		       b.VIEW_COUNT,
+	       (SELECT COUNT (*) AS CNT
+	          FROM reply
+	         WHERE B.NO = reply.BOARD_NO)
+	          reply_count
+		  FROM BOARD_COMMUNITY B
+		  order by B.no desc
 		]]>
 	</select>
 
@@ -52,9 +63,19 @@
 
 	<select id="view" parameterClass="java.lang.Long" resultMap="resultMapList"> 
 		<![CDATA[ 
-		select NO, TITLE, CONTENT, REG_DATE, VIEW_COUNT, USER_NO, USER_NAME, reply_count 
-		from BOARD_COMMUNITY
-		where no=#no# 
+			SELECT NO,
+			       TITLE,
+			       CONTENT,
+			       REG_DATE,
+			       VIEW_COUNT,
+			       USER_NO,
+			       USER_NAME,
+			       (SELECT COUNT (*) AS CNT
+			          FROM reply
+			         WHERE B.NO = reply.BOARD_NO)
+			          reply_count
+			 FROM BOARD_COMMUNITY B
+	 		 WHERE no = #no#
 		]]>
 	</select>
 
@@ -86,23 +107,15 @@
 		]]>
 	</update>
 
-	<update id="replycount" parameterClass="java.lang.Long"> 
-		<![CDATA[ 
-			UPDATE BOARD_COMMUNITY
-			SET reply_count = reply_count +1 
-			WHERE no = #no#
-		]]>
-	</update>
-	<select id="getbyno" parameterClass="java.lang.Long" resultMap="resultMapList"> 
+	<select id="getbyno" parameterClass="java.lang.Long" resultClass="BoardVo"> 
 		<![CDATA[ 
 		SELECT NO,
-	       TITLE,
-	       CONTENT,
-	       REG_DATE,
-	       VIEW_COUNT,
-	       USER_NO,
-	       USER_NAME,
-	       reply_count
+		       TITLE,
+		       CONTENT,
+		       REG_DATE,
+		       VIEW_COUNT,
+		       USER_NO,
+		       USER_NAME
   		FROM BOARD_COMMUNITY
  		WHERE no = #no# 
 	]]>

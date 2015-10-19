@@ -21,15 +21,12 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Component("fileUtils")
 public class FileUtils {
 	// private static final String filePath =
-	// "C://MM//workspace//mymarket//webapp//images//"; // 파일이 저장될 위치
-	private static final String filePath = "//192.168.1.6//temp//"; // 파일이 저장될
-																	// 위치
+	private static final String filePath = "//192.168.1.6//temp//"; // 파일이 저장될 위치
+																	
 
-	public List<Map<String, Object>> parseInsertFileInfo(
-			Map<String, Object> map, HttpServletRequest request)
+	public List<Map<String, Object>> parseInsertFileInfo(Map<String, Object> map, HttpServletRequest request)
 			throws Exception {
 
-		Enumeration<String> aa = request.getParameterNames();
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
 		List<MultipartFile> multipartFile = null;
@@ -37,30 +34,7 @@ public class FileUtils {
 		String originalFileExtension = null;
 		String storedFileName = null;
 
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();// 부분은
-																				// 클라이언트에서
-																				// 전송된
-																				// 파일
-																				// 정보를
-																				// 담아서
-																				// 반환을
-																				// 해줄
-																				// List이다.
-																				// 여태까지는
-																				// 단
-																				// 하나의
-																				// 파일만
-																				// 전송을
-																				// 하였지만,
-																				// 다중파일전송을
-																				// 하도록
-																				// 수정할
-																				// 계획이기
-																				// 때문에
-																				// 미리
-																				// 그에
-																				// 맞도록
-																				// 구성하였다.
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Map<String, Object> listMap = null;
 
 		File file = new File(filePath);
