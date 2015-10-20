@@ -349,7 +349,6 @@ span.itemPrice{
 </style>
 </head>
 <body>
-	
 	<div id="section1" class="container-fluid" style="background-image:url(images/t7.jpg)">
 		<h1 class="text-jumbo"><strong>우리들의 즐거운 중고장터</strong></h1>
 		<h3 class="text-subjumbo"><strong>마이마켓에 오신것을 환영합니다.</strong></h3>
@@ -373,7 +372,6 @@ span.itemPrice{
 						<li><strong class="tit">10대</strong></li>
 						<li><strong class="tit">20대</strong></li>
 						<li><strong class="tit">30대</strong></li>
-						<!-- <li><strong class="tit">40대</strong></li> -->
 					</ul>
 					<div class="jq_cont tab_cont keylist">
 						<div class="cont">
@@ -478,7 +476,7 @@ span.itemPrice{
 				</div>
 				<div class="col-sm-6">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/glO3rx5yjFk" frameborder="0" allowfullscreen></iframe>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/glO3rx5yjFk?&autoplay=1" autoplay=1 frameborder="0" allowfullscreen ></iframe>
 					</div>
 				</div> 
 	</div>

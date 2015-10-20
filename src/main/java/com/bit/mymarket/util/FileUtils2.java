@@ -49,23 +49,23 @@ public class FileUtils2 {
 		}
 
 		while (iterator.hasNext()) {
-			multipartFile = multipartHttpServletRequest.getFiles(iterator
-					.next()); // getFiles 이놈이 멀티로 받을수 있게 해줌. 기존 : getFile
-
-			if (multipartFile.isEmpty() == false) {
+			multipartFile = multipartHttpServletRequest.getFiles(iterator.next()); // getFiles 이놈이 멀티로 받을수 있게 해줌. 기존 : getFile
+			if (multipartFile.isEmpty() == false && multipartFile != null) {
 				for (int i = 0; i < multipartFile.size(); i++) {
 
 					String url = "";
 
-					originalFileName = multipartFile.get(i)
-							.getOriginalFilename();
-					originalFileExtension = originalFileName
-							.substring(originalFileName.lastIndexOf("."));
-					storedFileName = CommonUtils.getRandomString()
-							+ originalFileExtension;
+					originalFileName = multipartFile.get(i).getOriginalFilename();
+					  if(originalFileName == ""){
+		            	   break;
+		               }
+					originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+					storedFileName = CommonUtils.getRandomString() + originalFileExtension;
 					file = new File(filePath + storedFileName);
 					url = "/product-images/" + storedFileName;
-					multipartFile.get(i).transferTo(file);
+					if (multipartFile.get(i) != null){
+						multipartFile.get(i).transferTo(file);
+					}
 					listMap = new HashMap<String, Object>();
 					listMap.put("NO", map.get("itemNo"));
 					listMap.put("IMAGE", url);
