@@ -17,6 +17,9 @@
 		<link href="/assets/css/font/font.css" rel="stylesheet" type="text/css"/>
 	
 <style>
+.commentText{
+width: 460px;
+}
 #itemview {
 	padding-top: 100px;
 }
@@ -161,7 +164,7 @@ img[Attributes Style] {
 										<input type="hidden" name="replyNo" value="${reply.no}">
 										<input type="hidden" name="parentGroupNo"
 											value="${reply.groupNo}">
-										<textarea class="commentTextDesc" placeholder="댓글을 입력해주세요."
+										<textarea class="commentText" placeholder="댓글을 입력해주세요."
 											class="commnetTextArea" name="replyContent"
 											id="commnetTextArea" maxlength="500"></textarea>
 										<input class="commentBtn" id="commentBtn" type="image"
@@ -270,7 +273,7 @@ img[Attributes Style] {
 				location.href="/items/updateRegDate/"+${itemVo.no};
 			}
 		} else { 
-			return;
+			return false;
 		}
 	}
 	function setImage(obj) {

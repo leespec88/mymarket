@@ -478,7 +478,7 @@ span.itemPrice{
 				</div>
 				<div class="col-sm-6">
 					<div class="embed-responsive embed-responsive-16by9">
-						<iframe width="560" height="315" src="https://www.youtube.com/embed/glO3rx5yjFk" frameborder="0" allowfullscreen></iframe>
+						<iframe width="560" height="315" src="https://www.youtube.com/embed/glO3rx5yjFk?&autoplay=1" autoplay=1 frameborder="0" allowfullscreen ></iframe>
 					</div>
 				</div> 
 	</div>

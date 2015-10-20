@@ -57,12 +57,12 @@ public class FileUtils2 {
 
 					String url = "";
 
-					originalFileName = multipartFile.get(i)
-							.getOriginalFilename();
-					originalFileExtension = originalFileName
-							.substring(originalFileName.lastIndexOf("."));
-					storedFileName = CommonUtils.getRandomString()
-							+ originalFileExtension;
+					originalFileName = multipartFile.get(i).getOriginalFilename();
+					if(originalFileName == ""){
+		            	   break;
+		            }
+					originalFileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+					storedFileName = CommonUtils.getRandomString() + originalFileExtension;
 					file = new File(filePath + storedFileName);
 					url = "/product-images/" + storedFileName;
 					multipartFile.get(i).transferTo(file);
