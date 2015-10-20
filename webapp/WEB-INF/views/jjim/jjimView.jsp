@@ -25,7 +25,8 @@ height: 400px;
 
 <body>
 	<div class="container" style="padding-top:100px">
-	<h1 class="text-center">찜 목록</h1>
+	<h1 class="text-center">♥ 찜 목록</h1>
+	<p class="text-center">※ 내가 찜한 목록들을 바로 볼 수 있습니다.</p>
 		<div class="row" style="padding-top:20px">
 	<c:set var="status" value="${fn:length(jlist)}"></c:set>
 		<c:forEach var="vo" items="${jlist }" varStatus="status">

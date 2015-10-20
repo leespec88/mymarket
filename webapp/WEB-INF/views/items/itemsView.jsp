@@ -17,9 +17,6 @@
 		<link href="/assets/css/font/font.css" rel="stylesheet" type="text/css"/>
 	
 <style>
-.commentText{
-width: 460px;
-}
 #itemview {
 	padding-top: 100px;
 }
@@ -45,6 +42,7 @@ img[Attributes Style] {
 <title>Insert title here</title>
 </head>
 <body>
+
 	<div class="container" id="itemview">
 		<div class="row">
 			<div class="col-sm-5 largeImg" id="locationView">
@@ -97,7 +95,8 @@ img[Attributes Style] {
 								<a href="">${userVo.name}</a>
 							</p>
 							<p>
-								<a href="/items/userItemList/${userVo.no}">등록 아이템 : ${regItemCnt}</a>
+								<a href="/items/userItemList/${userVo.no}">등록 아이템 :
+									${regItemCnt}</a>
 							</p>
 							<p>
 								<a href="#"><span class="glyphicon glyphicon-phone-alt"></span>
@@ -105,6 +104,7 @@ img[Attributes Style] {
 							</p>
 							<c:if test="${not empty authUser }">
 							<p>
+								<%-- <a class="btn btn-danger" href="http://192.168.1.16:52273?${authUser.name }&no=${itemVo.no}">판매자와 채팅</a> --%>
 								<a class="btn btn-danger" href="#" onclick="chatRoom();">판매자와 채팅</a>
 								<input type="hidden" id="name" value="${authUser.name }">
 								<input type="hidden" id="itemNo" value="${itemVo.no }">
@@ -161,7 +161,7 @@ img[Attributes Style] {
 										<input type="hidden" name="replyNo" value="${reply.no}">
 										<input type="hidden" name="parentGroupNo"
 											value="${reply.groupNo}">
-										<textarea class="commentText" placeholder="댓글을 입력해주세요."
+										<textarea class="commentTextDesc" placeholder="댓글을 입력해주세요."
 											class="commnetTextArea" name="replyContent"
 											id="commnetTextArea" maxlength="500"></textarea>
 										<input class="commentBtn" id="commentBtn" type="image"
@@ -231,7 +231,7 @@ img[Attributes Style] {
 							</form>
 						</div>
 						<p>
-                            <a href="#" onclick="fn_checkEvent('재등록 하시겠습니까?')">
+                            <a href="#" onclick="fn_checkEvent('재등록 하시겠습니까?');">
                             <button type="button" class="btn btn-primary">재등록</button></a>  
                             <a href="/items/updateItem/${itemVo.no}"><button type="button" class="btn btn-warning">아이템수정</button></a> 
                             <a href="#" onclick="fn_checkEvent('정말 삭제하시겠습니까??');"> <button type="button" class="btn btn-danger" >아이템삭제</button></a>
@@ -266,14 +266,11 @@ img[Attributes Style] {
 			if(obj.match('삭제')=='삭제'){
 				location.href="/items/itemDelete/" + ${itemVo.no};
 			}
-			if(obj.match('삭제')=='삭제'){
-				location.href="/items/itemDelete/" + ${itemVo.no};
-			}
 			if(obj.match('재등록')=='재등록'){
-				location.href="/items/updateRegDate/" + ${itemVo.no};
+				location.href="/items/updateRegDate/"+${itemVo.no};
 			}
 		} else { 
-			return false;
+			return;
 		}
 	}
 	function setImage(obj) {

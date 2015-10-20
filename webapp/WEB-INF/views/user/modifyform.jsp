@@ -21,11 +21,11 @@
     box-sizing: border-box;
 }
 
-#dashboard-content{
+/* #dashboard-content{
 	padding:20px;
 	margin-top:30px;
 	width:55%;
-}
+} */
 
 div.panel{
     background-color: #fff;
@@ -95,6 +95,21 @@ button.modifyBtn{
     margin: 0 5px;
   }
 
+
+/* center 맞추기 */
+.maindiv{
+    float: right;
+    left: -50%;
+    position: relative;
+    margin:50px 0 80px 0;
+}
+
+#dashboard-content{
+	float: left;
+    position: relative;
+    left: 50%;
+}
+/* center 맞추기 close */
 </style>
 </head>
 <script src="/assets/js/jquery/jquery-1.9.0.js"></script>
@@ -151,7 +166,7 @@ function joinCheck(){
 </script>
 <body class="modifyform" >
 	
-<div class="col-md-9">
+<div class="maindiv">
 	<div id="dashboard-content">
 	<form class="form-horizontal" id="modifyform" action="/user/modify" method="post" enctype="multipart/form-data">
 			<div class="panel row-space-4">
@@ -232,7 +247,6 @@ function joinCheck(){
 						<label for="inputName" class="text-right col-sm-3" for="name">이름</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="name" name="name" value="${authUser.name }">
-							<div class="text-muted row-space-top-1">이 자료는 다른 회원들에게 절대 공개되지 않습니다.</div>
 						</div>
 					</div>
 					
@@ -246,7 +260,6 @@ function joinCheck(){
 							</c:when>
 							<c:otherwise>
 								<input type="text" class="form-control" id="email" name="email" placeholder="@Email" readonly="readonly">
-								<div class="text-muted row-space-top-1">이 자료는 다른 회원들에게 절대 공개되지 않습니다.</div>
 							</c:otherwise>
 						</c:choose>
 							
@@ -257,7 +270,6 @@ function joinCheck(){
 						<label class="text-right col-sm-3" for="phone">휴대전화</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="phone" name="phone" value="${authUser.phone }" placeholder="'-' 빼주세요">
-							<div class="text-muted row-space-top-1">이 자료는 다른 회원들에게 절대 공개되지 않습니다.</div>
 						</div>
 					</div>
 					
@@ -338,7 +350,9 @@ function joinCheck(){
 				</div>
 				<!-- pannel body 끝 -->
 			</div>
+			
 			<div class="panel row-space-4">
+			<p style="margin-bottom:20px;">※ 아래에 비밀번호를 입력하셔야 수정이 가능합니다. 비밀번호를 변경하시려면 변경된 비밀번호를 입력해주세요.</p>
 				<div class="panel-header" >
 				비 밀 번 호 <span class="glyphicon glyphicon-lock"></span>
 				</div>

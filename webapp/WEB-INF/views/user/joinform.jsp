@@ -15,7 +15,15 @@
 <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
 </head>
 <style type="text/css">
-	 
+.form-group{
+height: 50px;
+}
+
+.btn {
+	height: 40px;
+	width: 80px;
+	border-radius:0;
+}
 </style>
 <script src="/assets/js/jquery/jquery-1.9.0.js"></script>
 <script type="text/javascript">
@@ -50,6 +58,13 @@ $(function(){
 		var gender = $('#gender').val();
 		if(gender==''){
 			alert("성별을 선택해주세요. 필수입력 사항입니다.");
+			return false;
+		}
+		
+		var $phone = $('#phone');
+		var phone = $phone.val();
+		if(phone==''){
+			alert('휴대전화를 입력해 주세요. 필수입력 사항입니다.');
 			return false;
 		}
 		
@@ -171,6 +186,12 @@ function joinCheck(){
 	      </div>
 	    </div>
 	    <div class="form-group">
+	      <label for="confirmPassword" class="col-lg-2 control-label">휴대전화</label>
+	      <div class="col-lg-8">
+	        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone-number">
+	      </div>
+	    </div>
+	    <div class="form-group">
 			<label class="col-lg-2 control-label">성별</label>
 			<div class="col-lg-8" id="genderForm">
 				<select class="form-control" id="gender" name="gender">
@@ -210,7 +231,7 @@ function joinCheck(){
 	    <div class="form-group">
 	      <div class="col-lg-8 col-lg-offset-2">
 	        <a href="/"><input type="button" class="btn btn-default" value="취소"/></a>
-	        <input type="submit" class="btn btn-primary btn-submit">
+	        <input type="submit" class="btn btn-danger btn-submit">
 	      </div>
 	    </div>
 	  </fieldset>
