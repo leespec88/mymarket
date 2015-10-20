@@ -338,6 +338,14 @@ body {
     padding-left: 0px;
 }
 
+span.itemPrice{
+	margin:0px 5px;
+}
+
+.imageText {
+	background-color:black;
+}
+
 </style>
 </head>
 <body>
@@ -477,7 +485,6 @@ body {
 </div>
 
 	<div class="container text-center" style="padding-top: 10px">
-		<h1>지역별 상품</h1>
 		<div class="row">
 			<div class="col-sm-8">
 				<h1 class="imageText">서울</h1>
@@ -575,8 +582,9 @@ body {
 			</div>
 		</div>
 	</div>
-	<div class="container text-center" style="padding-top: 30px;">
-		<h1>최근 올라온 상품</h1>
+	<div class="container text-center" style="padding-top: 50px;">
+		<h1>따끈따끈한 최근 상품</h1>
+		<p>원하시는 상품을 클릭하세요.</p>
 		<div class="row">
 		<!-- 고유번호 설정을 위한 c:set 설정 -->
 		<c:set var="status" value="${fn:length(RecentRegItemlist) }"></c:set>
@@ -610,9 +618,10 @@ body {
 			</c:forEach>
 		</div>
 	</div>
-	<div class="container text-center" style="padding-top: 30px;">
+	<div class="container text-center" style="padding-top: 50px;">
 		<c:if test="${not empty authUser }">
-		<h1>최근 본 상품</h1>
+		<h2>${authUser.name }님이 최근에 보신 상품</h2>
+		<p>♥를 누르시면 찜이됩니다.</p>
 		<c:forEach var="recentVItem" items="${recentViewList}" varStatus="status" begin="0">
 				<div class="col-sm-12 col-md-6"
 					style="padding-top: 10px; padding-left: 30px">
