@@ -337,9 +337,10 @@
 	</select>
 	<select id="selectRecentRegItemlist" resultClass="java.util.HashMap">
 		<![CDATA[
-			select * from recent_reg_ItemList
-			where ROWNUM <5
-			order by recent_reg_ItemList.REG_DATE desc
+			select *
+			from (select * from recent_reg_ItemList
+			order by REG_DATE desc) a
+			where ROWNUM < 5
 		]]>
 	</select>
 	<update id="updateState" parameterClass="java.util.HashMap">

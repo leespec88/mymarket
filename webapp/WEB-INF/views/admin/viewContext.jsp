@@ -66,10 +66,6 @@ $(function(){
 				<th style="height:400px">내 용</th>
 				<td>${board.content }</td>
 			</tr>
-			<tr class="image">
-				<th>File1</th>
-				<td><img src=""></td>
-			</tr>
 			<tr>
 				<th>등록일</th>
 				<td>${board.regDate }</td>

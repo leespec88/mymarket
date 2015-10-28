@@ -43,7 +43,7 @@
 
 	<select id="recentViewList" resultClass="java.util.HashMap" parameterClass="java.lang.Long">
 		<![CDATA[
-			  SELECT 
+			select * from (SELECT 
 			         r.ITEM_NO AS itemNo,
 			         i.TITLE AS title,
 			         i.PRICE AS price,
@@ -52,9 +52,9 @@
 			   WHERE     r.ITEM_NO = i.NO
 			         AND r.USER_NO = #no#
 			         AND j.NO = r.ITEM_NO
-			         AND ROWNUM < 5
-			ORDER BY i.REG_DATE DESC
-		]]>
+	        ORDER BY r.REG_DATE DESC)
+	        where ROWNUM  < 5
+			]]>
 	</select>
 	
 	<insert id="recentViewInsert" parameterClass="Map">

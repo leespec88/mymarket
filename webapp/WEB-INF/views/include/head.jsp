@@ -386,6 +386,7 @@
 						<li><a href="#">알림</a></li>
 						<li><a href="/board/1">자유게시판</a></li>
 						<li><a href="/jjim/jjimlist/${authUser.no}">내 찜상품</a></li>
+						<li><a href="/items/userItemList/${authUser.no}">등록한 상품</a></li>
 						<li class="divider"></li>
 						<li><a href="/user/modifyform">개인정보수정</a></li>
 						<li><a href="#">회원탈퇴</a></li>

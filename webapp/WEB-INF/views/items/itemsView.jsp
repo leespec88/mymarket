@@ -285,7 +285,7 @@ img[Attributes Style] {
 		var name=$('#name').val();
 		var itemNo = $('#itemNo').val();
 		var authNo = $('#authNo').val();
-		window.open("http://192.168.1.16:52273?"+name+"&"+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
+		window.open("http://192.168.1.6:52273?"+name+"&"+itemNo, "판매자와 대화창", "width=800, height=560s, toolbar=no, menubar=no");
 	}
 
 </script>

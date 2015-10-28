@@ -184,8 +184,11 @@
 
 <select id="pageBoardList" parameterClass="java.lang.Integer" resultMap="resultMapList">
 	<![CDATA[
-		select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
-				 from (select no, title, content, reg_date, view_count, user_no, user_name, reply_count from board_community)A) 
+				 select * from (select A.*, rownum as rnum, floor((rownum-1)/10+1) as page, count(*) over() as totCnt 
+				 from (select no, title, content, reg_date, view_count, user_no, user_name, (SELECT COUNT (*) AS CNT
+			          FROM reply
+			         WHERE board_community.NO = reply.BOARD_NO)
+			          reply_count from board_community)A) 
 				 where page=#currentPageNo#
 	]]>
 </select>
